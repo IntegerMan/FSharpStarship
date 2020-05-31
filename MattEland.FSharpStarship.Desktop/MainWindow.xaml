@@ -8,6 +8,6 @@
         Title="Modeling a Starship in F#" 
         Width="800" Height="600" >
     <Grid>
-
+        <TextBlock x:Name="lblHelloWorld"></TextBlock>
     </Grid>
 </Window>

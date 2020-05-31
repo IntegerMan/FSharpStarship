@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop
 {
@@ -23,6 +24,8 @@ namespace MattEland.FSharpStarship.Desktop
         public MainWindow()
         {
             InitializeComponent();
+
+            lblHelloWorld.Text = Common.hello("World");
         }
     }
 }

@@ -8,4 +8,8 @@
     <ApplicationIcon>KillAllDefectsSymbol.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MattEland.FSharpStarship.Logic\MattEland.FSharpStarship.Logic.fsproj" />
+  </ItemGroup>
+
 </Project>
