@@ -21,11 +21,15 @@ namespace MattEland.FSharpStarship.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        public IEnumerable<Common.Tile> Tiles { get; }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            lblHelloWorld.Text = Common.hello("World");
+            // lblHelloWorld.Text = Common.hello("World");
+            // Common
+            Tiles = Common.getTiles;
         }
     }
 }

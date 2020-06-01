@@ -9,5 +9,8 @@
         Width="800" Height="600" >
     <Grid>
         <TextBlock x:Name="lblHelloWorld"></TextBlock>
+        <ItemsControl ItemsSource="{Binding Tiles}">
+
+        </ItemsControl>
     </Grid>
 </Window>
