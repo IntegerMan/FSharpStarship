@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\SpaceBG.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MattEland.FSharpStarship.Logic\MattEland.FSharpStarship.Logic.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\SpaceBG.jpeg" />
   </ItemGroup>
 
 </Project>

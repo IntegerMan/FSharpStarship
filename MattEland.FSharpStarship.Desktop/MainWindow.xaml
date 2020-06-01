@@ -8,7 +8,10 @@
         Title="Modeling a Starship in F#" 
         Width="800" Height="600" d:DataContext="{d:DesignInstance desktop:MainWindow}">
     <DockPanel>
-        <ItemsControl ItemsSource="{Binding Tiles}" Background="Black">
+        <ItemsControl ItemsSource="{Binding Tiles}">
+            <ItemsControl.Background>
+                <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
+            </ItemsControl.Background>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas />
