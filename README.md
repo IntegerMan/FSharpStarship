@@ -3,7 +3,7 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 
 ## Tasks
 
-[ ] Create a simple 1-room space ship
+[x] Create a simple 1-room space ship
 [ ] Overlay mode
 [ ] Overlay for O2 / CO2
 [ ] Overlay for Heat
