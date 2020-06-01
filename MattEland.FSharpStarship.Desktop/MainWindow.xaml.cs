@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MattEland.FSharpStarship.Desktop.ViewModels;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop
@@ -21,15 +22,14 @@ namespace MattEland.FSharpStarship.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
-        public IEnumerable<Common.Tile> Tiles { get; }
+        public IEnumerable<TileViewModel> Tiles { get; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // lblHelloWorld.Text = Common.hello("World");
-            // Common
-            Tiles = Common.getTiles;
+            Tiles = Common.getTiles().Select(t => new TileViewModel(t));
+            DataContext = this;
         }
     }
 }
