@@ -1,19 +1,18 @@
 # Modeling a Starship in F#
 Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introduction to the F# programming language.
 
-## Decisions
+## Tasks
 
-### Visualization
-
-- 2D Tiles
-- 2D Rectangles
-- Lines / Charts
-- Tac Map
-
-### Timing
-
-- Real-time
-- Turn-based
+[ ] Create a simple 1-room space ship
+[ ] Overlay mode
+[ ] Overlay for O2 / CO2
+[ ] Overlay for Heat
+[ ] Tile Graphics
+[ ] Next turn button
+[ ] Add a human actor
+[ ] Convert O2 to CO2 near human
+[ ] Allow the player to move the human actor
+[ ] Create a multi-room space ship
 
 ## Systems Modeled
 
@@ -42,29 +41,5 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 - Current Vector
 - Thrust
 - Fuel
-
-
-## Tiles
-
-- Space
-- Floor
-- Storage Tank
-- Cargo Crate
-- Cargo Locker
-- Control Console
-- Power Plant
-- Capacitor
-- Power Cable
-- Pipe
-- Pump
-- Oxygen Scrubber
-- Vent
-- Door
-- Bed
-- Toilet
-- Workstation
-- Planter
-- Table
-- Chair
-- Solar Panel
-- Sink
+- Weapons?
+- Communications?

@@ -15,7 +15,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int TileWidth => 32;
         public int TileHeight => 32;
 
-        public string ToolTip => Tile.tileType.ToString();
+        public string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
         public int PosX => Tile.pos.x * TileWidth;
         public int PosY => Tile.pos.y * TileHeight;

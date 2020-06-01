@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:desktop="clr-namespace:MattEland.FSharpStarship.Desktop"
         mc:Ignorable="d"
-        Title="Modeling a Starship in F#" 
+        Title="Modeling a Starship in F#, by Matt Eland (@IntegerMan)" 
         Width="800" Height="600" d:DataContext="{d:DesignInstance desktop:MainWindow}">
     <DockPanel>
+
+        <!-- Footer -->
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="8"  HorizontalAlignment="Right">
+            <Button Padding="8,0"
+                    ToolTip="Advances the simulation and updates the display">
+                Advance Time
+            </Button>
+        </StackPanel>
+
+        <!-- Main Window -->
         <ItemsControl ItemsSource="{Binding Tiles}">
             <ItemsControl.Background>
                 <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
