@@ -3,16 +3,16 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 
 ## Tasks
 
-[x] Create a simple 1-room space ship
-[ ] Overlay mode
-[ ] Overlay for O2 / CO2
-[ ] Overlay for Heat
-[ ] Tile Graphics
-[ ] Next turn button
-[ ] Add a human actor
-[ ] Convert O2 to CO2 near human
-[ ] Allow the player to move the human actor
-[ ] Create a multi-room space ship
+- [x] Create a simple 1-room space ship
+- [ ] Overlay mode
+- [ ] Overlay for O2 / CO2
+- [ ] Overlay for Heat
+- [ ] Tile Graphics
+- [ ] Next turn button
+- [ ] Add a human actor
+- [ ] Convert O2 to CO2 near human
+- [ ] Allow the player to move the human actor
+- [ ] Create a multi-room space ship
 
 ## Systems Modeled
 
