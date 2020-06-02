@@ -29,7 +29,9 @@ module Common =
 
   let offset(pos: Pos, xDelta, yDelta): Pos = {x=pos.x + xDelta; y = pos.y + yDelta}
 
-  type Tile = {tileType: TileType; pos: Pos}
+  let defaultHeat: int = 0;
+
+  type Tile = {tileType: TileType; pos: Pos; heat: int; oxygen: decimal; carbonDioxide: decimal}
 
   type RGB = {r: byte; g: byte; b: byte}
 
@@ -40,14 +42,23 @@ module Common =
     | _ -> {r=255uy; g=0uy; b=255uy}
 
   
-  let makeTile(tileType, pos) = {tileType=tileType; pos=pos} // TODO: It'd be better to have makeX below this take in a function that just takes a position
+  let makeTile(tileType, pos) = 
+    {
+      tileType=tileType; 
+      pos=pos; 
+      heat=defaultHeat; 
+      oxygen=0.7M; 
+      carbonDioxide=0.3M
+    } 
+    
+  // TODO: It'd be better to have makeX below this take in a function that just takes a position
   let makeHorizontalArea (startPos, tileType, width) = [ for i in 0 .. width - 1 -> makeTile(tileType, offset(startPos, i, 0))]
   let makeVerticalArea (startPos, tileType, height) = [ for i in 0 .. height - 1 -> makeTile(tileType, offset(startPos, 0, i))]
 
   let makeArea (startPos, tileType, width, height): List<Tile> =     
     [for y in 0 .. height - 1 do
       for x in 0 .. width - 1 do
-        yield {tileType=tileType; pos=offset(startPos, x, y)}]
+        yield makeTile(tileType, offset(startPos, x, y))]
 
   let makeRoom (startPos, width, height): List<Tile> =
     makeHorizontalArea(startPos, Wall, width) @
@@ -57,4 +68,4 @@ module Common =
     makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
 
   let getTiles(): list<Tile> = 
-    makeRoom({x=5; y=3}, 13, 9)
+    makeRoom({x=3; y=4}, 13, 9)
