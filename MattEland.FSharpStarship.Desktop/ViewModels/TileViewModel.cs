@@ -43,7 +43,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 return Colors.Salmon;
             }
 
-            var rgb = Common.getBackgroundColor(Tile); // TODO: It feels like this perhaps should be managed by the F# code, with a current view mode property. Not sure where lines should be drawn.
+            var rgb = Styles.getBackgroundColor(Tile); // TODO: It feels like this perhaps should be managed by the F# code, with a current view mode property. Not sure where lines should be drawn.
             var color = Color.FromRgb(rgb.r, rgb.g, rgb.b);
             return color;
         }
