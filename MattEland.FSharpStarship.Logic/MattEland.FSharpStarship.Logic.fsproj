@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Compile Include="Library.fs" />
-    <Compile Include="Styles.fs" />
+    <Compile Include="View.fs" />
   </ItemGroup>
 
 </Project>

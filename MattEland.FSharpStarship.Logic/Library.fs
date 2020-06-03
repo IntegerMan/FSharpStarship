@@ -29,9 +29,9 @@ module Common =
 
   let offset(pos: Pos, xDelta, yDelta): Pos = {x=pos.x + xDelta; y = pos.y + yDelta}
 
-  let defaultHeat: int = 0;
+  let defaultHeat: decimal = 0M;
 
-  type Tile = {tileType: TileType; pos: Pos; heat: int; oxygen: decimal; carbonDioxide: decimal}
+  type Tile = {tileType: TileType; pos: Pos; heat: decimal; oxygen: decimal; carbonDioxide: decimal}
   
   let makeTile(tileType, pos) = 
     {
