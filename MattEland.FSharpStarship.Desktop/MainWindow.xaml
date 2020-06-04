@@ -27,31 +27,60 @@
         </StackPanel>
 
         <!-- Main Window -->
-        <ItemsControl ItemsSource="{Binding Tiles}" ClipToBounds="True">
-            <ItemsControl.Background>
+        <Grid ClipToBounds="True">
+            <Grid.Background>
                 <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
-            </ItemsControl.Background>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border ToolTip="{Binding ToolTip}" 
-                            Width="32" Height="32" 
-                            Background="{Binding Background}" 
-                            BorderBrush="Gray" BorderThickness="1" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemContainerStyle>
-                <Style>
-                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
-                    <Setter Property="Canvas.Left" Value="{Binding PosX}" />
-                    <Setter Property="Canvas.Top" Value="{Binding PosY}" />
-                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-        </ItemsControl>
+            </Grid.Background>
+
+            <!-- Tiles -->
+            <ItemsControl ItemsSource="{Binding Tiles}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border ToolTip="{Binding ToolTip}" 
+                                Width="32" Height="32" 
+                                Background="{Binding Background}" 
+                                BorderBrush="Gray" BorderThickness="1" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
+                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
+            <!-- Game Objects -->
+            <ItemsControl ItemsSource="{Binding Objects}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse ToolTip="{Binding ToolTip}" 
+                                Width="32" Height="32" 
+                                Fill="{Binding Background}" 
+                                Stroke="Gray" StrokeThickness="1" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
+                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Grid>
     </DockPanel>
 </Window>

@@ -4,29 +4,21 @@ using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
-    public class TileViewModel : NotifyPropertyChangedBase
+    public class TileViewModel : WorldEntityViewModel
     {
-        private readonly MainViewModel _mainViewModel;
         public World.Tile Tile { get; }
 
-        public TileViewModel(World.Tile tile, MainViewModel mainViewModel)
+        public TileViewModel(World.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
         {
-            _mainViewModel = mainViewModel;
             Tile = tile;
         }
 
-        public int TileWidth => 32;
-        public int TileHeight => 32;
+        public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
-        public string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
+        public override int PosX => Tile.pos.x * TileWidth;
+        public override int PosY => Tile.pos.y * TileHeight;
 
-        [UsedImplicitly]
-        public int PosX => Tile.pos.x * TileWidth;
-
-        [UsedImplicitly]
-        public int PosY => Tile.pos.y * TileHeight;
-
-        public Brush Background
+        public override Brush Background
         {
             get
             {
@@ -42,14 +34,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         private Color CalculateColor()
         {
-            var rgb = View.getBackgroundColor(Tile, _mainViewModel.AppView);
+            var rgb = View.getBackgroundColor(Tile, AppView);
             return Color.FromRgb(rgb.r, rgb.g, rgb.b);
-        }
-
-        public void HandleOverlayChanged()
-        {
-            OnPropertyChanged(nameof(Background));
-            OnPropertyChanged(nameof(ToolTip));
         }
     }
 }

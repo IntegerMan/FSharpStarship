@@ -13,12 +13,14 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             GameWorld = WorldBuilding.generateWorld();
             Tiles = GameWorld.tiles.Select(t => new TileViewModel(t, this)).ToList();
+            Objects = GameWorld.objects.Select(t => new GameObjectViewModel(t, this)).ToList();
             _view = View.getDefaultAppView();
         }
 
         public World.GameWorld GameWorld { get; }
 
         public List<TileViewModel> Tiles { get; }
+        public List<GameObjectViewModel> Objects { get; }
 
         public IEnumerable<string> ViewModes => Enum.GetNames(typeof(View.CurrentOverlay));
 

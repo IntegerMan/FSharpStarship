@@ -23,5 +23,7 @@ module WorldBuilding =
 
   let private getTiles(): list<Tile> = makeRoom({x=3; y=4}, 13, 9)
 
-  let generateWorld(): GameWorld = { tiles=getTiles(); objects=[] }
+  let private getObjects(): list<GameObject> = [{pos={x=7; y=7}; objectType=Player}]
+
+  let generateWorld(): GameWorld = { tiles=getTiles(); objects=getObjects() }
 

@@ -10,7 +10,7 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 - [ ] Overlay for Fluids
 - [ ] Overlay for Electrical
 - [ ] Tile Graphics
-- [ ] Render actors
+- [x] Render actors
 - [x] Next turn button
 - [ ] Simulate when next turn is clicked
 - [ ] Add a human actor
