@@ -1,16 +1,17 @@
 ﻿using System.Windows.Media;
+using MattEland.FSharpStarship.Desktop.Annotations;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class TileViewModel : NotifyPropertyChangedBase
     {
-        private readonly MainViewModel _mainVM;
-        public Common.Tile Tile { get; }
+        private readonly MainViewModel _mainViewModel;
+        public World.Tile Tile { get; }
 
-        public TileViewModel(Common.Tile tile, MainViewModel mainViewModel)
+        public TileViewModel(World.Tile tile, MainViewModel mainViewModel)
         {
-            _mainVM = mainViewModel;
+            _mainViewModel = mainViewModel;
             Tile = tile;
         }
 
@@ -19,7 +20,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
+        [UsedImplicitly]
         public int PosX => Tile.pos.x * TileWidth;
+
+        [UsedImplicitly]
         public int PosY => Tile.pos.y * TileHeight;
 
         public Brush Background
@@ -38,14 +42,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         private Color CalculateColor()
         {
-            if (_mainVM.SelectedViewMode == "Heat")
-            {
-                return Colors.Salmon;
-            }
-
-            var rgb = View.getBackgroundColor(Tile, _mainVM.AppView);
-            var color = Color.FromRgb(rgb.r, rgb.g, rgb.b);
-            return color;
+            var rgb = View.getBackgroundColor(Tile, _mainViewModel.AppView);
+            return Color.FromRgb(rgb.r, rgb.g, rgb.b);
         }
 
         public void HandleOverlayChanged()

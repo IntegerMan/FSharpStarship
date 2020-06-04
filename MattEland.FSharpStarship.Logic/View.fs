@@ -1,7 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Common
-open System
+open World
 
 module View =
 
@@ -34,5 +33,5 @@ module View =
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.overlay with
-    | CurrentOverlay.Thermal -> rgb((tile.heat * 255M) |> Math.Round |> int, 0, 0)
+    | CurrentOverlay.Thermal -> rgb((tile.heat * 255M) |> System.Math.Round |> int, 0, 0)
     | _ -> getTileColor(tile.tileType)

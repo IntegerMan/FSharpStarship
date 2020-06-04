@@ -11,9 +11,12 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel()
         {
-            Tiles = WorldBuilding.getTiles().Select(t => new TileViewModel(t, this)).ToList();
+            GameWorld = WorldBuilding.generateWorld();
+            Tiles = GameWorld.tiles.Select(t => new TileViewModel(t, this)).ToList();
             _view = View.getDefaultAppView();
         }
+
+        public World.GameWorld GameWorld { get; }
 
         public List<TileViewModel> Tiles { get; }
 

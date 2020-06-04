@@ -1,6 +1,7 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Common
+open Positions
+open World
 
 module WorldBuilding =
 
@@ -20,6 +21,7 @@ module WorldBuilding =
     makeVerticalArea(offset(startPos, width - 1, 1), Wall, height - 2) @
     makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
 
-  let getTiles(): list<Tile> = 
-    makeRoom({x=3; y=4}, 13, 9)
+  let private getTiles(): list<Tile> = makeRoom({x=3; y=4}, 13, 9)
+
+  let generateWorld(): GameWorld = { tiles=getTiles(); objects=[] }
 
