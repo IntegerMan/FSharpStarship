@@ -1,7 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
 open Common
-open Microsoft.FSharp.Reflection
 open System
 
 module View =
@@ -25,9 +24,9 @@ module View =
 
   type RGB = {r: byte; g: byte; b: byte}
 
-  let rgb (r, g, b): RGB = {r = byte r; g = byte g; b = byte b}
+  let private rgb (r, g, b): RGB = {r = byte r; g = byte g; b = byte b}
 
-  let getTileColor (tileType: TileType): RGB =
+  let private getTileColor (tileType: TileType): RGB =
     match tileType with
     | Floor -> rgb(86, 86, 128)
     | Wall -> rgb(64, 64, 84)

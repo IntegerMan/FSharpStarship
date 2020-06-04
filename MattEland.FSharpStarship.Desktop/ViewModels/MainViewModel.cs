@@ -11,7 +11,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel()
         {
-            Tiles = Common.getTiles().Select(t => new TileViewModel(t, this)).ToList();
+            Tiles = WorldBuilding.getTiles().Select(t => new TileViewModel(t, this)).ToList();
             _view = View.getDefaultAppView();
         }
 
