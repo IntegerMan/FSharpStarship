@@ -7,9 +7,10 @@ module View =
   type CurrentOverlay =
     | None = 0
     | Thermal = 1
-    | Gas = 2
-    | Fluid = 3
+    | Oxygen = 2
+    | CarbonDioxide = 3
     | Electrical = 4
+    | Fluid = 5
 
   type AppView = {
     overlay: CurrentOverlay
@@ -31,7 +32,13 @@ module View =
     | Wall -> rgb(64, 64, 84)
     | _ -> rgb(255, 0, 255) // Magenta for high visibility
 
+  let private getGradedColor(percent: decimal): RGB = 
+    let value = (percent * 255M) |> System.Math.Round |> int
+    rgb(value, value, value)
+
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.overlay with
-    | CurrentOverlay.Thermal -> rgb((tile.heat * 255M) |> System.Math.Round |> int, 0, 0)
+    | CurrentOverlay.Oxygen -> getGradedColor(tile.oxygen)
+    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.carbonDioxide)
+    | CurrentOverlay.Thermal -> getGradedColor(tile.heat)
     | _ -> getTileColor(tile.tileType)

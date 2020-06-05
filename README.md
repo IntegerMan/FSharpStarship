@@ -6,14 +6,15 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 - [x] Create a simple 1-room space ship
 - [x] Overlay mode
 - [ ] Overlay for Heat
-- [ ] Overlay for O2 / CO2
+- [ ] Overlay for Oxygen
+- [ ] Overlay for Carbon Dioxide
 - [ ] Overlay for Fluids
 - [ ] Overlay for Electrical
 - [ ] Tile Graphics
 - [x] Render actors
 - [x] Next turn button
 - [ ] Simulate when next turn is clicked
-- [ ] Add a human actor
+- [x] Add a human actor
 - [ ] Convert O2 to CO2 near human
 - [ ] Allow the player to move the human actor
 - [ ] Create a multi-room space ship
