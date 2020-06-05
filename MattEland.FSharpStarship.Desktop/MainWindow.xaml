@@ -21,7 +21,8 @@
 
             <Button Padding="8"
                     Margin="0,8"
-                    ToolTip="Advances the simulation and updates the display">
+                    ToolTip="Advances the simulation and updates the display"
+                    Click="AdvanceTime_OnClick">
                 Advance Time
             </Button>
         </StackPanel>

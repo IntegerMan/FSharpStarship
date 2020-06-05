@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using MattEland.FSharpStarship.Logic;
 
@@ -8,19 +9,35 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
     public class MainViewModel : NotifyPropertyChangedBase
     {
         private View.AppView _view;
+        private World.GameWorld _gameWorld;
 
         public MainViewModel()
         {
             GameWorld = WorldBuilding.generateWorld();
-            Tiles = GameWorld.tiles.Select(t => new TileViewModel(t, this)).ToList();
-            Objects = GameWorld.objects.Select(t => new GameObjectViewModel(t, this)).ToList();
             _view = View.getDefaultAppView();
         }
 
-        public World.GameWorld GameWorld { get; }
+        public World.GameWorld GameWorld
+        {
+            get => _gameWorld;
+            set
+            {
+                if (Equals(value, _gameWorld)) return;
+                _gameWorld = value;
 
-        public List<TileViewModel> Tiles { get; }
-        public List<GameObjectViewModel> Objects { get; }
+                Tiles.Clear();
+                GameWorld.tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
+
+                Objects.Clear();
+                GameWorld.objects.Select(t => new GameObjectViewModel(t, this)).ToList().ForEach(o => Objects.Add(o));
+
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<TileViewModel> Tiles { get; } = new ObservableCollection<TileViewModel>();
+
+        public ObservableCollection<GameObjectViewModel> Objects { get; } = new ObservableCollection<GameObjectViewModel>();
 
         public IEnumerable<string> ViewModes => Enum.GetNames(typeof(View.CurrentOverlay));
 
@@ -35,7 +52,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 _view = View.changeOverlay(_view, newEnum);
                 OnPropertyChanged();
 
-                Tiles.ForEach(t => t.HandleOverlayChanged());
+                Tiles.ToList().ForEach(t => t.HandleOverlayChanged());
+                Objects.ToList().ForEach(t => t.HandleOverlayChanged());
             }
         }
 
@@ -48,8 +66,14 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 _view = value;
                 OnPropertyChanged();
 
-                Tiles.ForEach(t => t.HandleOverlayChanged());
+                Tiles.ToList().ForEach(t => t.HandleOverlayChanged());
+                Objects.ToList().ForEach(t => t.HandleOverlayChanged());
             }
+        }
+
+        public void AdvanceTime()
+        {
+            this.GameWorld = Simulations.simulate(this.GameWorld);
         }
     }
 }

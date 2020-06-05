@@ -8,11 +8,19 @@ namespace MattEland.FSharpStarship.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel _vm;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            _vm = new MainViewModel();
+            DataContext = _vm;
+        }
+
+        private void AdvanceTime_OnClick(object sender, RoutedEventArgs e)
+        {
+            _vm.AdvanceTime();
         }
     }
 }
