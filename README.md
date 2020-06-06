@@ -1,6 +1,16 @@
 # Modeling a Starship in F#
 Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introduction to the F# programming language.
 
+## Credits
+
+### Code
+All code written by Matt Eland (@IntegerMan)
+
+### Art
+Artwork commercially purchased from Moon Tribe and used in open source software with permission.
+
+Visit https://moon-t.com/ for more information on Moon Tribe's assets. Artwork cannot be reused, repurposed, or redistributed without their express written consent.
+
 ## Tasks
 
 - [x] Create a simple 1-room space ship
