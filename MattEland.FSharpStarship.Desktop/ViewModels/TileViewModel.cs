@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using MattEland.FSharpStarship.Desktop.Annotations;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
@@ -15,30 +14,41 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             Tile = tile;
         }
 
+        public override void HandleOverlayChanged()
+        {
+            base.HandleOverlayChanged();
+
+            OnPropertyChanged(nameof(OverlayBrush));
+        }
+
         public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
         public override int PosX => Tile.pos.x * TileWidth;
         public override int PosY => Tile.pos.y * TileHeight;
 
+        public Brush OverlayBrush
+        {
+            get
+            {
+                if (AppView.overlay == View.CurrentOverlay.None) return Brushes.Transparent;
+
+                // TODO: Introduce a brush factory to store unique / reused brushes
+                var color = CalculateColor();
+                Brush brush = new SolidColorBrush(color);
+
+                brush.Freeze();
+
+                return brush;
+            }
+        }
+
         public override Brush Background
         {
             get
             {
-                Brush brush;
-
                 // TODO: Introduce a brush factory to store unique / reused brushes
-
-                if (AppView.overlay == View.CurrentOverlay.None)
-                {
-                    var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
-                    brush = new ImageBrush(image);
-                }
-                else
-                {
-
-                    var color = CalculateColor();
-                    brush = new SolidColorBrush(color);
-                }
+                var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
+                Brush brush = new ImageBrush(image);
 
                 brush.Freeze();
 

@@ -59,7 +59,9 @@
                         <Border ToolTip="{Binding ToolTip}" 
                                 Width="{Binding TileWidth}" Height="{Binding TileHeight}" 
                                 Background="{Binding Background}" 
-                                BorderThickness="0" />
+                                BorderThickness="0">
+                            <Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5"></Rectangle>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>
