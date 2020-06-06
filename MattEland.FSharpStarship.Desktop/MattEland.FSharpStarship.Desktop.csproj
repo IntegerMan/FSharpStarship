@@ -9,10 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Floor.png" />
+    <None Remove="Images\FloorComplex.png" />
+    <None Remove="Images\FloorPlain.png" />
     <None Remove="Images\MoonTribe.png" />
     <None Remove="Images\sci-fi-background-blur.png" />
     <None Remove="Images\sci-fi-background.png" />
     <None Remove="Images\SpaceBG.jpeg" />
+    <None Remove="Images\Wall.png" />
+    <None Remove="Images\WallPipes.png" />
     <None Remove="Images\_0002_vertical-1.png" />
     <None Remove="Images\_0003_vertical-2.png" />
     <None Remove="Images\_0004_column-3.png" />
@@ -21,7 +26,6 @@
     <None Remove="Images\_0015_hole-16-type-1.png" />
     <None Remove="Images\_0017_wall-3_18.png" />
     <None Remove="Images\_0023_hole-24-type-1.png" />
-    <None Remove="Images\_0026_top-wall-3_7.png" />
     <None Remove="Images\_0048_floor-tile-type-1_1-.png" />
     <None Remove="Images\_0050_floor-tile-type-1_2.png" />
     <None Remove="Images\_0052_floor-tile-type-1_3.png" />
@@ -30,9 +34,7 @@
     <None Remove="Images\_0058_top-wall-1_1.png" />
     <None Remove="Images\_0060_floor-tile-type-1_7.png" />
     <None Remove="Images\_0062_floor-tile-type-1_8.png" />
-    <None Remove="Images\_0064_floor-tile-type-1_9.png" />
     <None Remove="Images\_0066_floor-tile-type-1_10.png" />
-    <None Remove="Images\_0070_floor-tile-type-1_12.png" />
     <None Remove="Images\_0072_floor-tile-type-1_13.png" />
     <None Remove="Images\_0084_green-generator-.png" />
     <None Remove="Images\_0085_blue-generator-.png" />
@@ -64,10 +66,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\FloorPlain.png" />
     <Resource Include="Images\MoonTribe.png" />
     <Resource Include="Images\sci-fi-background-blur.png" />
     <Resource Include="Images\sci-fi-background.png" />
     <Resource Include="Images\SpaceBG.jpeg" />
+    <Resource Include="Images\Wall.png" />
     <Resource Include="Images\_0002_vertical-1.png" />
     <Resource Include="Images\_0003_vertical-2.png" />
     <Resource Include="Images\_0004_column-3.png" />
@@ -76,18 +80,16 @@
     <Resource Include="Images\_0015_hole-16-type-1.png" />
     <Resource Include="Images\_0017_wall-3_18.png" />
     <Resource Include="Images\_0023_hole-24-type-1.png" />
-    <Resource Include="Images\_0026_top-wall-3_7.png" />
+    <Resource Include="Images\WallPipes.png" />
     <Resource Include="Images\_0048_floor-tile-type-1_1-.png" />
     <Resource Include="Images\_0050_floor-tile-type-1_2.png" />
     <Resource Include="Images\_0052_floor-tile-type-1_3.png" />
     <Resource Include="Images\_0054_floor-tile-type-1_4.png" />
     <Resource Include="Images\_0056_floor-tile-type-1_5.png" />
-    <Resource Include="Images\_0058_top-wall-1_1.png" />
     <Resource Include="Images\_0060_floor-tile-type-1_7.png" />
     <Resource Include="Images\_0062_floor-tile-type-1_8.png" />
-    <Resource Include="Images\_0064_floor-tile-type-1_9.png" />
-    <Resource Include="Images\_0066_floor-tile-type-1_10.png" />
-    <Resource Include="Images\_0070_floor-tile-type-1_12.png" />
+    <Resource Include="Images\Floor.png" />
+    <Resource Include="Images\FloorComplex.png" />
     <Resource Include="Images\_0072_floor-tile-type-1_13.png" />
     <Resource Include="Images\_0084_green-generator-.png" />
     <Resource Include="Images\_0085_blue-generator-.png" />

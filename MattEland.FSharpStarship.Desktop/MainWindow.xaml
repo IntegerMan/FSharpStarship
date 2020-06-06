@@ -6,26 +6,40 @@
         xmlns:viewModels="clr-namespace:MattEland.FSharpStarship.Desktop.ViewModels"
         mc:Ignorable="d"
         Title="Modeling a Starship in F#, by Matt Eland (@IntegerMan)" 
-        Width="800" Height="600" 
+        Width="1280" Height="800" 
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <DockPanel>
 
         <!-- Sidebar -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Right" Margin="8" Width="200">
+        <DockPanel DockPanel.Dock="Right" Margin="8" Width="200">
 
-            <Label Target="{Binding ElementName=comboOverlay}">Overlay</Label>
-            <ComboBox x:Name="comboOverlay" Margin="0,8" SelectedIndex="0" 
+            <!-- Art Credits -->
+            <Border DockPanel.Dock="Bottom" 
+                    Background="Black" BorderBrush="White" BorderThickness="1" 
+                    ToolTip="Artwork by Moon Tribe. Visit https://moon-t.com/ for more information.">
+                <StackPanel Orientation="Horizontal" Margin="8,0" HorizontalAlignment="Center">
+                    <TextBlock Text="Artwork by " Foreground="White" VerticalAlignment="Center" />
+                    <Image Source="Images/MoonTribe.png" Stretch="Uniform" Height="96"></Image>
+                </StackPanel>
+            </Border>
+
+            <!-- Controls -->
+            <StackPanel Orientation="Vertical">
+
+                <Label Target="{Binding ElementName=comboOverlay}">Overlay</Label>
+                <ComboBox x:Name="comboOverlay" Margin="0,8" SelectedIndex="0" 
                       ItemsSource="{Binding ViewModes}" 
                       SelectedItem="{Binding SelectedViewMode}">
-            </ComboBox>
+                </ComboBox>
 
-            <Button Padding="8"
+                <Button Padding="8"
                     Margin="0,8"
                     ToolTip="Advances the simulation and updates the display"
                     Click="AdvanceTime_OnClick">
-                Advance Time
-            </Button>
-        </StackPanel>
+                    Advance Time
+                </Button>
+            </StackPanel>
+        </DockPanel>
 
         <!-- Main Window -->
         <Grid ClipToBounds="True">
@@ -43,9 +57,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border ToolTip="{Binding ToolTip}" 
-                                Width="32" Height="32" 
+                                Width="{Binding TileWidth}" Height="{Binding TileHeight}" 
                                 Background="{Binding Background}" 
-                                BorderBrush="Gray" BorderThickness="1" />
+                                BorderThickness="0" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>
@@ -68,7 +82,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Ellipse ToolTip="{Binding ToolTip}" 
-                                Width="32" Height="32" 
+                                Width="{Binding TileWidth}" Height="{Binding TileHeight}" 
                                 Fill="{Binding Background}" 
                                 Stroke="Gray" StrokeThickness="1" />
                     </DataTemplate>
@@ -82,17 +96,6 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
-
-            <!-- Art Credits -->
-            <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-                    Margin="8" Opacity="0.7" 
-                    Background="Black" BorderBrush="White" BorderThickness="1" 
-                    ToolTip="Artwork by Moon Tribe. Visit https://moon-t.com/ for more information.">
-                <StackPanel Orientation="Horizontal" Margin="8,0">
-                    <TextBlock Text="Artwork by " Foreground="White" VerticalAlignment="Center" />
-                    <Image Source="Images/MoonTribe.png" Stretch="Uniform" Height="64"></Image>
-                </StackPanel>
-            </Border>
         </Grid>
     </DockPanel>
 </Window>

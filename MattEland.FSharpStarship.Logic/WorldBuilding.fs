@@ -21,9 +21,9 @@ module WorldBuilding =
     makeVerticalArea(offset(startPos, width - 1, 1), Wall, height - 2) @
     makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
 
-  let private getTiles(): list<Tile> = makeRoom({x=3; y=4}, 13, 9)
+  let private getTiles(): list<Tile> = makeRoom({x=1; y=1}, 13, 9)
 
-  let private getObjects(): list<GameObject> = [{pos={x=7; y=7}; objectType=Player}]
+  let private getObjects(): list<GameObject> = [{pos={x=3; y=3}; objectType=Player}]
 
   let generateWorld(): GameWorld = { tiles=getTiles(); objects=getObjects() }
 

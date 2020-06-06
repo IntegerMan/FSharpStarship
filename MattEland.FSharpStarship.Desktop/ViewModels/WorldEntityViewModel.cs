@@ -10,8 +10,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public abstract string ToolTip { get; }
         public abstract Brush Background { get; }
 
-        public int TileWidth => 32;
-        public int TileHeight => 32;
+        public int TileWidth => 64;
+        public int TileHeight => 64;
 
 
         public virtual void HandleOverlayChanged()

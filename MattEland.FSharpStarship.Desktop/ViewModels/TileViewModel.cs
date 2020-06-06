@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using MattEland.FSharpStarship.Desktop.Annotations;
 using MattEland.FSharpStarship.Logic;
 
@@ -22,10 +24,22 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                var color = CalculateColor();
+                Brush brush;
 
                 // TODO: Introduce a brush factory to store unique / reused brushes
-                Brush brush = new SolidColorBrush(color);
+
+                if (AppView.overlay == View.CurrentOverlay.None)
+                {
+                    var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
+                    brush = new ImageBrush(image);
+                }
+                else
+                {
+
+                    var color = CalculateColor();
+                    brush = new SolidColorBrush(color);
+                }
+
                 brush.Freeze();
 
                 return brush;
