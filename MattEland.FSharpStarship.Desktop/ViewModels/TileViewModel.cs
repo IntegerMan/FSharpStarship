@@ -23,7 +23,20 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
-        public override int PosX => Tile.pos.x * TileWidth;
+        public override int PosX
+        {
+            get
+            {
+                // Left walls need to align right
+                if (Tile.tileType.Equals(World.TileType.WallLeft))
+                {
+                    return (Tile.pos.x * TileWidth) + TileWidth - ImageWidth;
+                }
+
+                return Tile.pos.x * TileWidth;
+            }
+        }
+
         public override int PosY => (Tile.pos.y * TileHeight) - ImageHeight + TileHeight;
 
         public int ImageWidth => View.getImageWidth(Tile.tileType);
@@ -52,7 +65,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 // TODO: Introduce a brush factory to store unique / reused brushes
                 var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
-                var brush = new ImageBrush(image) {Stretch = Stretch.UniformToFill};
+                var brush = new ImageBrush(image); // {Stretch = Stretch.UniformToFill};
 
                 brush.Freeze();
 

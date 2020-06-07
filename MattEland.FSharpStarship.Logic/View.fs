@@ -43,11 +43,15 @@ module View =
     | CurrentOverlay.Thermal -> getGradedColor(tile.heat)
     | _ -> getTileColor(tile.tileType)
 
-  let getImageWidth (tileType: TileType): int = 64
+  let getImageWidth (tileType: TileType): int =
+      match tileType with
+      | WallLeft | WallRight -> 18
+      | _ -> 64
 
   let getImageHeight (tileType: TileType): int =
     match tileType with
-    | Wall -> ((getImageWidth(tileType) |> float) * 1.5) |> System.Math.Round |> int
+    | Wall -> 96
+    | WallLeft | WallRight -> 64
     | _ -> getImageWidth(tileType)
 
   let getZIndex (tileType: TileType): int =

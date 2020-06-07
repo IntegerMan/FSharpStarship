@@ -19,6 +19,8 @@ module World =
     | Space
     | Floor
     | Wall
+    | WallLeft
+    | WallRight
     //| Pipe
     //| Pump
     //| Tank

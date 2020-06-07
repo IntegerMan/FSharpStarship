@@ -15,10 +15,10 @@ module WorldBuilding =
         yield makeTile(tileType, offset(startPos, x, y))]
 
   let private makeRoom (startPos, width, height): List<Tile> =
-    makeHorizontalArea(startPos, Wall, width) @
-    makeHorizontalArea(offset(startPos, 0, height - 1), Wall, width) @
-    makeVerticalArea(offset(startPos, 0, 1), Wall, height - 2) @
-    makeVerticalArea(offset(startPos, width - 1, 1), Wall, height - 2) @
+    makeHorizontalArea(offset(startPos, 1, 0), Wall, width - 2) @
+    makeHorizontalArea(offset(startPos, 1, height - 1), Wall, width - 2) @
+    makeVerticalArea(offset(startPos, 0, 1), WallLeft, height - 2) @
+    makeVerticalArea(offset(startPos, width - 1, 1), WallRight, height - 2) @
     makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
 
   let private getTiles(): list<Tile> = makeRoom({x=1; y=1}, 13, 9)
