@@ -24,7 +24,11 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
         public override int PosX => Tile.pos.x * TileWidth;
-        public override int PosY => Tile.pos.y * TileHeight;
+        public override int PosY => (Tile.pos.y * TileHeight) - ImageHeight + TileHeight;
+
+        public int ImageWidth => View.getImageWidth(Tile.tileType);
+        public int ImageHeight => View.getImageHeight(Tile.tileType);
+        public int ZIndex => View.getZIndex(Tile.tileType);
 
         public Brush OverlayBrush
         {
@@ -48,7 +52,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 // TODO: Introduce a brush factory to store unique / reused brushes
                 var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
-                Brush brush = new ImageBrush(image);
+                var brush = new ImageBrush(image) {Stretch = Stretch.UniformToFill};
 
                 brush.Freeze();
 
