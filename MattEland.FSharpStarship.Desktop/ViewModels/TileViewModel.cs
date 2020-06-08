@@ -39,11 +39,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 if (AppView.overlay == View.CurrentOverlay.None) return Brushes.Transparent;
 
-                // TODO: Introduce a brush factory to store unique / reused brushes
                 var color = CalculateColor();
                 Brush brush = new SolidColorBrush(color);
 
-                brush.Freeze();
+                brush.Freeze(); // TODO: Introduce a brush factory to store unique / reused brushes
 
                 return brush;
             }
@@ -53,15 +52,16 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                // TODO: Introduce a brush factory to store unique / reused brushes
                 var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{SpriteInfo.image}"));
-                var croppedImage = new CroppedBitmap(image, new Int32Rect(SpriteInfo.x * SpriteInfo.width, SpriteInfo.y * SpriteInfo.height, SpriteInfo.width, SpriteInfo.height));
-                var brush = new ImageBrush(croppedImage)
-                {
-                    Stretch = Stretch.Uniform
-                };
 
-                brush.Freeze();
+                var tileWidth = SpriteInfo.width;
+                var tileHeight = SpriteInfo.height;
+                var rect = new Int32Rect(SpriteInfo.x * tileWidth, SpriteInfo.y * tileHeight, tileWidth, tileHeight);
+
+                var croppedImage = new CroppedBitmap(image, rect);
+                var brush = new ImageBrush(croppedImage) { Stretch = Stretch.Uniform };
+
+                brush.Freeze(); // TODO: Introduce a brush factory to store unique / reused brushes
 
                 return brush;
             }
