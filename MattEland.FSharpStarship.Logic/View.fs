@@ -13,11 +13,13 @@ module View =
     | Fluid = 5
 
   type AppView = {
-    overlay: CurrentOverlay
+    overlay: CurrentOverlay;
+    zoom: int;
   }
 
   let getDefaultAppView() = {
     overlay=CurrentOverlay.None; 
+    zoom=2;
   }
 
   let changeOverlay(view: AppView, newOverlay: CurrentOverlay): AppView = {view with overlay = newOverlay}    
@@ -42,19 +44,3 @@ module View =
     | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.carbonDioxide)
     | CurrentOverlay.Thermal -> getGradedColor(tile.heat)
     | _ -> getTileColor(tile.tileType)
-
-  let getImageWidth (tileType: TileType): int =
-      match tileType with
-      | WallLeft | WallRight -> 18
-      | _ -> 64
-
-  let getImageHeight (tileType: TileType): int =
-    match tileType with
-    | Wall -> 96
-    | WallLeft | WallRight -> 64
-    | _ -> getImageWidth(tileType)
-
-  let getZIndex (tileType: TileType): int =
-    match tileType with
-    | Wall -> 1
-    | _ -> 0

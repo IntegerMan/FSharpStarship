@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MattEland.FSharpStarship.Logic;
@@ -23,25 +24,14 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
 
-        public override int PosX
-        {
-            get
-            {
-                // Left walls need to align right
-                if (Tile.tileType.Equals(World.TileType.WallLeft))
-                {
-                    return (Tile.pos.x * TileWidth) + TileWidth - ImageWidth;
-                }
+        public override int PosX => Tile.pos.x * TileWidth;
+        public override int PosY => Tile.pos.y * TileHeight;
 
-                return Tile.pos.x * TileWidth;
-            }
-        }
+        public Sprites.SpriteInfo SpriteInfo => Sprites.getSpriteInfo(Tile.tileType);
 
-        public override int PosY => (Tile.pos.y * TileHeight) - ImageHeight + TileHeight;
-
-        public int ImageWidth => View.getImageWidth(Tile.tileType);
-        public int ImageHeight => View.getImageHeight(Tile.tileType);
-        public int ZIndex => View.getZIndex(Tile.tileType);
+        public int ImageWidth => SpriteInfo.width * AppView.zoom;
+        public int ImageHeight => SpriteInfo.height * AppView.zoom;
+        public int ZIndex => SpriteInfo.zIndex;
 
         public Brush OverlayBrush
         {
@@ -64,8 +54,12 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             get
             {
                 // TODO: Introduce a brush factory to store unique / reused brushes
-                var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{Tile.tileType}.png"));
-                var brush = new ImageBrush(image); // {Stretch = Stretch.UniformToFill};
+                var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{SpriteInfo.image}"));
+                var croppedImage = new CroppedBitmap(image, new Int32Rect(SpriteInfo.x * SpriteInfo.width, SpriteInfo.y * SpriteInfo.height, SpriteInfo.width, SpriteInfo.height));
+                var brush = new ImageBrush(croppedImage)
+                {
+                    Stretch = Stretch.Uniform
+                };
 
                 brush.Freeze();
 

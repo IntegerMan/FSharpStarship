@@ -15,11 +15,16 @@
 
             <!-- Art Credits -->
             <Border DockPanel.Dock="Bottom" 
-                    Background="Black" BorderBrush="White" BorderThickness="1" 
-                    ToolTip="Artwork by Moon Tribe. Visit https://moon-t.com/ for more information.">
-                <StackPanel Orientation="Horizontal" Margin="8,0" HorizontalAlignment="Center">
-                    <TextBlock Text="Artwork by " Foreground="White" VerticalAlignment="Center" />
-                    <Image Source="Images/MoonTribe.png" Stretch="Uniform" Height="96"></Image>
+                    Background="Black" BorderBrush="White" BorderThickness="1">
+                <Border.ToolTip>
+                    <StackPanel>
+                        <TextBlock>Artwork by DithArt (@hodittha).</TextBlock>
+                        <TextBlock>Visit https://dithart.itch.io/ for more information.</TextBlock>
+                    </StackPanel>
+                </Border.ToolTip>
+                <StackPanel Orientation="Vertical" Margin="8,0" HorizontalAlignment="Center">
+                    <TextBlock Text="Artwork by" Foreground="White" VerticalAlignment="Center" />
+                    <Image Source="Images/DithArt.png" Stretch="UniformToFill" Height="80" HorizontalAlignment="Center"></Image>
                 </StackPanel>
             </Border>
 
@@ -44,7 +49,7 @@
         <!-- Main Window -->
         <Grid ClipToBounds="True">
             <Grid.Background>
-                <ImageBrush ImageSource="Images/sci-fi-background-blur.png" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
             </Grid.Background>
 
             <!-- Tiles -->

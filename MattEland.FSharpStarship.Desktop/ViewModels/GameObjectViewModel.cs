@@ -14,8 +14,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override string ToolTip => $"{GameObject.objectType} ({GameObject.pos.x}, {GameObject.pos.y})";
 
-        public override int PosX => GameObject.pos.x * TileWidth;
-        public override int PosY => GameObject.pos.y * TileHeight;
+        public override int PosX => GameObject.pos.x * TileWidth * AppView.zoom;
+        public override int PosY => GameObject.pos.y * TileHeight * AppView.zoom;
 
         public override Brush Background => Brushes.Cyan;
 

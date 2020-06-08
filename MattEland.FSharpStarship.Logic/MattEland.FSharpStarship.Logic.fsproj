@@ -10,6 +10,7 @@
     <Compile Include="Simulation.fs" />
     <Compile Include="WorldBuilding.fs" />
     <Compile Include="View.fs" />
+    <Compile Include="Sprites.fs" />
   </ItemGroup>
 
 </Project>

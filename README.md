@@ -7,9 +7,9 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 All code written by Matt Eland (@IntegerMan)
 
 ### Art
-Artwork commercially purchased from Moon Tribe and used in open source software with permission.
+Artwork commercially purchased from DithArt and used in open source software with permission.
 
-Visit https://moon-t.com/ for more information on Moon Tribe's assets. Artwork cannot be reused, repurposed, or redistributed without their express written consent.
+Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork cannot be reused, repurposed, or redistributed without their express written consent.
 
 ## Tasks
 
@@ -20,7 +20,7 @@ Visit https://moon-t.com/ for more information on Moon Tribe's assets. Artwork c
 - [ ] Overlay for Carbon Dioxide
 - [ ] Overlay for Fluids
 - [ ] Overlay for Electrical
-- [ ] Tile Graphics
+- [x] Tile Graphics
 - [x] Render actors
 - [x] Next turn button
 - [ ] Simulate when next turn is clicked
