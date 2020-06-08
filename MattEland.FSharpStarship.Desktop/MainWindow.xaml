@@ -18,12 +18,12 @@
                     Background="Black" BorderBrush="White" BorderThickness="1">
                 <Border.ToolTip>
                     <StackPanel>
-                        <TextBlock>Artwork by DithArt (@hodittha).</TextBlock>
+                        <TextBlock>Tile art by DithArt (@hodittha).</TextBlock>
                         <TextBlock>Visit https://dithart.itch.io/ for more information.</TextBlock>
                     </StackPanel>
                 </Border.ToolTip>
                 <StackPanel Orientation="Vertical" Margin="8,0" HorizontalAlignment="Center">
-                    <TextBlock Text="Artwork by" Foreground="White" VerticalAlignment="Center" />
+                    <TextBlock Text="Tile art by" Foreground="White" VerticalAlignment="Center" />
                     <Image Source="Images/DithArt.png" Stretch="UniformToFill" Height="80" HorizontalAlignment="Center"></Image>
                 </StackPanel>
             </Border>

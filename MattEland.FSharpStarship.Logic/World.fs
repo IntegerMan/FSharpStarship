@@ -16,7 +16,6 @@ module World =
   let private defaultHeat: decimal = 0M;
 
   type TileType =
-    | Space
     | Floor
     | Wall
     | WallLeft
@@ -55,6 +54,9 @@ module World =
       tiles: List<Tile>;
       objects: List<GameObject>;
     }
+
+  let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
+  let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
 
   let makeTile(tileType, pos) = 
     {
