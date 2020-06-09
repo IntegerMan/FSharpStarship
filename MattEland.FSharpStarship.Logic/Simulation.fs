@@ -23,9 +23,44 @@ module Simulations =
       right=getTile(world, offset(tile.pos, 1, 0));
     }
 
-  let private simulateTile(tile: Tile, world: GameWorld): Tile = 
-    let context = getContext(world, tile)
-    // TODO: Need to distribute heat / gasses
-    {tile with oxygen=tile.oxygen - 0.1M}
+  let private getPresentNeighbors(context: TileContext): List<Tile> =
+    [
+      if context.up.IsSome then yield context.up.Value
+      if context.right.IsSome then yield context.right.Value
+      if context.down.IsSome then yield context.down.Value
+      if context.left.IsSome then yield context.left.Value
+    ]
 
-  let simulate(world: GameWorld): GameWorld = { world with tiles=world.tiles |> List.map(fun t -> simulateTile(t, world)) }
+  let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile): GameWorld =
+    let mutable newWorld = world
+    if neighbor.oxygen <> tile.oxygen then      
+      newWorld <- replaceTile(world, tile.pos, {tile with oxygen=tile.oxygen - 0.1M})
+      newWorld <- replaceTile(world, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + 0.1M})
+
+    newWorld
+
+
+  let private simulateTile(tile: Tile, world: GameWorld): GameWorld = 
+    let context = getContext(world, tile)
+
+    let mutable newWorld = world
+
+    for neighbor in getPresentNeighbors(context) do
+      newWorld <- shareOxygen(newWorld, getTile(newWorld, tile.pos).Value, neighbor)
+
+    newWorld    
+
+  let simulate(world: GameWorld): GameWorld =
+    // Get distinct positions in the world
+    let positions = world.tiles |> List.map(fun t -> t.pos) |> List.distinct;
+
+    let mutable newWorld = world
+
+    // TODO: List.iter would be more elegant here
+    for pos in positions do
+      let tile = getTile(newWorld, pos)
+      if tile.IsSome then
+        newWorld <- simulateTile(tile.Value, newWorld)
+
+    // Return the final world
+    newWorld

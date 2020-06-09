@@ -13,7 +13,9 @@ module World =
       objectType: GameObjectType;
     }
 
-  let private defaultHeat: decimal = 0M;
+  let private defaultHeat: decimal = 0.2M;
+  let private defaultOxygen: decimal = 0.7M;
+  let private defaultCO2: decimal = 0.3M;
 
   type TileType =
     | Floor
@@ -63,7 +65,15 @@ module World =
       tileType=tileType; 
       pos=pos; 
       heat=defaultHeat; 
-      oxygen=0.7M; 
-      carbonDioxide=0.3M;
+      oxygen=0.1M * (pos.x |> decimal);  // TODO: defaultOxygen
+      carbonDioxide=defaultCO2;
     } 
    
+  let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
+    if tile.pos = testPos then
+      newTile
+    else
+      tile
+
+  let replaceTile(world: GameWorld, pos: Pos, newTile: Tile): GameWorld =
+    {world with tiles=world.tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }
