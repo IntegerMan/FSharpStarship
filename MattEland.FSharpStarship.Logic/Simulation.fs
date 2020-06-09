@@ -31,14 +31,13 @@ module Simulations =
       if context.left.IsSome then yield context.left.Value
     ]
 
-  let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile): GameWorld =
+  let shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile): GameWorld =
     let mutable newWorld = world
     if neighbor.oxygen <> tile.oxygen then      
-      newWorld <- replaceTile(world, tile.pos, {tile with oxygen=tile.oxygen - 0.1M})
-      newWorld <- replaceTile(world, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + 0.1M})
+      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - 0.1M})
+      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + 0.1M})
 
     newWorld
-
 
   let private simulateTile(tile: Tile, world: GameWorld): GameWorld = 
     let context = getContext(world, tile)
