@@ -57,8 +57,32 @@ module World =
       objects: List<GameObject>;
     }
 
+
   let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
   let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
+
+  let getTileOxygen(world: GameWorld, pos: Pos): decimal =
+    match getTile(world, pos) with
+      | Some t -> t.oxygen
+      | None -> 0M
+
+  type TileContext = 
+    {
+      tile: Tile;
+      up: Option<Tile>;
+      down: Option<Tile>;
+      left: Option<Tile>;
+      right: Option<Tile>;
+    }
+
+  let getContext(world: GameWorld, tile: Tile): TileContext =
+    {
+      tile=tile;
+      up=getTile(world, offset(tile.pos, 0, -1));
+      down=getTile(world, offset(tile.pos, 0, 1));
+      left=getTile(world, offset(tile.pos, -1, 0));
+      right=getTile(world, offset(tile.pos, 1, 0));
+    }
 
   let makeTile(tileType, pos) = 
     {

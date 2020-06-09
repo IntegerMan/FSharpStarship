@@ -5,24 +5,6 @@ open World
 
 module Simulations =
 
-  type TileContext = 
-    {
-      tile: Tile;
-      up: Option<Tile>;
-      down: Option<Tile>;
-      left: Option<Tile>;
-      right: Option<Tile>;
-    }
-
-  let getContext(world: GameWorld, tile: Tile): TileContext =
-    {
-      tile=tile;
-      up=getTile(world, offset(tile.pos, 0, -1));
-      down=getTile(world, offset(tile.pos, 0, 1));
-      left=getTile(world, offset(tile.pos, -1, 0));
-      right=getTile(world, offset(tile.pos, 1, 0));
-    }
-
   let private getPresentNeighbors(context: TileContext): List<Tile> =
     [
       if context.up.IsSome then yield context.up.Value
@@ -31,21 +13,26 @@ module Simulations =
       if context.left.IsSome then yield context.left.Value
     ]
 
-  let shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile): GameWorld =
+  let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile, delta: decimal): GameWorld =
     let mutable newWorld = world
-    if neighbor.oxygen <> tile.oxygen then      
-      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - 0.1M})
-      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + 0.1M})
+    if neighbor.oxygen < tile.oxygen then
+      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - delta})
+      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + delta})
 
     newWorld
 
-  let private simulateTile(tile: Tile, world: GameWorld): GameWorld = 
+  let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
     let context = getContext(world, tile)
 
     let mutable newWorld = world
 
-    for neighbor in getPresentNeighbors(context) do
-      newWorld <- shareOxygen(newWorld, getTile(newWorld, tile.pos).Value, neighbor)
+    let neighbors = getPresentNeighbors(context) |> List.filter(fun n -> n.oxygen < tile.oxygen)
+
+    if not neighbors.IsEmpty then
+      let delta = 0.1M / decimal neighbors.Length
+
+      for neighbor in neighbors do
+        newWorld <- shareOxygen(newWorld, getTile(newWorld, tile.pos).Value, neighbor, delta)
 
     newWorld    
 
