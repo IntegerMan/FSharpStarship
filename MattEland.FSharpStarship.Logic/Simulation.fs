@@ -19,10 +19,10 @@ module Simulations =
   let getContext(world: GameWorld, tile: Tile): TileContext =
     {
       tile=tile;
-      up=getTile(world, offset(tile.pos, 0, -1));
-      down=getTile(world, offset(tile.pos, 0, 1));
-      left=getTile(world, offset(tile.pos, -1, 0));
-      right=getTile(world, offset(tile.pos, 1, 0));
+      up=getTile world (tile.pos |> offset 0 -1);
+      down=getTile world (tile.pos |> offset 0 1);
+      left=getTile world (tile.pos |> offset -1 0);
+      right=getTile world (tile.pos |> offset 1 0);
     }
 
   let maxAirFlow = 0.1M
@@ -38,8 +38,8 @@ module Simulations =
   let private shareGas(world: GameWorld, tile: Tile, neighbor: Tile, gas: Gas, delta: decimal): GameWorld =
     let mutable newWorld = world
 
-    let tileCurrentGas = getTileGas(tile, gas)
-    let neighborCurrentGas = getTileGas(neighbor, gas)
+    let tileCurrentGas = getTileGas gas tile
+    let neighborCurrentGas = getTileGas gas neighbor
 
     if neighborCurrentGas < tileCurrentGas then
       let difference = tileCurrentGas - neighborCurrentGas
@@ -53,7 +53,7 @@ module Simulations =
 
     newWorld
 
-  let canGasFlowInto(tileType, gas) =
+  let canGasFlowInto tileType gas =
     match tileType with
       | Floor | Space -> true
       | _ -> false
@@ -63,18 +63,22 @@ module Simulations =
     let context = getContext(world, tile)
     let presentNeighbors = getPresentNeighbors(context)
 
-    let neighbors = presentNeighbors |> List.filter(fun n -> canGasFlowInto(n.tileType, gas) && getTileGas(n, gas) < getTileGas(tile, gas))
+    let currentGas = getTileGas gas tile
+    let neighbors = presentNeighbors |> List.filter(fun n -> canGasFlowInto n.tileType gas && getTileGas gas n < currentGas)
 
+    // TODO: It'd be nice to use a list function here and avoid mutable newWorld
     if not neighbors.IsEmpty then
       let delta = maxAirFlow / decimal neighbors.Length
 
       for neighbor in neighbors do
-        newWorld <- shareGas(newWorld, getTile(newWorld, tile.pos).Value, neighbor, gas, delta)
+        let neighborTile = getTile newWorld tile.pos
+        newWorld <- shareGas(newWorld, neighborTile.Value, neighbor, gas, delta)
 
     newWorld    
     
 
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
+    // TODO: This would be a lot more efficient if I could do everything in one pas per tile instead of N where N = num gasses
     world
     |> simulateTileGas tile Gas.Oxygen
     |> simulateTileGas tile Gas.CarbonDioxide
@@ -89,7 +93,7 @@ module Simulations =
 
     // TODO: List.iter would be more elegant here
     for pos in positions do
-      let tile = getTile(newWorld, pos)
+      let tile = getTile newWorld pos
       if tile.IsSome then
         newWorld <- simulateTile(tile.Value, newWorld)
 

@@ -38,8 +38,8 @@ module World =
       objects: List<GameObject>;
     }
 
-  let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
-  let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
+  let getTile world pos = world.tiles |> List.tryFind(fun t -> t.pos = pos)
+  let getObjects world pos = world.objects |> List.where(fun o -> o.pos = pos)
 
   type Gas =
     | Oxygen
@@ -47,7 +47,7 @@ module World =
     | Heat
     | Electrical
 
-  let getTileGas(tile: Tile, gas: Gas): decimal =
+  let getTileGas gas tile =
       match gas with
       | Oxygen -> tile.oxygen
       | CarbonDioxide -> tile.carbonDioxide
@@ -70,12 +70,10 @@ module World =
     else
       tile // Tiles that don't retain gasses should not be altered
 
-  let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
-    let tile = getTile(world, pos)
-    if tile.IsSome then
-      getTileGas(tile.Value, gas)
-    else
-      0M
+  let getGasByPos(world,pos,gas) = 
+    match getTile world pos with
+    | Some tile -> tile |> getTileGas gas
+    | None -> 0M
 
   let private getDefaultGas tileType gas =
     match tileType with
