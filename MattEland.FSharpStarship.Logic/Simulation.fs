@@ -16,8 +16,12 @@ module Simulations =
   let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile, delta: decimal): GameWorld =
     let mutable newWorld = world
     if neighbor.oxygen < tile.oxygen then
-      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - delta})
-      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + delta})
+
+      let difference = tile.oxygen - neighbor.oxygen
+      let actualDelta = System.Math.Min(delta, difference / 2.0M)
+
+      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - actualDelta})
+      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + actualDelta})
 
     newWorld
 
@@ -26,7 +30,8 @@ module Simulations =
 
     let mutable newWorld = world
 
-    let neighbors = getPresentNeighbors(context) |> List.filter(fun n -> n.oxygen < tile.oxygen)
+    let presentNeighbors = getPresentNeighbors(context)
+    let neighbors = presentNeighbors |> List.filter(fun n -> n.oxygen < tile.oxygen)
 
     if not neighbors.IsEmpty then
       let delta = 0.1M / decimal neighbors.Length
