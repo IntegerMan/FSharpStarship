@@ -16,12 +16,14 @@ module Sprites =
     | Wall -> 6
     | WallLeft | WallRight -> 7
     | Floor -> 0
+    | Space -> 3
 
   let private getTileY (tileType: TileType): int =
     match tileType with
     | Wall -> 0
     | WallLeft | WallRight -> 2
     | Floor -> 11
+    | Space -> 10
 
   let getSpriteInfo (tileType: TileType): SpriteInfo =
     {

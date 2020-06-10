@@ -1,8 +1,8 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Positions
 open World
 open System
+open Utils
 
 module Simulations =
 
@@ -13,8 +13,6 @@ module Simulations =
       if context.down.IsSome then yield context.down.Value
       if context.left.IsSome then yield context.left.Value
     ]
-
-  let private truncateToTwoDecimalPlaces(number) = Math.Truncate(number * 100M) / 100M
 
   let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile, delta: decimal): GameWorld =
     let mutable newWorld = world

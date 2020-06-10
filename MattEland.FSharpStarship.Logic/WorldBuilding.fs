@@ -21,7 +21,23 @@ module WorldBuilding =
     makeVerticalArea(offset(startPos, width - 1, 1), WallRight, height - 2) @
     makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
 
-  let private getTiles(): list<Tile> = makeRoom({x=1; y=1}, 13, 9)
+  let private replaceListItem pos newItem list = 
+    list |> List.map(fun i -> if i.pos = pos then newItem else i)
+
+  let private getTiles(): list<Tile> = 
+    let voidPos = {x=3; y=1}
+    let voidTile = makeTile(TileType.Floor, voidPos)
+
+    let mutable space =
+      [for y in 0 .. 10 do
+        for x in 0 .. 14 do
+          yield makeTile(TileType.Space, {x=x;y=y})]
+
+    let placedTiles = makeRoom({x=1; y=1}, 13, 9) |> replaceListItem voidPos voidTile
+
+    placedTiles |> List.iter(fun t -> space <- replaceListItem t.pos t space)
+
+    space
 
   let private getObjects(): list<GameObject> = [{pos={x=3; y=3}; objectType=Player}]
 

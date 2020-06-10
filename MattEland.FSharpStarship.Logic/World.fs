@@ -14,7 +14,6 @@ module World =
     }
 
   let private defaultHeat: decimal = 0.2M;
-  let private defaultOxygen: decimal = 0.7M;
   let private defaultCO2: decimal = 0.3M;
 
   type TileType =
@@ -22,24 +21,12 @@ module World =
     | Wall
     | WallLeft
     | WallRight
-    //| Pipe
-    //| Pump
-    //| Tank
-    //| Cable
-    //| Door
-    //| Capacitor
-    //| PowerPlant
-    //| HeatSink
-    //| Vent
-    //| Crate
-    //| Cabinet
-    //| Workstation
-    //| Terminal
-    //| Table
-    //| Chair
-    //| Toilet
-    //| Hydroponics
-    //| FoodPrep
+    | Space
+
+  let getDefaultOxygen tileType =
+    match tileType with
+    | Floor -> 0.7M
+    | _ -> 0M
 
   type Tile = 
     {
@@ -56,8 +43,6 @@ module World =
       tiles: List<Tile>;
       objects: List<GameObject>;
     }
-
-  let randomizer = new System.Random()
 
   let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
   let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
@@ -90,7 +75,7 @@ module World =
       tileType=tileType; 
       pos=pos; 
       heat=defaultHeat; 
-      oxygen=randomizer.NextDouble() |> decimal;  // TODO: defaultOxygen
+      oxygen=getDefaultOxygen tileType
       carbonDioxide=defaultCO2;
     } 
    

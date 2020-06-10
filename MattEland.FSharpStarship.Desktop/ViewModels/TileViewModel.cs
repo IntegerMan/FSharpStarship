@@ -22,7 +22,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             OnPropertyChanged(nameof(OverlayBrush));
         }
 
-        public override string ToolTip => $"{Tile.tileType} ({Tile.pos.x}, {Tile.pos.y})";
+        public override string ToolTip => $"{Tile.tileType}\nPos: ({Tile.pos.x}, {Tile.pos.y})\nOxygen: {Tile.oxygen}\nCO2: {Tile.carbonDioxide}\nHeat: {Tile.heat}";
 
         public override int PosX => Tile.pos.x * TileWidth;
         public override int PosY => Tile.pos.y * TileHeight;
