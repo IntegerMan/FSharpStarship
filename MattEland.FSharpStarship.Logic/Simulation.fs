@@ -26,13 +26,18 @@ module Simulations =
 
     newWorld
 
+  let canOxygenFlowInto tileType =
+    match tileType with
+      | Floor | Space -> true
+      | _ -> false
+
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
     let context = getContext(world, tile)
 
     let mutable newWorld = world
 
     let presentNeighbors = getPresentNeighbors(context)
-    let neighbors = presentNeighbors |> List.filter(fun n -> n.oxygen < tile.oxygen)
+    let neighbors = presentNeighbors |> List.filter(fun n -> canOxygenFlowInto(n.tileType) && n.oxygen < tile.oxygen)
 
     if not neighbors.IsEmpty then
       let delta = 0.1M / decimal neighbors.Length
