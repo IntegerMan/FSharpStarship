@@ -52,6 +52,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
+                if (Tile.tileType.Equals(World.TileType.Space)) return Brushes.Transparent;
+
                 var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{SpriteInfo.image}"));
 
                 var tileWidth = SpriteInfo.width;
