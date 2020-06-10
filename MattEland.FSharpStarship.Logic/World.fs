@@ -57,6 +57,7 @@ module World =
       objects: List<GameObject>;
     }
 
+  let randomizer = new System.Random()
 
   let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
   let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
@@ -89,7 +90,7 @@ module World =
       tileType=tileType; 
       pos=pos; 
       heat=defaultHeat; 
-      oxygen=0.1M * (pos.x |> decimal);  // TODO: defaultOxygen
+      oxygen=randomizer.NextDouble() |> decimal;  // TODO: defaultOxygen
       carbonDioxide=defaultCO2;
     } 
    

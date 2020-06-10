@@ -40,15 +40,14 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 ## Environmental
 
+- [x] Oxygen distribution
+- [ ] CO2 distribution
 - [ ] Gasses should not be able to go below 0
 - [ ] Gasses should not be able to go above 1
-- [ ] CO2 distribution
 - [ ] Obstacles prohibit gasses from flowing
 - [ ] Space takes in gasses, but doesn't retain it
 - [ ] Convert O2 to CO2 near human
-- [ ] Fires?
 - [ ] Air recylclers convert CO2 to Oxygen
-- [ ] Water vapor
 
 ## Power
 
@@ -72,6 +71,7 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 ## Heat
 
+- [ ] Fires?
 - [ ] Player generates heat
 - [ ] Fire generates heat
 - [ ] Heat expands

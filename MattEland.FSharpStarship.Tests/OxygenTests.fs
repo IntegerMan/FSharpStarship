@@ -90,4 +90,38 @@ let ``Share Oxygen with three tiles should receive oxygen`` () =
     // Assert
     Assert.Equal(0.55M, getTileOxygen(finalWorld, neighbor1.pos))
     Assert.Equal(0.55M, getTileOxygen(finalWorld, neighbor2.pos))
+
+[<Fact>]
+let ``Share Oxygen with four tiles should send oxygen`` () =
+    
+    // Arrange
+    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with oxygen=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with oxygen=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with oxygen=0.5M}
+    let neighbor3: Tile = {makeTile(TileType.Floor, {x=0;y=1}) with oxygen=0.5M}
+    let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2; neighbor3]}
+    
+    // Act
+    let finalWorld = simulateTile(originTile, world)
+    
+    // Assert
+    Assert.Equal(0.61M, getTileOxygen(finalWorld, originTile.pos))
+
+[<Fact>]
+let ``Share Oxygen with four tiles should receive oxygen`` () =
+    
+    // Arrange
+    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with oxygen=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with oxygen=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with oxygen=0.5M}
+    let neighbor3: Tile = {makeTile(TileType.Floor, {x=0;y=1}) with oxygen=0.5M}
+    let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2; neighbor3]}
+    
+    // Act
+    let finalWorld = simulateTile(originTile, world)
+    
+    // Assert
+    Assert.Equal(0.53M, getTileOxygen(finalWorld, neighbor1.pos))
+    Assert.Equal(0.53M, getTileOxygen(finalWorld, neighbor2.pos))
+    Assert.Equal(0.53M, getTileOxygen(finalWorld, neighbor3.pos))
     

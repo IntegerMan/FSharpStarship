@@ -2,6 +2,7 @@
 
 open Positions
 open World
+open System
 
 module Simulations =
 
@@ -13,12 +14,14 @@ module Simulations =
       if context.left.IsSome then yield context.left.Value
     ]
 
+  let private truncateToTwoDecimalPlaces(number) = Math.Truncate(number * 100M) / 100M
+
   let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile, delta: decimal): GameWorld =
     let mutable newWorld = world
     if neighbor.oxygen < tile.oxygen then
 
       let difference = tile.oxygen - neighbor.oxygen
-      let actualDelta = System.Math.Min(delta, difference / 2.0M)
+      let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
 
       newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - actualDelta})
       newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + actualDelta})
