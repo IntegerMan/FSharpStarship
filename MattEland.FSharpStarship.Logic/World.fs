@@ -1,5 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
+open Utils
 open Positions
 
 module World =
@@ -13,9 +14,6 @@ module World =
       objectType: GameObjectType;
     }
 
-  let private defaultHeat: decimal = 0.2M;
-  let private defaultCO2: decimal = 0.3M;
-
   type TileType =
     | Floor
     | Wall
@@ -23,19 +21,15 @@ module World =
     | WallRight
     | Space
 
-  let getDefaultOxygen tileType =
-    match tileType with
-    | Floor -> 0.7M
-    | _ -> 0M
-
   type Tile = 
     {
       tileType: TileType; 
       pos: Pos; 
+      // TODO: It'd be nice to be able to have a collection of gasses, potentially
       heat: decimal; 
-      // TODO: Probably should have a gas composition type here
       oxygen: decimal;
-      carbonDioxide: decimal
+      carbonDioxide: decimal;
+      power: decimal;
     }
   
   type GameWorld = 
@@ -47,36 +41,52 @@ module World =
   let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
   let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
 
-  let getTileOxygen(world: GameWorld, pos: Pos): decimal =
-    match getTile(world, pos) with
-      | Some t -> t.oxygen
-      | None -> 0M
+  type Gas =
+    | Oxygen
+    | CarbonDioxide
+    | Heat
+    | Electrical
 
-  type TileContext = 
-    {
-      tile: Tile;
-      up: Option<Tile>;
-      down: Option<Tile>;
-      left: Option<Tile>;
-      right: Option<Tile>;
-    }
+  let getTileGas(tile: Tile, gas: Gas): decimal =
+      match gas with
+      | Oxygen -> tile.oxygen
+      | CarbonDioxide -> tile.carbonDioxide
+      | Heat -> tile.heat
+      | Electrical -> tile.power
 
-  let getContext(world: GameWorld, tile: Tile): TileContext =
-    {
-      tile=tile;
-      up=getTile(world, offset(tile.pos, 0, -1));
-      down=getTile(world, offset(tile.pos, 0, 1));
-      left=getTile(world, offset(tile.pos, -1, 0));
-      right=getTile(world, offset(tile.pos, 1, 0));
-    }
+  let setTileGas(tile: Tile, gas: Gas, value: decimal): Tile =
+    match gas with
+    | Oxygen -> {tile with oxygen=value}
+    | CarbonDioxide -> {tile with carbonDioxide=value}
+    | Heat -> {tile with heat=value}
+    | Electrical -> {tile with power=value}
+      
+
+  let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
+    let tile = getTile(world, pos)
+    if tile.IsSome then
+      getTileGas(tile.Value, gas)
+    else
+      0M
+
+  let private getDefaultGas tileType gas =
+    match tileType with
+    | Floor ->
+      match gas with
+      | Gas.Oxygen -> 0.7M
+      | Gas.CarbonDioxide -> randomizer.NextDouble() |> decimal // 0.3M
+      | Gas.Heat -> randomizer.NextDouble() |> decimal // 0.3M
+      | Gas.Electrical -> 0M
+    | _ -> 0M
 
   let makeTile(tileType, pos) = 
     {
       tileType=tileType; 
       pos=pos; 
-      heat=defaultHeat; 
-      oxygen=getDefaultOxygen tileType
-      carbonDioxide=defaultCO2;
+      heat=getDefaultGas tileType Gas.Heat
+      oxygen=getDefaultGas tileType Gas.Oxygen
+      carbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
+      power=getDefaultGas tileType Gas.Electrical
     } 
    
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =

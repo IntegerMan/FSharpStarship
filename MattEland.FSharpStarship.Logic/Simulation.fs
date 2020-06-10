@@ -3,8 +3,27 @@
 open World
 open System
 open Utils
+open Positions
 
 module Simulations =
+
+  type TileContext = 
+    {
+      tile: Tile;
+      up: Option<Tile>;
+      down: Option<Tile>;
+      left: Option<Tile>;
+      right: Option<Tile>;
+    }
+
+  let getContext(world: GameWorld, tile: Tile): TileContext =
+    {
+      tile=tile;
+      up=getTile(world, offset(tile.pos, 0, -1));
+      down=getTile(world, offset(tile.pos, 0, 1));
+      left=getTile(world, offset(tile.pos, -1, 0));
+      right=getTile(world, offset(tile.pos, 1, 0));
+    }
 
   let maxAirFlow = 0.1M
 

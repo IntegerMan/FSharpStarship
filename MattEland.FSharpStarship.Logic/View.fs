@@ -6,7 +6,7 @@ module View =
 
   type CurrentOverlay =
     | None = 0
-    | Thermal = 1
+    | Heat = 1
     | Oxygen = 2
     | CarbonDioxide = 3
     | Electrical = 4
@@ -42,5 +42,5 @@ module View =
     match view.overlay with
     | CurrentOverlay.Oxygen -> getGradedColor(tile.oxygen)
     | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.carbonDioxide)
-    | CurrentOverlay.Thermal -> getGradedColor(tile.heat)
+    | CurrentOverlay.Heat -> getGradedColor(tile.heat)
     | _ -> getTileColor(tile.tileType)
