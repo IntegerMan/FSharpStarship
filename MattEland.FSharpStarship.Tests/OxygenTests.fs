@@ -1,4 +1,4 @@
-module Tests
+module OxygenTests
 
 open Xunit
 open MattEland.FSharpStarship.Logic.World
