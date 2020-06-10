@@ -6,6 +6,8 @@ open Utils
 
 module Simulations =
 
+  let maxAirFlow = 0.1M
+
   let private getPresentNeighbors(context: TileContext): List<Tile> =
     [
       if context.up.IsSome then yield context.up.Value
@@ -21,8 +23,12 @@ module Simulations =
       let difference = tile.oxygen - neighbor.oxygen
       let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
 
+      // Remove the oxygen from the source tile
       newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - actualDelta})
-      newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + actualDelta})
+
+      // Move the oxygen into the neighbor tile, unless that tile is space, in which case it is discarded
+      if (neighbor.tileType <> TileType.Space) then
+        newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + actualDelta})
 
     newWorld
 
@@ -40,7 +46,7 @@ module Simulations =
     let neighbors = presentNeighbors |> List.filter(fun n -> canOxygenFlowInto(n.tileType) && n.oxygen < tile.oxygen)
 
     if not neighbors.IsEmpty then
-      let delta = 0.1M / decimal neighbors.Length
+      let delta = maxAirFlow / decimal neighbors.Length
 
       for neighbor in neighbors do
         newWorld <- shareOxygen(newWorld, getTile(newWorld, tile.pos).Value, neighbor, delta)

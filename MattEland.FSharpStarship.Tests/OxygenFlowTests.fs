@@ -153,3 +153,18 @@ let ``Oxygen should flow into space`` () =
 
     // Assert
     Assert.Equal(0.6M, getTileOxygen(finalWorld, originTile.pos))
+
+    
+[<Fact>]
+let ``Space should not retain oxygen`` () =
+
+    // Arrange
+    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with oxygen=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Space, {x=1;y=0}) with oxygen=0M}
+    let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
+
+    // Act
+    let finalWorld = simulateTile(originTile, world)
+
+    // Assert
+    Assert.Equal(0M, getTileOxygen(finalWorld, neighborTile.pos))
