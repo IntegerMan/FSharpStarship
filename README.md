@@ -20,9 +20,9 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 ## Graphics
 
 - [x] Overlay mode
-- [ ] Overlay for Heat
+- [x] Overlay for Heat
 - [x] Overlay for Oxygen
-- [ ] Overlay for Carbon Dioxide
+- [x] Overlay for Carbon Dioxide
 - [ ] Overlay for Fluids
 - [ ] Overlay for Electrical
 - [x] Tile Graphics
@@ -37,11 +37,13 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 - [ ] Allow the player to destroy a wall
 - [ ] Activate machines
 - [ ] Restart simulation
+- [ ] Auto-advance simulation
+- [ ] Ability to pause and resume the simulation
 
 ## Environmental
 
 - [x] Oxygen distribution
-- [ ] CO2 distribution
+- [x] CO2 distribution
 - [ ] Gasses should not be able to go below 0
 - [ ] Gasses should not be able to go above 1
 - [x] Obstacles prohibit gasses from flowing
@@ -51,6 +53,7 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 ## Power
 
+- [ ] Power distribution
 - [ ] Sparks can occur if too much water vapor
 - [ ] Sparks can cause fires if there's too much oxygen
 - [ ] Power Cells
@@ -71,6 +74,8 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 ## Heat
 
+- [x] Heat distribution
+- [ ] Non gaseous heat distribution rules
 - [ ] Fires?
 - [ ] Player generates heat
 - [ ] Fire generates heat
@@ -80,6 +85,7 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 ## Water
 
+- [ ] Water distribution
 - [ ] Fluid Pipes
 - [ ] Fluid tanks
 - [ ] Water Recycling

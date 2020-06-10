@@ -35,42 +35,51 @@ module Simulations =
       if context.left.IsSome then yield context.left.Value
     ]
 
-  let private shareOxygen(world: GameWorld, tile: Tile, neighbor: Tile, delta: decimal): GameWorld =
+  let private shareGas(world: GameWorld, tile: Tile, neighbor: Tile, gas: Gas, delta: decimal): GameWorld =
     let mutable newWorld = world
-    if neighbor.oxygen < tile.oxygen then
 
-      let difference = tile.oxygen - neighbor.oxygen
+    let tileCurrentGas = getTileGas(tile, gas)
+    let neighborCurrentGas = getTileGas(neighbor, gas)
+
+    if neighborCurrentGas < tileCurrentGas then
+      let difference = tileCurrentGas - neighborCurrentGas
       let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
 
-      // Remove the oxygen from the source tile
-      newWorld <- replaceTile(newWorld, tile.pos, {tile with oxygen=tile.oxygen - actualDelta})
+      // Remove the gas from the source tile
+      newWorld <- replaceTile(newWorld, tile.pos, setTileGas(tile, gas, tileCurrentGas - actualDelta))
 
-      // Move the oxygen into the neighbor tile, unless that tile is space, in which case it is discarded
-      if (neighbor.tileType <> TileType.Space) then
-        newWorld <- replaceTile(newWorld, neighbor.pos, {neighbor with oxygen=neighbor.oxygen + actualDelta})
+      // Move the gas into the neighbor tile
+      newWorld <- replaceTile(newWorld, neighbor.pos, setTileGas(neighbor, gas, neighborCurrentGas + actualDelta))
 
     newWorld
 
-  let canOxygenFlowInto tileType =
+  let canGasFlowInto(tileType, gas) =
     match tileType with
       | Floor | Space -> true
       | _ -> false
 
-  let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
-    let context = getContext(world, tile)
-
+  let private simulateTileGas tile gas world =
     let mutable newWorld = world
-
+    let context = getContext(world, tile)
     let presentNeighbors = getPresentNeighbors(context)
-    let neighbors = presentNeighbors |> List.filter(fun n -> canOxygenFlowInto(n.tileType) && n.oxygen < tile.oxygen)
+
+    let neighbors = presentNeighbors |> List.filter(fun n -> canGasFlowInto(n.tileType, gas) && getTileGas(n, gas) < getTileGas(tile, gas))
 
     if not neighbors.IsEmpty then
       let delta = maxAirFlow / decimal neighbors.Length
 
       for neighbor in neighbors do
-        newWorld <- shareOxygen(newWorld, getTile(newWorld, tile.pos).Value, neighbor, delta)
+        newWorld <- shareGas(newWorld, getTile(newWorld, tile.pos).Value, neighbor, gas, delta)
 
     newWorld    
+    
+
+  let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
+    world
+    |> simulateTileGas tile Gas.Oxygen
+    |> simulateTileGas tile Gas.CarbonDioxide
+    |> simulateTileGas tile Gas.Electrical
+    |> simulateTileGas tile Gas.Heat
 
   let simulate(world: GameWorld): GameWorld =
     // Get distinct positions in the world

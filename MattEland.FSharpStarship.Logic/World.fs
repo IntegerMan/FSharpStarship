@@ -54,13 +54,21 @@ module World =
       | Heat -> tile.heat
       | Electrical -> tile.power
 
-  let setTileGas(tile: Tile, gas: Gas, value: decimal): Tile =
-    match gas with
-    | Oxygen -> {tile with oxygen=value}
-    | CarbonDioxide -> {tile with carbonDioxide=value}
-    | Heat -> {tile with heat=value}
-    | Electrical -> {tile with power=value}
-      
+  let retainsGas tileType = tileType <> TileType.Space
+
+  let setTileGas(tile: Tile, gas: Gas, requestedValue: decimal): Tile =
+    if retainsGas tile.tileType then
+      // Ensure we don't outside the 0 - 1 range
+      let value = clamp(requestedValue, 0M, 1M)
+
+      // Set the relevant gas
+      match gas with
+      | Oxygen -> {tile with oxygen=value}
+      | CarbonDioxide -> {tile with carbonDioxide=value}
+      | Heat -> {tile with heat=value}
+      | Electrical -> {tile with power=value}
+    else
+      tile // Tiles that don't retain gasses should not be altered
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
     let tile = getTile(world, pos)
