@@ -6,20 +6,20 @@ open World
 module WorldBuilding =
 
   // TODO: It'd be better to have makeX below this take in a function that just takes a position
-  let private makeHorizontalArea (startPos, tileType, width) = [ for i in 0 .. width - 1 -> makeTile(tileType, offset(startPos, i, 0))]
-  let private makeVerticalArea (startPos, tileType, height) = [ for i in 0 .. height - 1 -> makeTile(tileType, offset(startPos, 0, i))]
+  let private makeHorizontalArea (startPos, tileType, width) = [ for i in 0 .. width - 1 -> makeTile(tileType, startPos |> offset i 0)]
+  let private makeVerticalArea (startPos, tileType, height) = [ for i in 0 .. height - 1 -> makeTile(tileType, startPos |> offset 0 i)]
 
   let private makeArea (startPos, tileType, width, height): List<Tile> =     
     [for y in 0 .. height - 1 do
       for x in 0 .. width - 1 do
-        yield makeTile(tileType, offset(startPos, x, y))]
+        yield makeTile(tileType, startPos |> offset x y)]
 
   let private makeRoom (startPos, width, height): List<Tile> =
-    makeHorizontalArea(offset(startPos, 0, 0), Wall, width) @
-    makeHorizontalArea(offset(startPos, 0, height - 1), Wall, width) @
-    makeVerticalArea(offset(startPos, 0, 1), WallLeft, height - 2) @
-    makeVerticalArea(offset(startPos, width - 1, 1), WallRight, height - 2) @
-    makeArea(offset(startPos, 1, 1), Floor, width - 2, height - 2)
+    makeHorizontalArea(startPos, Wall, width) @
+    makeHorizontalArea(startPos |> offset 0 (height - 1), Wall, width) @
+    makeVerticalArea(startPos |> offset 0 1, WallLeft, height - 2) @
+    makeVerticalArea(startPos |> offset (width - 1) 1, WallRight, height - 2) @
+    makeArea(startPos |> offset 1 1, Floor, width - 2, height - 2)
 
   let private replaceListItem pos newItem list = 
     list |> List.map(fun i -> if i.pos = pos then newItem else i)

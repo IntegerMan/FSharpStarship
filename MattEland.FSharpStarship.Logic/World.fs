@@ -47,7 +47,7 @@ module World =
     | Heat
     | Electrical
 
-  let getTileGas(tile: Tile, gas: Gas): decimal =
+  let getTileGas gas tile =
       match gas with
       | Oxygen -> tile.oxygen
       | CarbonDioxide -> tile.carbonDioxide
@@ -71,11 +71,9 @@ module World =
       tile // Tiles that don't retain gasses should not be altered
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
-    let tile = getTile pos world
-    if tile.IsSome then
-      getTileGas(tile.Value, gas)
-    else
-      0M
+    match world |> getTile pos with
+    | Some tile -> tile |> getTileGas gas
+    | None -> 0M
 
   let private getDefaultGas tileType gas =
     match tileType with
