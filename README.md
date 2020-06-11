@@ -44,8 +44,8 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 
 - [x] Oxygen distribution
 - [x] CO2 distribution
-- [ ] Gasses should not be able to go below 0
-- [ ] Gasses should not be able to go above 1
+- [x] Gasses should not be able to go below 0
+- [x] Gasses should not be able to go above 1
 - [x] Obstacles prohibit gasses from flowing
 - [x] Space takes in gasses, but doesn't retain it
 - [x] Convert O2 to CO2 near human
