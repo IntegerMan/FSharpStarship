@@ -11,6 +11,7 @@
     <Compile Include="CarbonDioxideTests.fs" />
     <Compile Include="HeatTests.fs" />
     <Compile Include="OxygenTests.fs" />
+    <Compile Include="HumanTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

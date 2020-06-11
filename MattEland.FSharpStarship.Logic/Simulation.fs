@@ -19,10 +19,10 @@ module Simulations =
   let getContext(world: GameWorld, tile: Tile): TileContext =
     {
       tile=tile;
-      up=getTile(world, offset(tile.pos, 0, -1));
-      down=getTile(world, offset(tile.pos, 0, 1));
-      left=getTile(world, offset(tile.pos, -1, 0));
-      right=getTile(world, offset(tile.pos, 1, 0));
+      up=world |> getTile (offset(tile.pos, 0, -1));
+      down=world |> getTile (offset(tile.pos, 0, 1));
+      left=world |> getTile (offset(tile.pos, -1, 0));
+      right=world |> getTile (offset(tile.pos, 1, 0));
     }
 
   let maxAirFlow = 0.1M
@@ -46,10 +46,10 @@ module Simulations =
       let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
 
       // Remove the gas from the source tile
-      newWorld <- replaceTile(newWorld, tile.pos, setTileGas(tile, gas, tileCurrentGas - actualDelta))
+      newWorld <- replaceTile(newWorld, tile.pos, tile |> setTileGas gas (tileCurrentGas - actualDelta))
 
       // Move the gas into the neighbor tile
-      newWorld <- replaceTile(newWorld, neighbor.pos, setTileGas(neighbor, gas, neighborCurrentGas + actualDelta))
+      newWorld <- replaceTile(newWorld, neighbor.pos, neighbor |> setTileGas gas (neighborCurrentGas + actualDelta))
 
     newWorld
 
@@ -69,29 +69,61 @@ module Simulations =
       let delta = maxAirFlow / decimal neighbors.Length
 
       for neighbor in neighbors do
-        newWorld <- shareGas(newWorld, getTile(newWorld, tile.pos).Value, neighbor, gas, delta)
+        newWorld <- shareGas(newWorld, (newWorld |> getTile tile.pos).Value, neighbor, gas, delta)
 
     newWorld    
+
+  let humanOxygenIntake = 0.1M
+  
+  let private convertTileOxygenToCarbonDioxide amount tile =
+    tile
+    |> setTileGas Gas.Oxygen (tile.oxygen - amount)
+    |> setTileGas Gas.CarbonDioxide (tile.carbonDioxide + amount)
+
+  let private simulatePerson (person: GameObject, world: GameWorld): GameWorld =
+    let tile = world |> getTile person.pos
+    match tile with
+    | Some t ->
+      if t.oxygen >= 0.1M then
+        let newTile = t |> convertTileOxygenToCarbonDioxide humanOxygenIntake
+        replaceTile(world, person.pos, newTile)
+      else
+        world
+    | None -> world
     
+
+  let private simulateObject obj world =
+    match obj.objectType with
+    | Player -> simulatePerson(obj, world)
+
+  let private simulateObjects tile world =
+    let mutable newWorld = world
+
+    newWorld |> getObjects tile.pos |> List.iter(fun obj -> newWorld <- simulateObject obj newWorld)
+    
+    newWorld
+
 
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
     world
+    |> simulateObjects tile
     |> simulateTileGas tile Gas.Oxygen
     |> simulateTileGas tile Gas.CarbonDioxide
     |> simulateTileGas tile Gas.Electrical
     |> simulateTileGas tile Gas.Heat
 
   let simulate(world: GameWorld): GameWorld =
-    // Get distinct positions in the world
-    let positions = world.tiles |> List.map(fun t -> t.pos) |> List.distinct;
 
     let mutable newWorld = world
 
-    // TODO: List.iter would be more elegant here
-    for pos in positions do
-      let tile = getTile(newWorld, pos)
-      if tile.IsSome then
-        newWorld <- simulateTile(tile.Value, newWorld)
-
-    // Return the final world
-    newWorld
+    world.tiles 
+    |> List.map(fun t -> t.pos)
+    |> List.distinct
+    |> List.map(fun p -> 
+      match getTile p newWorld with // Always get the tile fresh off of the newly updated world
+      | Some t -> 
+        newWorld <- simulateTile(t, newWorld)
+        newWorld
+      | None -> newWorld
+    ) 
+    |> List.last

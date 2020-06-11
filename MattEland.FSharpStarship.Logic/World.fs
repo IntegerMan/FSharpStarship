@@ -38,8 +38,8 @@ module World =
       objects: List<GameObject>;
     }
 
-  let getTile(world: GameWorld, pos: Pos): Option<Tile> = world.tiles |> List.tryFind(fun t -> t.pos = pos)
-  let getObjects(world: GameWorld, pos: Pos): List<GameObject> = world.objects |> List.where(fun o -> o.pos = pos)
+  let getTile pos world = world.tiles |> List.tryFind(fun t -> t.pos = pos)
+  let getObjects pos world = world.objects |> List.where(fun o -> o.pos = pos)
 
   type Gas =
     | Oxygen
@@ -56,7 +56,7 @@ module World =
 
   let retainsGas tileType = tileType <> TileType.Space
 
-  let setTileGas(tile: Tile, gas: Gas, requestedValue: decimal): Tile =
+  let setTileGas gas requestedValue tile =
     if retainsGas tile.tileType then
       // Ensure we don't outside the 0 - 1 range
       let value = clamp(requestedValue, 0M, 1M)
@@ -71,7 +71,7 @@ module World =
       tile // Tiles that don't retain gasses should not be altered
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
-    let tile = getTile(world, pos)
+    let tile = getTile pos world
     if tile.IsSome then
       getTileGas(tile.Value, gas)
     else

@@ -48,7 +48,7 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 - [ ] Gasses should not be able to go above 1
 - [x] Obstacles prohibit gasses from flowing
 - [x] Space takes in gasses, but doesn't retain it
-- [ ] Convert O2 to CO2 near human
+- [x] Convert O2 to CO2 near human
 - [ ] Air recylclers convert CO2 to Oxygen
 
 ## Power
