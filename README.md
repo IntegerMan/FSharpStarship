@@ -29,6 +29,8 @@ Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork
 - [x] Render actors
 - [x] Next turn button
 - [ ] Render gasses as pixels based on their density
+- [ ] Player Graphic
+- [ ] Air Scrubber Graphic
 
 ## Interaction
 
