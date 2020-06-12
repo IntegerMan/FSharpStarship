@@ -62,12 +62,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border ToolTip="{Binding ToolTip}" 
+                        <Rectangle ToolTip="{Binding ToolTip}" 
                                 Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" 
-                                Background="{Binding Background}" 
-                                BorderThickness="0">
-                            <Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5"></Rectangle>
-                        </Border>
+                                Fill="{Binding Background}" 
+                                StrokeThickness="0"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>
@@ -90,12 +88,12 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border ToolTip="{Binding ToolTip}" 
+                        <Rectangle ToolTip="{Binding ToolTip}" 
                                 Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" 
-                                Background="{Binding Background}" 
-                                BorderThickness="0">
+                                Fill="{Binding Background}" 
+                                StrokeThickness="0">
                             <!--<Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5"></Rectangle>-->
-                        </Border>
+                        </Rectangle>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>
@@ -107,6 +105,30 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
+
+            <!-- Overlays -->
+            <ItemsControl ItemsSource="{Binding Tiles}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5" ToolTip="{Binding ToolTip}" Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" ></Rectangle>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
+                        <Setter Property="Panel.ZIndex" Value="99" />
+                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
         </Grid>
     </DockPanel>
 </Window>

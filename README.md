@@ -36,8 +36,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Render actors
 - [x] Next turn button
 - [ ] Render gasses as pixels based on their density
-- [ ] Player Graphic
-- [ ] Air Scrubber Graphic
+- [x] Player Graphic
+- [x] Air Scrubber Graphic
 
 ## Interaction
 
@@ -58,7 +58,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Obstacles prohibit gasses from flowing
 - [x] Space takes in gasses, but doesn't retain it
 - [x] Convert O2 to CO2 near human
-- [ ] Air recylclers convert CO2 to Oxygen
+- [x] Air recylclers convert CO2 to Oxygen
 
 ## Power
 
@@ -70,6 +70,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [ ] Solar Generator
 - [ ] Running machines require power
 - [ ] Wires can carry power around
+- [ ] Scrubbers only scrub with power
 
 ## Player Health
 
@@ -86,11 +87,12 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Heat distribution
 - [ ] Non gaseous heat distribution rules
 - [ ] Fires?
-- [ ] Player generates heat
-- [ ] Fire generates heat
 - [ ] Heat expands
 - [ ] Heat impacts pipes
 - [ ] Heat sinks can spread heat outside the ship
+- [ ] Scrubbers generate heat
+- [ ] Astronauts generate heat
+- [ ] Fire generates heat
 
 ## Water
 

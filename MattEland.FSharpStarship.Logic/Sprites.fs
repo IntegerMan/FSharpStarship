@@ -36,11 +36,8 @@ module Sprites =
     }
 
   let getObjectSpriteInfo (object: GameObject): SpriteInfo =
-    {
-      image="Astronaut.png"
-      x=1;
-      y=0;
-      width=32;
-      height=32;
-      zIndex=5
-    }
+    let defaultArt = { image="tileset2.png"; x=0; y=0; width=32; height=32; zIndex=1}
+    match object.objectType with
+    | Astronaut -> { defaultArt with image="Astronaut.png"; x=1; y=0; zIndex=5}
+    | AirScrubber -> { defaultArt with x=7; y=11}
+    

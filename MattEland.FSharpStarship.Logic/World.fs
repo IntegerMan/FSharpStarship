@@ -6,7 +6,8 @@ open Positions
 module World =
 
   type GameObjectType =
-    | Player
+    | Astronaut
+    | AirScrubber
 
   type GameObject =
     {
@@ -80,8 +81,8 @@ module World =
     | Floor ->
       match gas with
       | Gas.Oxygen -> 0.7M
-      | Gas.CarbonDioxide -> randomizer.NextDouble() |> decimal // 0.3M
-      | Gas.Heat -> randomizer.NextDouble() |> decimal // 0.3M
+      | Gas.CarbonDioxide -> randomDecimal() // 0.3M
+      | Gas.Heat -> randomDecimal() // 0.3M
       | Gas.Electrical -> 0M
     | _ -> 0M
 

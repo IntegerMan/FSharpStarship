@@ -34,7 +34,10 @@ module WorldBuilding =
 
     space
 
-  let private getObjects(): list<GameObject> = [{pos={x=3; y=3}; objectType=Player}]
+  let private getObjects(): list<GameObject> = [
+      {pos={x=3; y=3}; objectType=Astronaut}
+      {pos={x=8; y=3}; objectType=AirScrubber}
+    ]
 
   let generateWorld(): GameWorld = { tiles=getTiles(); objects=getObjects() }
 

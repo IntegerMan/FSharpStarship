@@ -29,6 +29,7 @@ module Simulations =
 
   let private getPresentNeighbors(context: TileContext): List<Tile> =
     [
+      // TODO: Use Option. methods instead
       if context.up.IsSome then yield context.up.Value
       if context.right.IsSome then yield context.right.Value
       if context.down.IsSome then yield context.down.Value
@@ -77,27 +78,36 @@ module Simulations =
     newWorld    
 
   let humanOxygenIntake = 0.1M
+  let scrubberCO2Intake = 0.1M
   
-  let private convertTileOxygenToCarbonDioxide amount tile =
-    tile
-    |> setTileGas Gas.Oxygen (tile.oxygen - amount)
-    |> setTileGas Gas.CarbonDioxide (tile.carbonDioxide + amount)
+  let private convertTileGas amount gasSource gasGen tile =
+    if tile |> getTileGas gasSource >= amount then
+      tile
+      |> setTileGas gasSource ((tile |> getTileGas gasSource) - amount)
+      |> setTileGas gasGen ((tile |> getTileGas gasGen) + amount)
+    else
+      tile
 
   let private simulatePerson (person: GameObject, world: GameWorld): GameWorld =
     let tile = world |> getTile person.pos
     match tile with
     | Some t ->
-      if t.oxygen >= 0.1M then
-        let newTile = t |> convertTileOxygenToCarbonDioxide humanOxygenIntake
+        let newTile = t |> convertTileGas humanOxygenIntake Gas.Oxygen Gas.CarbonDioxide
         replaceTile(world, person.pos, newTile)
-      else
-        world
-    | None -> world
-    
+    | None -> world   
+
+  let private simulateAirScrubber (scrubber: GameObject, world: GameWorld): GameWorld =
+    let tile = world |> getTile scrubber.pos
+    match tile with
+    | Some t ->
+        let newTile = t |> convertTileGas scrubberCO2Intake Gas.CarbonDioxide Gas.Oxygen
+        replaceTile(world, scrubber.pos, newTile)
+    | None -> world   
 
   let private simulateObject obj world =
     match obj.objectType with
-    | Player -> simulatePerson(obj, world)
+    | Astronaut -> simulatePerson(obj, world)
+    | AirScrubber -> simulateAirScrubber(obj, world)
 
   let private simulateObjects tile world =
     let mutable newWorld = world
