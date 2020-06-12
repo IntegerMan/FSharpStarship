@@ -7,9 +7,16 @@ Code for an upcoming talk on Modeling a Starship in F#. Intended as a fun introd
 All code written by Matt Eland (@IntegerMan)
 
 ### Art
-Artwork commercially purchased from DithArt and used in open source software with permission.
+
+#### Tiles
+
+Tile artwork commercially purchased from DithArt and used in open source software with permission.
 
 Visit https://dithart.itch.io/ for more information on DithArt's assets. Artwork cannot be reused, repurposed, or redistributed without their express written consent.
+
+#### Astronaut
+
+Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/21/astronaut-sprite-by-pjcr/ and credited to PJCR and free for use in commercial / non-commercial work.
 
 ## Level
 

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
@@ -17,7 +18,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public override int PosX => GameObject.pos.x * TileWidth;
         public override int PosY => GameObject.pos.y * TileHeight;
 
-        public override Brush Background => Brushes.Cyan;
-
+        public override Sprites.SpriteInfo SpriteInfo => Sprites.getObjectSpriteInfo(GameObject);
     }
 }

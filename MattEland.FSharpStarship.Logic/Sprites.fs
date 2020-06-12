@@ -25,7 +25,7 @@ module Sprites =
     | Floor -> 11
     | Space -> 10
 
-  let getSpriteInfo (tileType: TileType): SpriteInfo =
+  let getTileSpriteInfo (tileType: TileType): SpriteInfo =
     {
       image="tileset2.png"
       x=getTileX(tileType);
@@ -33,4 +33,14 @@ module Sprites =
       width=32;
       height=32;
       zIndex=getZIndex(tileType)
+    }
+
+  let getObjectSpriteInfo (object: GameObject): SpriteInfo =
+    {
+      image="Astronaut.png"
+      x=1;
+      y=0;
+      width=32;
+      height=32;
+      zIndex=5
     }
