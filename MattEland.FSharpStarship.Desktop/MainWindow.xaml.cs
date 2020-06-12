@@ -22,7 +22,7 @@ namespace MattEland.FSharpStarship.Desktop
             _vm = new MainViewModel();
             DataContext = _vm;
 
-            _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), 
+            _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(10), 
                                          DispatcherPriority.Background, 
                                          (sender, e) => _vm.AdvanceTime(), 
                                          Dispatcher.CurrentDispatcher);

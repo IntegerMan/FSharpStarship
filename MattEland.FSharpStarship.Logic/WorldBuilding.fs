@@ -36,6 +36,7 @@ module WorldBuilding =
 
   let private getObjects(): list<GameObject> = [
       {pos={x=3; y=3}; objectType=Astronaut}
+      {pos={x=7; y=5}; objectType=Astronaut}
       {pos={x=8; y=3}; objectType=AirScrubber}
     ]
 
