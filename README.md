@@ -46,8 +46,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [ ] Allow the player to destroy a wall
 - [ ] Activate machines
 - [ ] Restart simulation
-- [ ] Auto-advance simulation
-- [ ] Ability to pause and resume the simulation
+- [x] Auto-advance simulation
+- [x] Ability to pause and resume the simulation
 
 ## Environmental
 

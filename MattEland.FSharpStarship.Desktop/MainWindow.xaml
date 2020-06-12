@@ -38,12 +38,14 @@
                       SelectedItem="{Binding SelectedViewMode}">
                 </ComboBox>
 
-                <Button Padding="8"
-                    Margin="0,8"
-                    ToolTip="Advances the simulation and updates the display"
-                    Click="AdvanceTime_OnClick">
-                    Advance Time
-                </Button>
+                <!-- TODO: This really should use a ViewModel -->
+                <ToggleButton Padding="8"
+                              x:Name="togglePause"
+                              IsChecked="False"
+                              Margin="0,8"
+                              Click="OnTogglePauseClick">
+                    Play
+                </ToggleButton>
             </StackPanel>
         </DockPanel>
 

@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
+using MattEland.FSharpStarship.Desktop.Annotations;
 using MattEland.FSharpStarship.Desktop.ViewModels;
 
 namespace MattEland.FSharpStarship.Desktop
@@ -6,9 +9,11 @@ namespace MattEland.FSharpStarship.Desktop
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    [UsedImplicitly]
+    public partial class MainWindow
     {
-        private MainViewModel _vm;
+        private readonly MainViewModel _vm;
+        private readonly DispatcherTimer _timer;
 
         public MainWindow()
         {
@@ -16,11 +21,28 @@ namespace MattEland.FSharpStarship.Desktop
 
             _vm = new MainViewModel();
             DataContext = _vm;
+
+            _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), 
+                                         DispatcherPriority.Background, 
+                                         (sender, e) => _vm.AdvanceTime(), 
+                                         Dispatcher.CurrentDispatcher);
+            _timer.Stop();
         }
 
-        private void AdvanceTime_OnClick(object sender, RoutedEventArgs e)
+        private void OnTogglePauseClick(object sender, RoutedEventArgs e)
         {
-            _vm.AdvanceTime();
+            if (_timer.IsEnabled)
+            {
+                _timer.Stop();
+                togglePause.Content = "Play";
+                togglePause.IsChecked = false;
+            }
+            else
+            {
+                _timer.Start();
+                togglePause.Content = "Pause";
+                togglePause.IsChecked = true;
+            }
         }
     }
 }
