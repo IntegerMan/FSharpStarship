@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
@@ -9,9 +6,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class TileViewModel : WorldEntityViewModel
     {
-        public World.Tile Tile { get; }
+        public Tiles.Tile Tile { get; }
 
-        public TileViewModel(World.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
+        public TileViewModel(Tiles.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
         {
             Tile = tile;
         }
@@ -25,7 +22,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
-        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Oxygen}\nCO2: {Tile.CarbonDioxide}\nHeat: {Tile.Heat}";
+        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Gasses.Oxygen}\nCO2: {Tile.Gasses.CarbonDioxide}\nHeat: {Tile.Gasses.Heat}\nPressure: {Tile.Pressure}";
 
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;
@@ -49,7 +46,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                if (Tile.TileType.Equals(World.TileType.Space)) return Brushes.Transparent;
+                if (Tile.TileType.Equals(Tiles.TileType.Space)) return Brushes.Transparent;
 
                 return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
             }

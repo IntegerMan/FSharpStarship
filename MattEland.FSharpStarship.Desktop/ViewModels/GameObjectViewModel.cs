@@ -1,17 +1,15 @@
-﻿using System.Windows.Media;
-using MattEland.FSharpStarship.Desktop.Helpers;
-using MattEland.FSharpStarship.Logic;
+﻿using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class GameObjectViewModel : WorldEntityViewModel
     {
-        public GameObjectViewModel(World.GameObject obj, MainViewModel mainViewModel) : base(mainViewModel)
+        public GameObjectViewModel(GameObjects.GameObject obj, MainViewModel mainViewModel) : base(mainViewModel)
         {
             GameObject = obj;
         }
 
-        public World.GameObject GameObject { get; }
+        public GameObjects.GameObject GameObject { get; }
 
         public override string ToolTip => $"{GameObject.ObjectType} ({GameObject.Pos.X}, {GameObject.Pos.Y})";
 

@@ -1,107 +1,37 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Utils
 open Positions
+open Gasses
+open Tiles
+open TileGas
+open GameObjects
 
 module World =
 
-  type GameObjectType =
-    | Astronaut
-    | AirScrubber
-
-  type GameObject =
-    {
-      Pos: Pos;
-      ObjectType: GameObjectType;
-    }
-
-  type TileType =
-    | Floor
-    | Wall
-    | WallLeft
-    | WallRight
-    | Space
-
-  type Tile = 
-    {
-      TileType: TileType; 
-      Pos: Pos; 
-      // TODO: It'd be nice to be able to have a collection of gasses, potentially
-      Heat: decimal; 
-      Oxygen: decimal;
-      CarbonDioxide: decimal;
-      Power: decimal;
-    }
-  
   type GameWorld = 
     {
-      Tiles: List<Tile>;
-      Objects: List<GameObject>;
+      Tiles: List<Tile>
+      Objects: List<GameObject>
     }
 
   let getTile pos world = world.Tiles |> List.find(fun t -> t.Pos = pos)
   let tryGetTile pos world = world.Tiles |> List.tryFind(fun t -> t.Pos = pos)
   let getObjects pos world = world.Objects |> List.where(fun o -> o.Pos = pos)
 
-  type Gas =
-    | Oxygen
-    | CarbonDioxide
-    | Heat
-    | Electrical
-
-  let pressurizedGasses = [Oxygen; CarbonDioxide]
-
-  let getTileGas gas tile =
-      match gas with
-      | Oxygen -> tile.Oxygen
-      | CarbonDioxide -> tile.CarbonDioxide
-      | Heat -> tile.Heat
-      | Electrical -> tile.Power
-
-  let retainsGas tileType = tileType <> TileType.Space
-
-  let setTileGas gas requestedValue tile =
-    if retainsGas tile.TileType then
-      // Ensure we don't go negative
-      let value = System.Math.Max(0M, requestedValue)
-
-      // Set the relevant gas
-      match gas with
-      | Oxygen -> {tile with Oxygen=value}
-      | CarbonDioxide -> {tile with CarbonDioxide=value}
-      | Heat -> {tile with Heat=value}
-      | Electrical -> {tile with Power=value}
-    else
-      tile // Tiles that don't retain gasses should not be altered
-
-  let modifyTileGas gas delta tile =
-    let oldValue = tile |> getTileGas gas
-    let newValue = oldValue + delta
-    tile |> setTileGas gas newValue
-
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
 
-  let private getDefaultGas tileType gas =
-    match tileType with
-    | Floor ->
-      match gas with
-      | Gas.Oxygen -> 0.7M
-      | Gas.CarbonDioxide -> randomDecimal() // 0.3M
-      | Gas.Heat -> randomDecimal() // 0.3M
-      | Gas.Electrical -> 0M
-    | _ -> 0M
-
   let makeTile(tileType, pos) = 
+    let gasses = getDefaultTileGasses tileType
     {
-      TileType=tileType; 
-      Pos=pos; 
-      Heat=getDefaultGas tileType Gas.Heat
-      Oxygen=getDefaultGas tileType Gas.Oxygen
-      CarbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
-      Power=getDefaultGas tileType Gas.Electrical
-    } 
+      TileType=tileType
+      Pos=pos
+      Gasses=gasses
+      Pressure=gasses |> calculatePressure
+    }
    
-  let getTilePressure tile = pressurizedGasses |> List.sumBy(fun gas -> tile |> getTileGas gas)
+  let makeTileWithGasses tileType pos gasses = 
+    let tile = makeTile(tileType, pos)
+    {tile with Gasses=gasses; Pressure=gasses |> calculatePressure}
 
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
     if tile.Pos = testPos then

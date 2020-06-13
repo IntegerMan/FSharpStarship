@@ -1,6 +1,7 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open World
+open GameObjects
+open Tiles
 
 module Sprites =
 

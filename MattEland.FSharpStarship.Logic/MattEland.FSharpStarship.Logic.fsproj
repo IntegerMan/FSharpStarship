@@ -7,7 +7,13 @@
   <ItemGroup>
     <Compile Include="Utils.fs" />
     <Compile Include="Positions.fs" />
+    <Compile Include="Gasses.fs" />
+    <Compile Include="Tiles.fs" />
+    <Compile Include="TileGas.fs" />
+    <Compile Include="GameObjects.fs" />
     <Compile Include="World.fs" />
+    <Compile Include="Contexts.fs" />
+    <Compile Include="SimulateGasses.fs" />
     <Compile Include="Simulation.fs" />
     <Compile Include="WorldBuilding.fs" />
     <Compile Include="View.fs" />

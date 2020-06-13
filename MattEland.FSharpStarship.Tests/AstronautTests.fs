@@ -3,12 +3,16 @@
 open Xunit
 open MattEland.FSharpStarship.Logic.World
 open MattEland.FSharpStarship.Logic.Simulations
+open MattEland.FSharpStarship.Logic.Tiles
+open MattEland.FSharpStarship.Logic.Gasses
+open MattEland.FSharpStarship.Logic.GameObjects
+open TestHelpers
 
 [<Fact>]
 let ``Humans should reduce the amount of Oxygen`` () =
   // Arrange
   let human: GameObject = {ObjectType=Astronaut; Pos={X=1;Y=1}}
-  let tile = {makeTile(TileType.Floor, human.Pos) with Oxygen = 0.7M}
+  let tile = makeFloorTile human.Pos {standardGas with Oxygen=0.7M}
   let world: GameWorld = {Tiles=[tile]; Objects=[human]}
 
   // Act
@@ -22,7 +26,7 @@ let ``Humans should reduce the amount of Oxygen`` () =
 let ``Humans should increase the amount of carbon dioxide`` () =
   // Arrange
   let human: GameObject = {ObjectType=Astronaut; Pos={X=1;Y=1}}
-  let tile = {makeTile(TileType.Floor, human.Pos) with Oxygen = 0.1M; CarbonDioxide=0.3M}
+  let tile = makeFloorTile human.Pos {standardGas with Oxygen=0.7M; CarbonDioxide=0.3M}
   let world: GameWorld = {Tiles=[tile]; Objects=[human]}
 
   // Act
@@ -36,7 +40,7 @@ let ``Humans should increase the amount of carbon dioxide`` () =
 let ``Humans should not produce carbon dioxide without Oxygen`` () =
   // Arrange
   let human: GameObject = {ObjectType=Astronaut; Pos={X=1;Y=1}}
-  let tile = {makeTile(TileType.Floor, human.Pos) with Oxygen = 0M; CarbonDioxide=0.3M}
+  let tile = makeFloorTile human.Pos {standardGas with Oxygen=0M; CarbonDioxide=0.3M}
   let world: GameWorld = {Tiles=[tile]; Objects=[human]}
 
   // Act
