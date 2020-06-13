@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="TestHelpers.fs" />
     <Compile Include="CarbonDioxideTests.fs" />
     <Compile Include="HeatTests.fs" />
     <Compile Include="OxygenTests.fs" />

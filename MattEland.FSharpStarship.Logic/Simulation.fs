@@ -31,11 +31,11 @@ module Simulations =
       | Floor | Space -> true
       | _ -> false
 
-  let private flowGasFromTileToNeighbor tile neighbor world = 
-    let gas = tile |> getTopMostGas
+  let private shiftTopmostGas source dest world = 
+    let gas = source |> getTopMostGas
     world
-    |> replaceTile tile.Pos (modifyTileGas gas -0.01M tile)
-    |> replaceTile neighbor.Pos (modifyTileGas gas 0.01M neighbor)
+    |> replaceTile source.Pos (modifyTileGas gas -0.01M source)
+    |> replaceTile dest.Pos (modifyTileGas gas 0.01M dest)
 
   let private tryFindLowPressureNeighbor tile world =
     getContext(world, tile) 
@@ -44,24 +44,26 @@ module Simulations =
     |> List.sortBy(fun n -> n.Pressure) 
     |> List.tryHead
 
-  let rec private simulateTileGas tile world =
+  let rec private equalizeTilePressure tile world =
     match world |> tryFindLowPressureNeighbor tile with
     | None -> world
     | Some neighbor ->
-      let newWorld = world |> flowGasFromTileToNeighbor tile neighbor
+      let newWorld = world |> shiftTopmostGas tile neighbor
       let newTile = newWorld |> getTile tile.Pos
 
       // Call it again in case more can spill over
-      simulateTileGas newTile newWorld
+      equalizeTilePressure newTile newWorld
+
+  let private simulateTileGas tile world =
+    equalizeTilePressure tile world
+    // TODO: Loop through pressurized gasses and swap them out
 
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
   
   let private convertTileGas amount gasSource gasGen tile =
     if tile |> getTileGas gasSource >= amount then
-      tile
-      |> setTileGas gasSource ((tile |> getTileGas gasSource) - amount)
-      |> setTileGas gasGen ((tile |> getTileGas gasGen) + amount)
+      tile |> modifyTileGas gasSource -amount |> modifyTileGas gasGen amount
     else
       tile
 

@@ -41,8 +41,8 @@ module View =
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.Overlay with
-    | CurrentOverlay.Oxygen -> getGradedColor(tile.Oxygen)
-    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.CarbonDioxide)
-    | CurrentOverlay.Heat -> getGradedColor(tile.Heat)
+    | CurrentOverlay.Oxygen -> getGradedColor(tile.Gasses.Oxygen)
+    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.Gasses.CarbonDioxide)
+    | CurrentOverlay.Heat -> getGradedColor(tile.Gasses.Heat)
     | CurrentOverlay.Pressure -> getGradedColor(tile.Pressure / 3.0M)
     | _ -> getTileColor(tile.TileType)
