@@ -7,7 +7,7 @@ open MattEland.FSharpStarship.Logic.Simulations
 [<Fact>]
 let ``Humans should reduce the amount of oxygen`` () =
   // Arrange
-  let human: GameObject = {objectType=Astronaut; pos={x=1;y=1}}
+  let human: GameObject = {objectType=Astronaut; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, human.pos) with oxygen = 0.7M}
   let world: GameWorld = {tiles=[tile]; objects=[human]}
 
@@ -21,7 +21,7 @@ let ``Humans should reduce the amount of oxygen`` () =
 [<Fact>]
 let ``Humans should increase the amount of carbon dioxide`` () =
   // Arrange
-  let human: GameObject = {objectType=Astronaut; pos={x=1;y=1}}
+  let human: GameObject = {objectType=Astronaut; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, human.pos) with oxygen = 0.1M; carbonDioxide=0.3M}
   let world: GameWorld = {tiles=[tile]; objects=[human]}
 
@@ -35,7 +35,7 @@ let ``Humans should increase the amount of carbon dioxide`` () =
 [<Fact>]
 let ``Humans should not produce carbon dioxide without oxygen`` () =
   // Arrange
-  let human: GameObject = {objectType=Astronaut; pos={x=1;y=1}}
+  let human: GameObject = {objectType=Astronaut; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, human.pos) with oxygen = 0M; carbonDioxide=0.3M}
   let world: GameWorld = {tiles=[tile]; objects=[human]}
 

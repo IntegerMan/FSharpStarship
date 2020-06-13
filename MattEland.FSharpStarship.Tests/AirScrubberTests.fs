@@ -7,7 +7,7 @@ open MattEland.FSharpStarship.Logic.Simulations
 [<Fact>]
 let ``Scrubbers should reduce the amount of CO2`` () =
   // Arrange
-  let obj: GameObject = {objectType=AirScrubber; pos={x=1;y=1}}
+  let obj: GameObject = {objectType=AirScrubber; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, obj.pos) with carbonDioxide = 0.7M}
   let world: GameWorld = {tiles=[tile]; objects=[obj]}
 
@@ -21,7 +21,7 @@ let ``Scrubbers should reduce the amount of CO2`` () =
 [<Fact>]
 let ``Scrubbers should increase the amount of Oxygen`` () =
   // Arrange
-  let scrubber: GameObject = {objectType=AirScrubber; pos={x=1;y=1}}
+  let scrubber: GameObject = {objectType=AirScrubber; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, scrubber.pos) with oxygen = 0.3M; carbonDioxide=0.1M}
   let world: GameWorld = {tiles=[tile]; objects=[scrubber]}
 
@@ -35,7 +35,7 @@ let ``Scrubbers should increase the amount of Oxygen`` () =
 [<Fact>]
 let ``Scrubbers should not produce oxygen without carbon dioxide`` () =
   // Arrange
-  let scrubber: GameObject = {objectType=AirScrubber; pos={x=1;y=1}}
+  let scrubber: GameObject = {objectType=AirScrubber; pos={X=1;Y=1}}
   let tile = {makeTile(TileType.Floor, scrubber.pos) with carbonDioxide = 0M; oxygen=0.3M}
   let world: GameWorld = {tiles=[tile]; objects=[scrubber]}
 

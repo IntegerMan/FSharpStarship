@@ -2,6 +2,6 @@
 
 module Positions =
 
-  type Pos = {x: int; y: int}
+  type Pos = {X: int; Y: int}
 
-  let offset xDelta yDelta pos = {x=pos.x + xDelta; y = pos.y + yDelta}
+  let offset xDelta yDelta pos = {X=pos.X + xDelta; Y = pos.Y + yDelta}

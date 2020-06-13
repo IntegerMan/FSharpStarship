@@ -28,16 +28,16 @@ module WorldBuilding =
     let mutable space = // TODO: No mutable!
       [for y in 0 .. 10 do
         for x in 0 .. 14 do
-          yield makeTile(TileType.Space, {x=x;y=y})]
+          yield makeTile(TileType.Space, {X=x;Y=y})]
 
-    makeRoom({x=1; y=1}, 13, 9) |>  List.iter(fun t -> space <- replaceListItem t.pos t space)
+    makeRoom({X=1; Y=1}, 13, 9) |>  List.iter(fun t -> space <- replaceListItem t.pos t space)
 
     space
 
   let private getObjects(): list<GameObject> = [
-      {pos={x=3; y=3}; objectType=Astronaut}
-      {pos={x=7; y=5}; objectType=Astronaut}
-      {pos={x=8; y=3}; objectType=AirScrubber}
+      {pos={X=3; Y=3}; objectType=Astronaut}
+      {pos={X=7; Y=5}; objectType=Astronaut}
+      {pos={X=8; Y=3}; objectType=AirScrubber}
     ]
 
   let generateWorld(): GameWorld = { tiles=getTiles(); objects=getObjects() }

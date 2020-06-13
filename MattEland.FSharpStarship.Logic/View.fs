@@ -11,6 +11,7 @@ module View =
     | CarbonDioxide = 3
     | Electrical = 4
     | Fluid = 5
+    | Pressure = 6
 
   type AppView = {
     overlay: CurrentOverlay;

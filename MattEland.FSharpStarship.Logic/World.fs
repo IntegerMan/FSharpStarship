@@ -59,8 +59,8 @@ module World =
 
   let setTileGas gas requestedValue tile =
     if retainsGas tile.tileType then
-      // Ensure we don't outside the 0 - 1 range
-      let value = clamp(requestedValue, 0M, 1M)
+      // Ensure we don't go negative
+      let value = System.Math.Max(0M, requestedValue)
 
       // Set the relevant gas
       match gas with
@@ -70,6 +70,11 @@ module World =
       | Electrical -> {tile with power=value}
     else
       tile // Tiles that don't retain gasses should not be altered
+
+  let modifyTileGas gas delta tile =
+    let oldValue = tile |> getTileGas gas
+    let newValue = oldValue + delta
+    tile |> setTileGas gas newValue
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
     match world |> getTile pos with

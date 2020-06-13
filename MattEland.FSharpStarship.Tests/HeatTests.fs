@@ -8,8 +8,8 @@ open MattEland.FSharpStarship.Logic.Simulations
 let ``Share Heat with two tiles should share heat`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -22,8 +22,8 @@ let ``Share Heat with two tiles should share heat`` () =
 let ``Share Heat with two tiles should not over-share heat`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.68M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.68M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -36,8 +36,8 @@ let ``Share Heat with two tiles should not over-share heat`` () =
 let ``Share Heat with two tiles should not over-receive heat`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.68M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.68M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -50,8 +50,8 @@ let ``Share Heat with two tiles should not over-receive heat`` () =
 let ``Share Heat with two tiles should receive heat`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -64,9 +64,9 @@ let ``Share Heat with two tiles should receive heat`` () =
 let ``Share Heat with three tiles should share heat`` () =
     
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
-    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {X=1;Y=2}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2]}
     
     // Act
@@ -79,9 +79,9 @@ let ``Share Heat with three tiles should share heat`` () =
 let ``Share Heat with three tiles should receive heat`` () =
     
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
-    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {X=1;Y=2}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2]}
     
     // Act
@@ -95,10 +95,10 @@ let ``Share Heat with three tiles should receive heat`` () =
 let ``Share Heat with four tiles should send heat`` () =
     
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
-    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with heat=0.5M}
-    let neighbor3: Tile = {makeTile(TileType.Floor, {x=0;y=1}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {X=1;Y=2}) with heat=0.5M}
+    let neighbor3: Tile = {makeTile(TileType.Floor, {X=0;Y=1}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2; neighbor3]}
     
     // Act
@@ -111,10 +111,10 @@ let ``Share Heat with four tiles should send heat`` () =
 let ``Share Heat with four tiles should receive heat`` () =
     
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighbor1: Tile = {makeTile(TileType.Floor, {x=1;y=0}) with heat=0.5M}
-    let neighbor2: Tile = {makeTile(TileType.Floor, {x=1;y=2}) with heat=0.5M}
-    let neighbor3: Tile = {makeTile(TileType.Floor, {x=0;y=1}) with heat=0.5M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighbor1: Tile = {makeTile(TileType.Floor, {X=1;Y=0}) with heat=0.5M}
+    let neighbor2: Tile = {makeTile(TileType.Floor, {X=1;Y=2}) with heat=0.5M}
+    let neighbor3: Tile = {makeTile(TileType.Floor, {X=0;Y=1}) with heat=0.5M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighbor1; neighbor2; neighbor3]}
     
     // Act
@@ -129,8 +129,8 @@ let ``Share Heat with four tiles should receive heat`` () =
 let ``Heat should not flow into walls`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Wall, {x=1;y=0}) with heat=0M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Wall, {X=1;Y=0}) with heat=0M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -144,8 +144,8 @@ let ``Heat should not flow into walls`` () =
 let ``Heat should flow into space`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Space, {x=1;y=0}) with heat=0M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Space, {X=1;Y=0}) with heat=0M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
@@ -159,8 +159,8 @@ let ``Heat should flow into space`` () =
 let ``Space should not retain heat`` () =
 
     // Arrange
-    let originTile: Tile = {makeTile(TileType.Floor, {x=1;y=1}) with heat=0.7M}
-    let neighborTile: Tile = {makeTile(TileType.Space, {x=1;y=0}) with heat=0M}
+    let originTile: Tile = {makeTile(TileType.Floor, {X=1;Y=1}) with heat=0.7M}
+    let neighborTile: Tile = {makeTile(TileType.Space, {X=1;Y=0}) with heat=0M}
     let world: GameWorld = {objects=[];tiles=[originTile; neighborTile]}
 
     // Act
