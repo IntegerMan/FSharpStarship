@@ -108,7 +108,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 ## Architecture
 
 - [ ] Do not use .Value (Use Option. instead)
-- [ ] Do not use mutable
+- [x] Do not use mutable
 - [ ] Use upper-case field names
 - [ ] Introduce a ValidatedPos or similar type
 - [ ] Convert methods to function syntax when possible

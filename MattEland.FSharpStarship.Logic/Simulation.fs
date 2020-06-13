@@ -37,7 +37,6 @@ module Simulations =
     ]
 
   let private shareGas(world: GameWorld, tile: Tile, neighbor: Tile, gas: Gas, delta: decimal): GameWorld =
-    let mutable newWorld = world
 
     let tileCurrentGas = getTileGas gas tile
     let neighborCurrentGas = getTileGas gas neighbor
@@ -46,13 +45,13 @@ module Simulations =
       let difference = tileCurrentGas - neighborCurrentGas
       let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
 
-      // Remove the gas from the source tile
-      newWorld <- replaceTile(newWorld, tile.pos, tile |> setTileGas gas (tileCurrentGas - actualDelta))
-
       // Move the gas into the neighbor tile
-      newWorld <- replaceTile(newWorld, neighbor.pos, neighbor |> setTileGas gas (neighborCurrentGas + actualDelta))
+      world 
+      |> replaceTile tile.pos (tile |> setTileGas gas (tileCurrentGas - actualDelta))
+      |> replaceTile neighbor.pos (neighbor |> setTileGas gas (neighborCurrentGas + actualDelta))
 
-    newWorld
+    else
+      world
 
   let canGasFlowInto tileType gas =
     match tileType with
@@ -60,22 +59,18 @@ module Simulations =
       | _ -> false
 
   let private simulateTileGas tile gas world =
-    let mutable newWorld = world
     let context = getContext(world, tile)
     let presentNeighbors = getPresentNeighbors(context)
 
     let currentGas = getTileGas gas tile
     let neighbors = presentNeighbors |> List.filter(fun n -> canGasFlowInto n.tileType gas && getTileGas gas n < currentGas)
 
-    // TODO: It'd be nice to use a list function here and avoid mutable newWorld
     if not neighbors.IsEmpty then
       let delta = maxAirFlow / decimal neighbors.Length
 
-      for neighbor in neighbors do
-        let neighborTile = newWorld |> getTile tile.pos
-        newWorld <- shareGas(newWorld, neighborTile.Value, neighbor, gas, delta)
-
-    newWorld    
+      neighbors |> List.fold(fun newWorld neighbor -> shareGas(newWorld, (newWorld |> getTile tile.pos).Value, neighbor, gas, delta)) world
+    else
+      world
 
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
@@ -93,7 +88,7 @@ module Simulations =
     match tile with
     | Some t ->
         let newTile = t |> convertTileGas humanOxygenIntake Gas.Oxygen Gas.CarbonDioxide
-        replaceTile(world, person.pos, newTile)
+        world |> replaceTile person.pos newTile
     | None -> world   
 
   let private simulateAirScrubber (scrubber: GameObject, world: GameWorld): GameWorld =
@@ -101,7 +96,7 @@ module Simulations =
     match tile with
     | Some t ->
         let newTile = t |> convertTileGas scrubberCO2Intake Gas.CarbonDioxide Gas.Oxygen
-        replaceTile(world, scrubber.pos, newTile)
+        world |> replaceTile scrubber.pos newTile
     | None -> world   
 
   let private simulateObject obj world =
@@ -110,11 +105,9 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber(obj, world)
 
   let private simulateObjects tile world =
-    let mutable newWorld = world
-
-    newWorld |> getObjects tile.pos |> List.iter(fun obj -> newWorld <- simulateObject obj newWorld)
-    
-    newWorld
+    world 
+    |> getObjects tile.pos 
+    |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj) world
 
 
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
@@ -128,16 +121,12 @@ module Simulations =
 
   let simulate(world: GameWorld): GameWorld =
 
-    let mutable newWorld = world
-
     world.tiles 
     |> List.map(fun t -> t.pos)
-    |> List.distinct
-    |> List.map(fun p -> 
-      match getTile p newWorld with // Always get the tile fresh off of the newly updated world
-      | Some t -> 
-        newWorld <- simulateTile(t, newWorld)
-        newWorld
-      | None -> newWorld
-    ) 
-    |> List.last
+    |> List.distinct 
+    |> List.fold(fun newWorld p -> 
+          // TODO: It'd be good to make this match unnecessary
+          match getTile p newWorld with // Always get the tile fresh off of the newly updated world
+          | Some t -> simulateTile(t, newWorld)
+          | None -> newWorld) 
+          world

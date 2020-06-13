@@ -25,14 +25,13 @@ module WorldBuilding =
     list |> List.map(fun i -> if i.pos = pos then newItem else i)
 
   let private getTiles(): list<Tile> = 
-    let mutable space = // TODO: No mutable!
-      [for y in 0 .. 10 do
-        for x in 0 .. 14 do
-          yield makeTile(TileType.Space, {X=x;Y=y})]
+    let space = [for y in 0 .. 10 do
+                  for x in 0 .. 14 do
+                    yield makeTile(TileType.Space, {X=x;Y=y})
+                ]
 
-    makeRoom({X=1; Y=1}, 13, 9) |>  List.iter(fun t -> space <- replaceListItem t.pos t space)
-
-    space
+    makeRoom({X=1; Y=1}, 13, 9) 
+    |>  List.fold(fun space t -> space |> replaceListItem t.pos t) space
 
   let private getObjects(): list<GameObject> = [
       {pos={X=3; Y=3}; objectType=Astronaut}
