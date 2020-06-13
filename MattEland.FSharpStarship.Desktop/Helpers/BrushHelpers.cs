@@ -10,11 +10,11 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
     {
         public static ImageBrush GetBrushFromSpriteInfo(Sprites.SpriteInfo sprite)
         {
-            var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{sprite.image}"));
+            var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{sprite.Image}"));
 
-            var tileWidth = sprite.width;
-            var tileHeight = sprite.height;
-            var rect = new Int32Rect(sprite.x * tileWidth, sprite.y * tileHeight, tileWidth, tileHeight);
+            var tileWidth = sprite.Width;
+            var tileHeight = sprite.Height;
+            var rect = new Int32Rect(sprite.X * tileWidth, sprite.Y * tileHeight, tileWidth, tileHeight);
 
             var croppedImage = new CroppedBitmap(image, rect);
             var brush = new ImageBrush(croppedImage) { Stretch = Stretch.Uniform };

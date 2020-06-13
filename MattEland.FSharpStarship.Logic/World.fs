@@ -11,8 +11,8 @@ module World =
 
   type GameObject =
     {
-      pos: Pos;
-      objectType: GameObjectType;
+      Pos: Pos;
+      ObjectType: GameObjectType;
     }
 
   type TileType =
@@ -24,23 +24,24 @@ module World =
 
   type Tile = 
     {
-      tileType: TileType; 
-      pos: Pos; 
+      TileType: TileType; 
+      Pos: Pos; 
       // TODO: It'd be nice to be able to have a collection of gasses, potentially
-      heat: decimal; 
-      oxygen: decimal;
-      carbonDioxide: decimal;
-      power: decimal;
+      Heat: decimal; 
+      Oxygen: decimal;
+      CarbonDioxide: decimal;
+      Power: decimal;
     }
   
   type GameWorld = 
     {
-      tiles: List<Tile>;
-      objects: List<GameObject>;
+      Tiles: List<Tile>;
+      Objects: List<GameObject>;
     }
 
-  let getTile pos world = world.tiles |> List.tryFind(fun t -> t.pos = pos)
-  let getObjects pos world = world.objects |> List.where(fun o -> o.pos = pos)
+  let getTile pos world = world.Tiles |> List.find(fun t -> t.Pos = pos)
+  let tryGetTile pos world = world.Tiles |> List.tryFind(fun t -> t.Pos = pos)
+  let getObjects pos world = world.Objects |> List.where(fun o -> o.Pos = pos)
 
   type Gas =
     | Oxygen
@@ -48,26 +49,28 @@ module World =
     | Heat
     | Electrical
 
+  let pressurizedGasses = [Oxygen; CarbonDioxide]
+
   let getTileGas gas tile =
       match gas with
-      | Oxygen -> tile.oxygen
-      | CarbonDioxide -> tile.carbonDioxide
-      | Heat -> tile.heat
-      | Electrical -> tile.power
+      | Oxygen -> tile.Oxygen
+      | CarbonDioxide -> tile.CarbonDioxide
+      | Heat -> tile.Heat
+      | Electrical -> tile.Power
 
   let retainsGas tileType = tileType <> TileType.Space
 
   let setTileGas gas requestedValue tile =
-    if retainsGas tile.tileType then
+    if retainsGas tile.TileType then
       // Ensure we don't go negative
       let value = System.Math.Max(0M, requestedValue)
 
       // Set the relevant gas
       match gas with
-      | Oxygen -> {tile with oxygen=value}
-      | CarbonDioxide -> {tile with carbonDioxide=value}
-      | Heat -> {tile with heat=value}
-      | Electrical -> {tile with power=value}
+      | Oxygen -> {tile with Oxygen=value}
+      | CarbonDioxide -> {tile with CarbonDioxide=value}
+      | Heat -> {tile with Heat=value}
+      | Electrical -> {tile with Power=value}
     else
       tile // Tiles that don't retain gasses should not be altered
 
@@ -76,10 +79,7 @@ module World =
     let newValue = oldValue + delta
     tile |> setTileGas gas newValue
 
-  let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = 
-    match world |> getTile pos with
-    | Some tile -> tile |> getTileGas gas
-    | None -> 0M
+  let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
 
   let private getDefaultGas tileType gas =
     match tileType with
@@ -93,18 +93,20 @@ module World =
 
   let makeTile(tileType, pos) = 
     {
-      tileType=tileType; 
-      pos=pos; 
-      heat=getDefaultGas tileType Gas.Heat
-      oxygen=getDefaultGas tileType Gas.Oxygen
-      carbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
-      power=getDefaultGas tileType Gas.Electrical
+      TileType=tileType; 
+      Pos=pos; 
+      Heat=getDefaultGas tileType Gas.Heat
+      Oxygen=getDefaultGas tileType Gas.Oxygen
+      CarbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
+      Power=getDefaultGas tileType Gas.Electrical
     } 
    
+  let getTilePressure tile = pressurizedGasses |> List.sumBy(fun gas -> tile |> getTileGas gas)
+
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
-    if tile.pos = testPos then
+    if tile.Pos = testPos then
       newTile
     else
       tile
 
-  let replaceTile pos newTile world = {world with tiles=world.tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }
+  let replaceTile pos newTile world = {world with Tiles=world.Tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }

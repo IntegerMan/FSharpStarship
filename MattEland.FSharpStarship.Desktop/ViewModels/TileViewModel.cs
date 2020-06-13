@@ -23,18 +23,18 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             OnPropertyChanged(nameof(OverlayBrush));
         }
 
-        public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.tileType);
+        public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
-        public override string ToolTip => $"{Tile.tileType}\nPos: ({Tile.pos.X}, {Tile.pos.Y})\nOxygen: {Tile.oxygen}\nCO2: {Tile.carbonDioxide}\nHeat: {Tile.heat}";
+        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Oxygen}\nCO2: {Tile.CarbonDioxide}\nHeat: {Tile.Heat}";
 
-        public override int PosX => Tile.pos.X * TileWidth;
-        public override int PosY => Tile.pos.Y * TileHeight;
+        public override int PosX => Tile.Pos.X * TileWidth;
+        public override int PosY => Tile.Pos.Y * TileHeight;
 
         public Brush OverlayBrush
         {
             get
             {
-                if (AppView.overlay == View.CurrentOverlay.None) return Brushes.Transparent;
+                if (AppView.Overlay == View.CurrentOverlay.None) return Brushes.Transparent;
 
                 var color = CalculateColor();
                 Brush brush = new SolidColorBrush(color);
@@ -49,7 +49,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                if (Tile.tileType.Equals(World.TileType.Space)) return Brushes.Transparent;
+                if (Tile.TileType.Equals(World.TileType.Space)) return Brushes.Transparent;
 
                 return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
             }
@@ -58,7 +58,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         private Color CalculateColor()
         {
             var rgb = View.getBackgroundColor(Tile, AppView);
-            return Color.FromRgb(rgb.r, rgb.g, rgb.b);
+            return Color.FromRgb(rgb.R, rgb.G, rgb.B);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using MattEland.FSharpStarship.Desktop.Annotations;
+using JetBrains.Annotations;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {

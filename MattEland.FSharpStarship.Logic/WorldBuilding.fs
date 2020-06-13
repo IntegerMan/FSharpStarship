@@ -21,8 +21,7 @@ module WorldBuilding =
     makeVerticalArea(startPos |> offset (width - 1) 1, WallRight, height - 2) @
     makeArea(startPos |> offset 1 1, Floor, width - 2, height - 2)
 
-  let private replaceListItem pos newItem list = 
-    list |> List.map(fun i -> if i.pos = pos then newItem else i)
+  let private replaceListItem pos newItem list = list |> List.map(fun i -> if i.Pos = pos then newItem else i)
 
   let private getTiles(): list<Tile> = 
     let space = [for y in 0 .. 10 do
@@ -31,13 +30,13 @@ module WorldBuilding =
                 ]
 
     makeRoom({X=1; Y=1}, 13, 9) 
-    |>  List.fold(fun space t -> space |> replaceListItem t.pos t) space
+    |>  List.fold(fun space t -> space |> replaceListItem t.Pos t) space
 
   let private getObjects(): list<GameObject> = [
-      {pos={X=3; Y=3}; objectType=Astronaut}
-      {pos={X=7; Y=5}; objectType=Astronaut}
-      {pos={X=8; Y=3}; objectType=AirScrubber}
+      {Pos={X=3; Y=3}; ObjectType=Astronaut}
+      {Pos={X=7; Y=5}; ObjectType=Astronaut}
+      {Pos={X=8; Y=3}; ObjectType=AirScrubber}
     ]
 
-  let generateWorld(): GameWorld = { tiles=getTiles(); objects=getObjects() }
+  let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }
 

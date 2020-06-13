@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using MattEland.FSharpStarship.Desktop.Annotations;
+using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.ViewModels;
 
 namespace MattEland.FSharpStarship.Desktop

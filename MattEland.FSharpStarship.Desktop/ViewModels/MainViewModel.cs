@@ -26,10 +26,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 _gameWorld = value;
 
                 Tiles.Clear();
-                GameWorld.tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
+                GameWorld.Tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
 
                 Objects.Clear();
-                GameWorld.objects.Select(t => new GameObjectViewModel(t, this)).ToList().ForEach(o => Objects.Add(o));
+                GameWorld.Objects.Select(t => new GameObjectViewModel(t, this)).ToList().ForEach(o => Objects.Add(o));
 
                 OnPropertyChanged();
             }
@@ -43,10 +43,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public string SelectedViewMode
         {
-            get => _view.overlay.ToString();
+            get => _view.Overlay.ToString();
             set
             {
-                if (value == _view.overlay.ToString()) return;
+                if (value == _view.Overlay.ToString()) return;
 
                 var newEnum = Enum.Parse<View.CurrentOverlay>(value);
                 _view = View.changeOverlay(_view, newEnum);

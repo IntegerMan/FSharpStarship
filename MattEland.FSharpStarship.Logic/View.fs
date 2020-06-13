@@ -14,20 +14,20 @@ module View =
     | Pressure = 6
 
   type AppView = {
-    overlay: CurrentOverlay;
-    zoom: int;
+    Overlay: CurrentOverlay;
+    Zoom: int;
   }
 
   let getDefaultAppView() = {
-    overlay=CurrentOverlay.None; 
-    zoom=2;
+    Overlay=CurrentOverlay.None; 
+    Zoom=2;
   }
 
-  let changeOverlay(view: AppView, newOverlay: CurrentOverlay): AppView = {view with overlay = newOverlay}    
+  let changeOverlay(view: AppView, newOverlay: CurrentOverlay): AppView = {view with Overlay = newOverlay}    
 
-  type RGB = {r: byte; g: byte; b: byte}
+  type RGB = {R: byte; G: byte; B: byte}
 
-  let private rgb (r, g, b): RGB = {r = byte r; g = byte g; b = byte b}
+  let private rgb (r, g, b): RGB = {R = byte r; G = byte g; B = byte b}
 
   let private getTileColor (tileType: TileType): RGB =
     match tileType with
@@ -36,12 +36,13 @@ module View =
     | _ -> rgb(255, 0, 255) // Magenta for high visibility
 
   let private getGradedColor(percent: decimal): RGB = 
-    let value = (percent * 255M) |> System.Math.Round |> int
+    let value = (System.Math.Min(1M, percent) * 255M) |> System.Math.Round |> int
     rgb(value, value, value)
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
-    match view.overlay with
-    | CurrentOverlay.Oxygen -> getGradedColor(tile.oxygen)
-    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.carbonDioxide)
-    | CurrentOverlay.Heat -> getGradedColor(tile.heat)
-    | _ -> getTileColor(tile.tileType)
+    match view.Overlay with
+    | CurrentOverlay.Oxygen -> getGradedColor(tile.Oxygen)
+    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.CarbonDioxide)
+    | CurrentOverlay.Heat -> getGradedColor(tile.Heat)
+    | CurrentOverlay.Pressure -> getGradedColor(tile |> getTilePressure)
+    | _ -> getTileColor(tile.TileType)
