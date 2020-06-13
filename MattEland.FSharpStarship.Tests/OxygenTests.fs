@@ -3,6 +3,8 @@ module OxygenTests
 open Xunit
 open MattEland.FSharpStarship.Logic.World
 open MattEland.FSharpStarship.Logic.Simulations
+open MattEland.FSharpStarship.Logic.Tiles
+open MattEland.FSharpStarship.Logic.Gasses
 open TestHelpers
 
 [<Fact>]

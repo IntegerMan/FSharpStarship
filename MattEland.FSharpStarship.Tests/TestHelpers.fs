@@ -1,6 +1,8 @@
 ﻿module TestHelpers
 
 open MattEland.FSharpStarship.Logic.World
+open MattEland.FSharpStarship.Logic.Tiles
+open MattEland.FSharpStarship.Logic.TileGas
 
 let standardGas = defaultGasses TileType.Floor
 

@@ -31,8 +31,6 @@ namespace MattEland.FSharpStarship.Desktop
 
         private void OnTogglePauseClick(object sender, RoutedEventArgs e)
         {
-            _vm.AdvanceTime();
-            /*
             if (_timer.IsEnabled)
             {
                 _timer.Stop();
@@ -45,7 +43,6 @@ namespace MattEland.FSharpStarship.Desktop
                 togglePause.Content = "Pause";
                 togglePause.IsChecked = true;
             }
-        */
         }
     }
 }

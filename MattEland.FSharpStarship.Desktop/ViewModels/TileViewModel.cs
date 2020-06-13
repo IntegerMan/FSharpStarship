@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows.Media;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
@@ -9,9 +6,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class TileViewModel : WorldEntityViewModel
     {
-        public World.Tile Tile { get; }
+        public Tiles.Tile Tile { get; }
 
-        public TileViewModel(World.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
+        public TileViewModel(Tiles.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
         {
             Tile = tile;
         }
@@ -49,7 +46,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                if (Tile.TileType.Equals(World.TileType.Space)) return Brushes.Transparent;
+                if (Tile.TileType.Equals(Tiles.TileType.Space)) return Brushes.Transparent;
 
                 return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
             }

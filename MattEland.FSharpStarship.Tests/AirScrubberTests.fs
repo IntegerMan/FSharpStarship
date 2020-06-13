@@ -4,6 +4,8 @@ open Xunit
 open MattEland.FSharpStarship.Logic.World
 open MattEland.FSharpStarship.Logic.Simulations
 open TestHelpers
+open MattEland.FSharpStarship.Logic.GameObjects
+open MattEland.FSharpStarship.Logic.Gasses
 
 [<Fact>]
 let ``Scrubbers should reduce the amount of CO2`` () =

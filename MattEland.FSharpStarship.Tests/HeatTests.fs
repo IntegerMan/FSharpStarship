@@ -4,6 +4,8 @@ open Xunit
 open MattEland.FSharpStarship.Logic.World
 open MattEland.FSharpStarship.Logic.Simulations
 open TestHelpers
+open MattEland.FSharpStarship.Logic.Tiles
+open MattEland.FSharpStarship.Logic.Gasses
 
 [<Fact>]
 let ``Share Heat with two Tiles should share heat`` () =
