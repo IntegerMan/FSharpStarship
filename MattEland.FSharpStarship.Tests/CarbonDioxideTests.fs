@@ -76,7 +76,7 @@ let ``Share CO2 with three Tiles should share CO2`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.56M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
 
 [<Fact>]
 let ``Share CO2 with three Tiles should receive CO2`` () =
@@ -91,8 +91,8 @@ let ``Share CO2 with three Tiles should receive CO2`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.CarbonDioxide))
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor1.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor2.Pos, Gas.CarbonDioxide))
 
 [<Fact>]
 let ``Share CO2 with four Tiles should send CO2`` () =
@@ -108,7 +108,7 @@ let ``Share CO2 with four Tiles should send CO2`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.61M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
 
 [<Fact>]
 let ``Share CO2 with four Tiles should receive CO2`` () =
@@ -124,9 +124,9 @@ let ``Share CO2 with four Tiles should receive CO2`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor1.Pos, Gas.CarbonDioxide))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor2.Pos, Gas.CarbonDioxide))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor3.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor3.Pos, Gas.CarbonDioxide))
 
 [<Fact>]
 let ``CO2 should not flow into walls`` () =

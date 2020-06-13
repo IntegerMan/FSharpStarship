@@ -39,7 +39,7 @@ let ``Scrubbers should increase the amount of Oxygen`` () =
 let ``Scrubbers should not produce Oxygen without carbon dioxide`` () =
   // Arrange
   let scrubber: GameObject = {ObjectType=AirScrubber; Pos={X=1;Y=1}}
-  let tile = makeFloorTile scrubber.Pos {standardGas with CarbonDioxide=0M; Oxygen=3M}
+  let tile = makeFloorTile scrubber.Pos {standardGas with CarbonDioxide=0M; Oxygen=0.3M}
   let world: GameWorld = {Tiles=[tile]; Objects=[scrubber]}
 
   // Act

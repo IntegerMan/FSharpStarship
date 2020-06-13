@@ -76,7 +76,7 @@ let ``Share Heat with three Tiles should share heat`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
+    Assert.Equal(0.56M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
 
 [<Fact>]
 let ``Share Heat with three Tiles should receive heat`` () =
@@ -91,8 +91,8 @@ let ``Share Heat with three Tiles should receive heat`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Heat))
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Heat))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Heat))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Heat))
 
 [<Fact>]
 let ``Share Heat with four Tiles should send heat`` () =
@@ -108,7 +108,7 @@ let ``Share Heat with four Tiles should send heat`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.61M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
 
 [<Fact>]
 let ``Share Heat with four Tiles should receive heat`` () =
@@ -124,9 +124,9 @@ let ``Share Heat with four Tiles should receive heat`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Heat))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Heat))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor3.Pos, Gas.Heat))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Heat))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Heat))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor3.Pos, Gas.Heat))
 
 [<Fact>]
 let ``Heat should not flow into walls`` () =
@@ -155,7 +155,7 @@ let ``Heat should flow into space`` () =
     let finalWorld = simulateTile(originTile, world)
 
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
+    Assert.Equal(0M, getGasByPos(finalWorld, originTile.Pos, Gas.Heat))
 
     
 [<Fact>]

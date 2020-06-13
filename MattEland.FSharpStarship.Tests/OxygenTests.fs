@@ -76,7 +76,7 @@ let ``Share Oxygen with three Tiles should share Oxygen`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
+    Assert.Equal(0.56M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
 
 [<Fact>]
 let ``Share Oxygen with three Tiles should receive Oxygen`` () =
@@ -91,8 +91,8 @@ let ``Share Oxygen with three Tiles should receive Oxygen`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Oxygen))
-    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Oxygen))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Oxygen))
+    Assert.Equal(0.57M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Oxygen))
 
 [<Fact>]
 let ``Share Oxygen with four Tiles should send Oxygen`` () =
@@ -108,7 +108,7 @@ let ``Share Oxygen with four Tiles should send Oxygen`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.61M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
 
 [<Fact>]
 let ``Share Oxygen with four Tiles should receive Oxygen`` () =
@@ -124,9 +124,9 @@ let ``Share Oxygen with four Tiles should receive Oxygen`` () =
     let finalWorld = simulateTile(originTile, world)
     
     // Assert
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Oxygen))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Oxygen))
-    Assert.Equal(0.53M, getGasByPos(finalWorld, neighbor3.Pos, Gas.Oxygen))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor1.Pos, Gas.Oxygen))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor2.Pos, Gas.Oxygen))
+    Assert.Equal(0.55M, getGasByPos(finalWorld, neighbor3.Pos, Gas.Oxygen))
 
 [<Fact>]
 let ``Oxygen should not flow into walls`` () =
@@ -155,7 +155,7 @@ let ``Oxygen should flow into space`` () =
     let finalWorld = simulateTile(originTile, world)
 
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
+    Assert.Equal(0M, getGasByPos(finalWorld, originTile.Pos, Gas.Oxygen))
 
     
 [<Fact>]
