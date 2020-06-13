@@ -38,6 +38,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [ ] Render gasses as pixels based on their density
 - [x] Player Graphic
 - [x] Air Scrubber Graphic
+- [ ] Better Player Graphic
 
 ## Interaction
 
@@ -58,7 +59,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Space takes in gasses, but doesn't retain it
 - [x] Convert O2 to CO2 near human
 - [x] Air recylclers convert CO2 to Oxygen
-- [ ] Allow faster equilibrium between tiles
+- [x] Allow faster equilibrium between tiles
 
 ## Power
 
