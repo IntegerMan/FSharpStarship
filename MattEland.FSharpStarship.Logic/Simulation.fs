@@ -59,7 +59,7 @@ module Simulations =
       |> shiftGas tile neighbor gas
       |> equalizeTileGas tile.Pos gas // May be more gas to shift
 
-  let private simulateTileGas pos world = pressurizedGasses |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas pos gas) world
+  let private simulateTileGas pos world = spreadableGasses |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas pos gas) world
 
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
