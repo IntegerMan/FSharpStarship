@@ -92,7 +92,9 @@ module World =
     tile |> setTileGas gas newValue
 
   let getTopMostGas tile = pressurizedGasses |> List.find(fun gas -> tile |> hasGas gas)
+  let getBottomMostGas tile = pressurizedGasses |> List.rev |> List.find(fun gas -> tile |> hasGas gas)
   let tryGetTopMostGas tile = pressurizedGasses |> List.tryFind(fun gas -> tile |> hasGas gas)
+  let tryGetBottomMostGas tile = pressurizedGasses |> List.rev |> List.tryFind(fun gas -> tile |> hasGas gas)
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
 

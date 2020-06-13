@@ -31,11 +31,13 @@ module Simulations =
       | Floor | Space -> true
       | _ -> false
 
-  let private shiftTopmostGas source dest world = 
-    let gas = source |> getTopMostGas
+  let private shiftGas source dest gas world =
     world
     |> replaceTile source.Pos (modifyTileGas gas -0.01M source)
     |> replaceTile dest.Pos (modifyTileGas gas 0.01M dest)
+
+  let private shiftTopmostGas source dest world = world |> shiftGas source dest (source |> getTopMostGas)    
+  let private shiftHeaviestGas source dest world = world |> shiftGas source dest (source |> getTopMostGas)    
 
   let private tryFindLowPressureNeighbor tile world =
     getContext(world, tile) 
@@ -44,19 +46,51 @@ module Simulations =
     |> List.sortBy(fun n -> n.Pressure) 
     |> List.tryHead
 
-  let rec private equalizeTilePressure tile world =
+  let rec private equalizeTilePressure pos world =
+    let tile = world |> getTile pos
     match world |> tryFindLowPressureNeighbor tile with
     | None -> world
     | Some neighbor ->
-      let newWorld = world |> shiftTopmostGas tile neighbor
-      let newTile = newWorld |> getTile tile.Pos
+      world 
+      |> shiftTopmostGas tile neighbor
+      |> equalizeTilePressure tile.Pos // Call it again in case more can spill over
 
-      // Call it again in case more can spill over
-      equalizeTilePressure newTile newWorld
+  let private tryFindTargetForHeavyGasSinking tile world =
+    getContext(world, tile) 
+    |> getPresentNeighbors
+    |> List.filter(fun n -> canGasFlowInto n && n.Gasses.CarbonDioxide < tile.Gasses.CarbonDioxide) // TODO: Revisit if more than just CO2 and Oxygen
+    |> List.sortBy(fun n -> n.Gasses.CarbonDioxide) 
+    |> List.tryHead
 
-  let private simulateTileGas tile world =
-    equalizeTilePressure tile world
-    // TODO: Loop through pressurized gasses and swap them out
+  let rec private sinkHeavyGasses pos world =
+    let tile = world |> getTile pos
+    match world |> tryFindTargetForHeavyGasSinking tile with
+    | None -> world
+    | Some neighbor ->
+      world 
+      |> shiftHeaviestGas tile neighbor 
+      |> sinkHeavyGasses tile.Pos // Call it again in case more can spill over
+
+  let private tryFindTargetForGasSpread gas pos world =
+    let tile = world |> getTile pos
+    let currentGas = getTileGas gas tile
+    getContext(world, tile)
+    |> getPresentNeighbors
+    |> List.filter(fun n -> canGasFlowInto n && getTileGas gas n < currentGas)
+    |> List.sortBy(fun n -> getTileGas gas n)
+    |> List.tryHead
+
+  let rec private equalizeTileGas pos gas world =
+    let tile = world |> getTile pos
+    let target = tryFindTargetForGasSpread gas pos world
+    match target with
+    | None -> world
+    | Some neighbor ->
+      world 
+      |> shiftGas tile neighbor gas
+      |> equalizeTileGas tile.Pos gas // May be more gas to shift
+
+  let private simulateTileGas tile world = pressurizedGasses |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas tile.Pos gas) world
 
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
@@ -90,7 +124,6 @@ module Simulations =
     world 
     |> getObjects tile.Pos 
     |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj) world
-
 
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = world |> simulateObjects tile |> simulateTileGas tile
 
