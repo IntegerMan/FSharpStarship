@@ -25,7 +25,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
-        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Oxygen}\nCO2: {Tile.CarbonDioxide}\nHeat: {Tile.Heat}";
+        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Oxygen}\nCO2: {Tile.CarbonDioxide}\nHeat: {Tile.Heat}\nPressure: {Tile.Pressure}";
 
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;

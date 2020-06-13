@@ -44,5 +44,5 @@ module View =
     | CurrentOverlay.Oxygen -> getGradedColor(tile.Oxygen)
     | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.CarbonDioxide)
     | CurrentOverlay.Heat -> getGradedColor(tile.Heat)
-    | CurrentOverlay.Pressure -> getGradedColor(tile |> getTilePressure)
+    | CurrentOverlay.Pressure -> getGradedColor(tile.Pressure / 3.0M)
     | _ -> getTileColor(tile.TileType)

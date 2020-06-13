@@ -1,8 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
 open World
-open System
-open Utils
 open Positions
 
 module Simulations =
@@ -25,45 +23,36 @@ module Simulations =
       Right=world |> tryGetTile (tile.Pos |> offset 1 0);
     }
 
-  let maxAirFlow = 0.1M
-
   let private getPotentialNeighbors context = [context.Up; context.Right; context.Down; context.Left]
   let private getPresentNeighbors context = context |> getPotentialNeighbors |> List.choose id
 
-  let private shareGas(world: GameWorld, tile: Tile, neighbor: Tile, gas: Gas, delta: decimal): GameWorld =
-
-    let tileCurrentGas = getTileGas gas tile
-    let neighborCurrentGas = getTileGas gas neighbor
-
-    if neighborCurrentGas < tileCurrentGas then
-      let difference = tileCurrentGas - neighborCurrentGas
-      let actualDelta = Math.Min(delta, difference / 2.0M) |> truncateToTwoDecimalPlaces
-
-      // Move the gas into the neighbor tile
-      world 
-      |> replaceTile tile.Pos (tile |> setTileGas gas (tileCurrentGas - actualDelta))
-      |> replaceTile neighbor.Pos (neighbor |> setTileGas gas (neighborCurrentGas + actualDelta))
-
-    else
-      world
-
-  let canGasFlowInto tileType gas =
-    match tileType with
+  let canGasFlowInto tile =
+    match tile.TileType with
       | Floor | Space -> true
       | _ -> false
 
-  let private simulateTileGas tile gas world =
-    let presentNeighbors = getContext(world, tile) |> getPresentNeighbors
+  let private flowGasFromTileToNeighbor tile neighbor world = 
+    let gas = tile |> getTopMostGas
+    world
+    |> replaceTile tile.Pos (modifyTileGas gas -0.01M tile)
+    |> replaceTile neighbor.Pos (modifyTileGas gas 0.01M neighbor)
 
-    let currentGas = getTileGas gas tile
-    let neighbors = presentNeighbors |> List.filter(fun n -> canGasFlowInto n.TileType gas && getTileGas gas n < currentGas)
+  let private tryFindLowPressureNeighbor tile world =
+    getContext(world, tile) 
+    |> getPresentNeighbors
+    |> List.filter(fun n -> canGasFlowInto n && n.Pressure < tile.Pressure)
+    |> List.sortBy(fun n -> n.Pressure) 
+    |> List.tryHead
 
-    if not neighbors.IsEmpty then
-      let delta = maxAirFlow / decimal neighbors.Length
+  let rec private simulateTileGas tile world =
+    match world |> tryFindLowPressureNeighbor tile with
+    | None -> world
+    | Some neighbor ->
+      let newWorld = world |> flowGasFromTileToNeighbor tile neighbor
+      let newTile = newWorld |> getTile tile.Pos
 
-      neighbors |> List.fold(fun newWorld neighbor -> shareGas(newWorld, (newWorld |> getTile tile.Pos), neighbor, gas, delta)) world
-    else
-      world
+      // Call it again in case more can spill over
+      simulateTileGas newTile newWorld
 
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
@@ -101,14 +90,7 @@ module Simulations =
     |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj) world
 
 
-  let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
-    // TODO: This would be a lot more efficient if I could do everything in one pas per tile instead of N where N = num gasses
-    world
-    |> simulateObjects tile
-    |> simulateTileGas tile Gas.Oxygen
-    |> simulateTileGas tile Gas.CarbonDioxide
-    |> simulateTileGas tile Gas.Electrical
-    |> simulateTileGas tile Gas.Heat
+  let simulateTile(tile: Tile, world: GameWorld): GameWorld = world |> simulateObjects tile |> simulateTileGas tile
 
   let simulate(world: GameWorld): GameWorld =
     world.Tiles 

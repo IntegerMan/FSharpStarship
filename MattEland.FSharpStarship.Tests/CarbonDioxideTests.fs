@@ -152,7 +152,7 @@ let ``CO2 should flow into space`` () =
     let finalWorld = simulateTile(originTile, world)
 
     // Assert
-    Assert.Equal(0.6M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
+    Assert.Equal(0M, getGasByPos(finalWorld, originTile.Pos, Gas.CarbonDioxide))
 
     
 [<Fact>]

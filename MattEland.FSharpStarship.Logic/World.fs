@@ -11,8 +11,8 @@ module World =
 
   type GameObject =
     {
-      Pos: Pos;
-      ObjectType: GameObjectType;
+      Pos: Pos
+      ObjectType: GameObjectType
     }
 
   type TileType =
@@ -24,19 +24,20 @@ module World =
 
   type Tile = 
     {
-      TileType: TileType; 
-      Pos: Pos; 
+      TileType: TileType
+      Pos: Pos 
+      Pressure: decimal
       // TODO: It'd be nice to be able to have a collection of gasses, potentially
-      Heat: decimal; 
-      Oxygen: decimal;
-      CarbonDioxide: decimal;
-      Power: decimal;
+      Heat: decimal 
+      Oxygen: decimal
+      CarbonDioxide: decimal
+      Power: decimal
     }
   
   type GameWorld = 
     {
-      Tiles: List<Tile>;
-      Objects: List<GameObject>;
+      Tiles: List<Tile>
+      Objects: List<GameObject>
     }
 
   let getTile pos world = world.Tiles |> List.find(fun t -> t.Pos = pos)
@@ -58,6 +59,8 @@ module World =
       | Heat -> tile.Heat
       | Electrical -> tile.Power
 
+  let hasGas gas tile = tile |> getTileGas gas > 0M
+
   let retainsGas tileType = tileType <> TileType.Space
 
   let setTileGas gas requestedValue tile =
@@ -67,8 +70,8 @@ module World =
 
       // Set the relevant gas
       match gas with
-      | Oxygen -> {tile with Oxygen=value}
-      | CarbonDioxide -> {tile with CarbonDioxide=value}
+      | Oxygen -> {tile with Oxygen=value; Pressure=tile.Pressure - tile.Oxygen + value}
+      | CarbonDioxide -> {tile with CarbonDioxide=value; Pressure=tile.Pressure - tile.CarbonDioxide + value}
       | Heat -> {tile with Heat=value}
       | Electrical -> {tile with Power=value}
     else
@@ -78,6 +81,9 @@ module World =
     let oldValue = tile |> getTileGas gas
     let newValue = oldValue + delta
     tile |> setTileGas gas newValue
+
+  let getTopMostGas tile = pressurizedGasses |> List.find(fun gas -> tile |> hasGas gas)
+  let tryGetTopMostGas tile = pressurizedGasses |> List.tryFind(fun gas -> tile |> hasGas gas)
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
 
@@ -92,17 +98,17 @@ module World =
     | _ -> 0M
 
   let makeTile(tileType, pos) = 
-    {
+    let tile = {
       TileType=tileType; 
       Pos=pos; 
       Heat=getDefaultGas tileType Gas.Heat
       Oxygen=getDefaultGas tileType Gas.Oxygen
       CarbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
       Power=getDefaultGas tileType Gas.Electrical
-    } 
+      Pressure=0M
+    }
+    {tile with Pressure=tile.Oxygen + tile.CarbonDioxide} // TODO: This is all sorts of WTF. I need a way to calc pressure and bake it in to the tile. Probably a Gasses type.
    
-  let getTilePressure tile = pressurizedGasses |> List.sumBy(fun gas -> tile |> getTileGas gas)
-
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
     if tile.Pos = testPos then
       newTile
