@@ -26,7 +26,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int Width => Tile.AppView.Zoom * 2;
         public int Height => Tile.AppView.Zoom * 2;
 
-        public decimal Opacity => 0.42M;
+        public decimal Opacity => 0.25M;
 
         public Brush Background
         {
@@ -40,6 +40,11 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 if (_gas.Equals(Gasses.Gas.CarbonDioxide))
                 {
                     return Brushes.Salmon;
+                }
+
+                if (_gas.Equals(Gasses.Gas.Nitrogen))
+                {
+                    return Brushes.GhostWhite;
                 }
 
                 return Brushes.Magenta;

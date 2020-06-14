@@ -13,6 +13,7 @@ module TileGas =
       | CarbonDioxide -> tile.Gasses.CarbonDioxide
       | Heat -> tile.Gasses.Heat
       | Electrical -> tile.Gasses.Power
+      | Nitrogen -> tile.Gasses.Nitrogen
 
   let hasGas gas tile = tile |> getTileGas gas > 0M
 
@@ -28,6 +29,7 @@ module TileGas =
         | CarbonDioxide -> {tile.Gasses with CarbonDioxide=value}
         | Heat -> {tile.Gasses with Heat=value}
         | Electrical -> {tile.Gasses with Power=value}
+        | Nitrogen -> {tile.Gasses with Nitrogen=value}
 
       {tile with Gasses=gasses; Pressure=gasses |> calculatePressure}
     else
@@ -47,10 +49,11 @@ module TileGas =
     match tileType with
     | Floor ->
       match gas with
-      | Gas.Oxygen -> 0.7M
-      | Gas.CarbonDioxide -> 0.3M
+      | Gas.Oxygen -> 0.2M
+      | Gas.CarbonDioxide -> 0.1M
       | Gas.Heat -> 0.3M
       | Gas.Electrical -> 0M
+      | Nitrogen -> 0.8M
     | _ -> 0M
 
   let defaultGasses tileType =
@@ -59,12 +62,14 @@ module TileGas =
       CarbonDioxide=getDefaultGas tileType CarbonDioxide
       Heat=getDefaultGas tileType Heat
       Power=getDefaultGas tileType Electrical
+      Nitrogen=getDefaultGas tileType Nitrogen
     }
 
   let getDefaultTileGasses tileType =
     {
-      Heat=getDefaultGas tileType Gas.Heat
-      Oxygen=getDefaultGas tileType Gas.Oxygen
-      CarbonDioxide=getDefaultGas tileType Gas.CarbonDioxide;
-      Power=getDefaultGas tileType Gas.Electrical
+      Heat=getDefaultGas tileType Heat
+      Oxygen=getDefaultGas tileType Oxygen
+      CarbonDioxide=getDefaultGas tileType CarbonDioxide
+      Power=getDefaultGas tileType Electrical
+      Nitrogen=getDefaultGas tileType Nitrogen
     }

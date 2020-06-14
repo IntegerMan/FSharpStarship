@@ -37,7 +37,9 @@ module SimulateGasses =
       |> shiftGas tile neighbor gas
       |> equalizeTileGas tile.Pos gas // May be more gas to shift
 
-  let simulateTileGas pos world = spreadableGasses |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas pos gas) world
+  let simulateTileGas pos world = 
+    spreadableGasses 
+    |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas pos gas) world
 
   let convertTileGas amount gasSource gasGen tile =
     if tile |> getTileGas gasSource >= amount then

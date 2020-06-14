@@ -7,6 +7,7 @@ module Gasses =
 
   type TileGas =
     {
+      Nitrogen: decimal
       Oxygen: decimal
       CarbonDioxide: decimal
       Heat: decimal 
@@ -14,13 +15,14 @@ module Gasses =
     }
 
   type Gas =
+    | Nitrogen
     | Oxygen
     | CarbonDioxide
     | Heat
     | Electrical
 
-  let pressurizedGasses = [Oxygen; CarbonDioxide]
-  let spreadableGasses = [Heat; Oxygen; CarbonDioxide; Electrical]
+  let pressurizedGasses = [Nitrogen; Oxygen; CarbonDioxide]
+  let spreadableGasses = [Heat; Electrical] @ pressurizedGasses
 
-  let calculatePressure gasses = gasses.Oxygen + gasses.CarbonDioxide
+  let calculatePressure gasses = gasses.Oxygen + gasses.CarbonDioxide + gasses.Nitrogen
 

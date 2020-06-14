@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Media;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
@@ -23,7 +25,22 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
-        public override string ToolTip => $"{Tile.TileType}\nPos: ({Tile.Pos.X}, {Tile.Pos.Y})\nOxygen: {Tile.Gasses.Oxygen}\nCO2: {Tile.Gasses.CarbonDioxide}\nHeat: {Tile.Gasses.Heat}\nPressure: {Tile.Pressure}";
+        public override string ToolTip
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine(Tile.TileType.ToString());
+                sb.AppendLine($"Pos: {Tile.Pos.X},{Tile.Pos.Y}");
+
+                Gasses.spreadableGasses.ToList().ForEach(g => { sb.AppendLine($"{g}: {TileGas.getTileGas(g, Tile)}"); });
+
+                sb.AppendLine($"Pressure: {Tile.Pressure}");
+
+                return sb.ToString();
+            }
+        }
 
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;
@@ -61,10 +78,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public IList<GasParticleViewModel> BuildParticles()
         {
-            List<GasParticleViewModel> particles = new List<GasParticleViewModel>();
+            var particles = new List<GasParticleViewModel>();
 
-            AddGasParticles(particles, Gasses.Gas.CarbonDioxide);
-            AddGasParticles(particles, Gasses.Gas.Oxygen);
+            Gasses.pressurizedGasses.ToList().ForEach(g => AddGasParticles(particles, g));
 
             return particles;
         }
