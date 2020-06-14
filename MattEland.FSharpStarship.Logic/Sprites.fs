@@ -50,6 +50,6 @@ module Sprites =
   let getObjectSpriteInfo (object: GameObject): SpriteInfo =
     let defaultArt = { Image="tileset2.png"; X=0; Y=0; Width=32; Height=32; ZIndex=1; OffsetX=0; OffsetY=0}
     match object.ObjectType with
-    | Astronaut -> { defaultArt with Image="OldMan.png"; X=0; Y=0; Width=48; Height=64; ZIndex=5; OffsetY = -5}
+    | Astronaut -> { defaultArt with Image="Matt.png"; X=0; Y=0; Width=48; Height=96; ZIndex=5; OffsetY = -2}
     | AirScrubber -> { defaultArt with X=7; Y=11}
     

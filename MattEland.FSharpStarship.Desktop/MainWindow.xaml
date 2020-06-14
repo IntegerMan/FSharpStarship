@@ -16,16 +16,9 @@
             <!-- Art Credits -->
             <Border DockPanel.Dock="Bottom" 
                     Background="Black" BorderBrush="White" BorderThickness="1">
-                <Border.ToolTip>
-                    <StackPanel>
-                        <TextBlock>Tile art by DithArt (@hodittha).</TextBlock>
-                        <TextBlock>Visit https://dithart.itch.io/ for more information.</TextBlock>
-                    </StackPanel>
-                </Border.ToolTip>
                 <StackPanel Orientation="Vertical" Margin="8,0" HorizontalAlignment="Center">
-                    <TextBlock Text="Tile art by" Foreground="White" VerticalAlignment="Center" />
-                    <Image Source="Images/DithArt.png" Stretch="UniformToFill" Height="80" HorizontalAlignment="Center"></Image>
-                    <TextBlock Text="Astronaut by PJCR" Foreground="White"></TextBlock>
+                    <TextBlock Text="Tile art by DithArt" Foreground="White" VerticalAlignment="Center" />
+                    <TextBlock Text="Character based on artwork by Jestan" Foreground="White"></TextBlock>
                 </StackPanel>
             </Border>
 

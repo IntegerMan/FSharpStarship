@@ -9,8 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Astronaut.png" />
-    <None Remove="Images\DithArt.png" />
+    <None Remove="Images\Hospital.png" />
+    <None Remove="Images\industrial.png" />
+    <None Remove="Images\Matt.png" />
     <None Remove="Images\OldMan.png" />
     <None Remove="Images\SpaceBG.jpeg" />
     <None Remove="Images\tileset1.png" />
@@ -29,8 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\DithArt.png" />
-    <Resource Include="Images\Astronaut.png" />
+    <Resource Include="Images\Hospital.png" />
+    <Resource Include="Images\industrial.png" />
+    <Resource Include="Images\Matt.png" />
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
