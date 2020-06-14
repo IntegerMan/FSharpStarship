@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
-    public abstract class NotifyPropertyChangedBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

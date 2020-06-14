@@ -36,7 +36,7 @@ module WorldBuilding =
     |> List.fold(fun space t -> space |> replaceListItem t) space
 
   let private getObjects() = [
-      {Pos={X=7; Y=5}; ObjectType=Astronaut}
+      {Pos={X=6; Y=3}; ObjectType=Astronaut}
       {Pos={X=8; Y=3}; ObjectType=AirScrubber}
     ]
 

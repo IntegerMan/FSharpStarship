@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Collections.Generic;
+using System.Windows.Media;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
@@ -56,6 +57,28 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             var rgb = View.getBackgroundColor(Tile, AppView);
             return Color.FromRgb(rgb.R, rgb.G, rgb.B);
+        }
+
+        public IList<GasParticleViewModel> BuildParticles()
+        {
+            List<GasParticleViewModel> particles = new List<GasParticleViewModel>();
+
+            AddGasParticles(particles, Gasses.Gas.CarbonDioxide);
+            AddGasParticles(particles, Gasses.Gas.Oxygen);
+
+            return particles;
+        }
+
+        private void AddGasParticles(ICollection<GasParticleViewModel> particles, Gasses.Gas gasType)
+        {
+            const decimal gasThreshhold = 0.1M;
+
+            decimal gasLevel = TileGas.getTileGas(gasType, Tile);
+            while (gasLevel >= gasThreshhold)
+            {
+                particles.Add(new GasParticleViewModel(this, gasType));
+                gasLevel -= gasThreshhold;
+            }
         }
     }
 }

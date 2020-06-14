@@ -35,7 +35,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Tile Graphics
 - [x] Render actors
 - [x] Next turn button
-- [ ] Render gasses as pixels based on their density
+- [x] Render gasses as pixels based on their density
 - [x] Player Graphic
 - [x] Air Scrubber Graphic
 - [x] Better Player Graphic
@@ -60,6 +60,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Convert O2 to CO2 near human
 - [x] Air recylclers convert CO2 to Oxygen
 - [x] Allow faster equilibrium between tiles
+- [ ] Simulate tile gasses iteratively and then recursively with a max number of recursions
 
 ## Power
 

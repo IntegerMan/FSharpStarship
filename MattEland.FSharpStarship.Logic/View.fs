@@ -20,7 +20,7 @@ module View =
 
   let getDefaultAppView() = {
     Overlay=CurrentOverlay.None; 
-    Zoom=4;
+    Zoom=2;
   }
 
   let changeOverlay(view: AppView, newOverlay: CurrentOverlay): AppView = {view with Overlay = newOverlay}    

@@ -48,8 +48,8 @@ module TileGas =
     | Floor ->
       match gas with
       | Gas.Oxygen -> 0.7M
-      | Gas.CarbonDioxide -> randomDecimal() // 0.3M
-      | Gas.Heat -> randomDecimal() // 0.3M
+      | Gas.CarbonDioxide -> 0.3M
+      | Gas.Heat -> 0.3M
       | Gas.Electrical -> 0M
     | _ -> 0M
 

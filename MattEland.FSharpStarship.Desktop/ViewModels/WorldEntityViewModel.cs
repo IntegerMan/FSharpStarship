@@ -4,7 +4,7 @@ using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
-    public abstract class WorldEntityViewModel : NotifyPropertyChangedBase
+    public abstract class WorldEntityViewModel : ViewModelBase
     {
         public abstract int PosX { get; }
         public abstract int PosY { get; }
