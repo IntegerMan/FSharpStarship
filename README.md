@@ -38,7 +38,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [ ] Render gasses as pixels based on their density
 - [x] Player Graphic
 - [x] Air Scrubber Graphic
-- [ ] Better Player Graphic
+- [x] Better Player Graphic
 
 ## Interaction
 
