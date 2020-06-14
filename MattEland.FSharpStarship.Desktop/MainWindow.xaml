@@ -93,6 +93,7 @@
                         <Rectangle ToolTip="{Binding ToolTip}" 
                                 Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" 
                                 Fill="{Binding Background}" 
+                                Stretch="Uniform"
                                 StrokeThickness="0">
                             <!--<Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5"></Rectangle>-->
                         </Rectangle>
