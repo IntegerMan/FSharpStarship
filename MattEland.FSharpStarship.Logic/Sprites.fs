@@ -25,15 +25,18 @@ module Sprites =
   let private getTileX (tileType: TileType): int =
     match tileType with
     | Wall -> 6
-    | Door _ -> 4
+    | Door (IsHorizontal=false) -> 4
+    | Door (IsHorizontal=true; IsOpen=false) -> 5
+    | Door (IsHorizontal=true; IsOpen=true) -> 6
     | Floor -> 0
     | Space -> 3
 
   let private getTileY (tileType: TileType): int =
     match tileType with
     | Wall -> 0
-    | Door (IsOpen=true) -> 5
-    | Door (IsOpen=false) -> 4
+    | Door (IsOpen=true; IsHorizontal=false) -> 5
+    | Door (IsOpen=false; IsHorizontal=false) -> 4
+    | Door (IsHorizontal=true) -> 5
     | Floor -> 11
     | Space -> 10
 

@@ -1,9 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
 open Positions
-open Gasses
-open Tiles
-open TileGas
 
 module GameObjects =
 

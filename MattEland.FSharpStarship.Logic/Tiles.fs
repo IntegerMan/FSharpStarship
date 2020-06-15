@@ -8,7 +8,7 @@ module Tiles =
   type TileType =
     | Floor
     | Wall
-    | Door of IsOpen:bool
+    | Door of IsOpen:bool * IsHorizontal:bool
     | Space
 
   type Tile = 
