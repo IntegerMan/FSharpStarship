@@ -7,11 +7,12 @@ module View =
   type CurrentOverlay =
     | None = 0
     | Heat = 1
-    | Oxygen = 2
-    | CarbonDioxide = 3
-    | Electrical = 4
-    | Fluid = 5
-    | Pressure = 6
+    | Nitrogen = 2
+    | Oxygen = 3
+    | CarbonDioxide = 4
+    | Electrical = 5
+    | Fluid = 6
+    | Pressure = 7
 
   type AppView = {
     Overlay: CurrentOverlay;
@@ -42,6 +43,7 @@ module View =
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.Overlay with
     | CurrentOverlay.Oxygen -> getGradedColor(tile.Gasses.Oxygen)
+    | CurrentOverlay.Nitrogen -> getGradedColor(tile.Gasses.Nitrogen)
     | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.Gasses.CarbonDioxide)
     | CurrentOverlay.Heat -> getGradedColor(tile.Gasses.Heat)
     | CurrentOverlay.Pressure -> getGradedColor(tile.Pressure / 3.0M)
