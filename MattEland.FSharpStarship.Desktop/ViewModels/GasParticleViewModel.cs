@@ -26,7 +26,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int Width => Tile.AppView.Zoom * 2;
         public int Height => Tile.AppView.Zoom * 2;
 
-        public decimal Opacity => 0.25M;
+        public decimal Opacity => 1M;
 
         public Brush Background
         {

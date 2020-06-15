@@ -20,9 +20,6 @@ module WorldBuilding =
     ]
 
   let private makeFloor = makeArea Floor
-  let private makeDoor isHorizontal = makeTile (Door(IsOpen=false, IsHorizontal=isHorizontal))
-  let private makeHorizontalDoor = makeDoor true
-  let private makeVerticalDoor = makeDoor false
 
   let private makeRoom startPos width height =
     (startPos |> makeHorizontalWall width) @
@@ -37,63 +34,68 @@ module WorldBuilding =
     let space = pos 0 0 |> makeArea Space 28 17
 
     // Outer Structural Walls
-    (pos 1 2 |> makeHorizontalWall 20)
-    @ (pos 1 16 |> makeHorizontalWall 20)
+    (pos 1 1 |> makeHorizontalWall 20)
+    @ (pos 1 15 |> makeHorizontalWall 20)
     // Upper Engine Pod
-    @ (pos 1 6 |> makeHorizontalWall 6)
-    @ (pos 1 3 |> makeVerticalWall 3)
-    @ (pos 2 3 |> makeFloor 8 3)
+    @ (pos 1 5 |> makeHorizontalWall 6)
+    @ (pos 1 2 |> makeVerticalWall 3)
+    @ (pos 2 2 |> makeFloor 8 3)
     // Lower Engine Pod
-    @ (pos 1 12 |> makeHorizontalWall 6)
-    @ (pos 1 13 |> makeVerticalWall 3)
-    @ (pos 2 13 |> makeFloor 8 3)
+    @ (pos 1 11 |> makeHorizontalWall 6)
+    @ (pos 1 12 |> makeVerticalWall 3)
+    @ (pos 2 12 |> makeFloor 8 3)
     // Engineering
-    @ (pos 6 7 |> makeVerticalWall 5)
-    @ (pos 7 6 |> makeFloor 3 7)
-    @ [pos 10 9 |> makeHorizontalDoor]
+    @ (pos 6 6 |> makeVerticalWall 5)
+    @ (pos 7 5 |> makeFloor 3 7)
+    @ [pos 10 8 |> makeTile Floor]
     // Main Hallway
-    @ (pos 11 8 |> makeFloor 10 3)
-    @ [pos 11 7 |> makeTile Wall]
-    @ [pos 11 11 |> makeTile Wall]
-    @ (pos 13 7 |> makeHorizontalWall 4)
-    @ (pos 18 7 |> makeHorizontalWall 2)
-    @ (pos 13 11 |> makeHorizontalWall 4)
-    @ (pos 18 11 |> makeHorizontalWall 2)
+    @ (pos 11 7 |> makeFloor 10 3)
+    @ [pos 11 6 |> makeTile Wall]
+    @ [pos 11 10 |> makeTile Wall]
+    @ (pos 13 6 |> makeHorizontalWall 4)
+    @ (pos 18 6 |> makeHorizontalWall 2)
+    @ (pos 13 10 |> makeHorizontalWall 4)
+    @ (pos 18 10 |> makeHorizontalWall 2)
     // Upper Room 1
-    @ (pos 10 3 |> makeVerticalWall 6)
-    @ (pos 11 3 |> makeFloor 3 4)
-    @ [pos 12 7 |> makeVerticalDoor]
+    @ (pos 10 2 |> makeVerticalWall 6)
+    @ (pos 11 2 |> makeFloor 3 4)
+    @ [pos 12 6 |> makeTile Floor]
     // Lower Room 1
-    @ (pos 10 10 |> makeVerticalWall 6)
-    @ (pos 11 12 |> makeFloor 3 4)
-    @ [pos 12 11 |> makeVerticalDoor]
+    @ (pos 10 9 |> makeVerticalWall 6)
+    @ (pos 11 11 |> makeFloor 3 4)
+    @ [pos 12 10 |> makeTile Floor]
     // Upper Room 2
-    @ (pos 14 3 |> makeVerticalWall 4)
-    @ (pos 20 3 |> makeVerticalWall 6)
-    @ (pos 15 3 |> makeFloor 5 4)
-    @ [pos 17 7 |> makeVerticalDoor]
+    @ (pos 14 2 |> makeVerticalWall 4)
+    @ (pos 20 2 |> makeVerticalWall 6)
+    @ (pos 15 2 |> makeFloor 5 4)
+    @ [pos 17 6 |> makeTile Floor]
     // Lower Room 2
-    @ (pos 14 12 |> makeVerticalWall 4)
-    @ (pos 20 11 |> makeVerticalWall 5)
-    @ (pos 15 12 |> makeFloor 5 4)
-    @ [pos 17 11 |> makeVerticalDoor]
+    @ (pos 14 11 |> makeVerticalWall 4)
+    @ (pos 20 10 |> makeVerticalWall 5)
+    @ (pos 15 11 |> makeFloor 5 4)
+    @ [pos 17 10 |> makeTile Floor]
     // Cockpit
-    @ [pos 20 9 |> makeHorizontalDoor]
-    @ (pos 21 4 |> makeHorizontalWall 4)
-    @ (pos 21 14 |> makeHorizontalWall 4)
-    @ (pos 24 5 |> makeVerticalWall 3)
-    @ (pos 24 11 |> makeVerticalWall 3)
-    @ (pos 21 5 |> makeFloor 3 9)
-    @ (pos 24 8 |> makeFloor 2 3)
-    @ (pos 25 7 |> makeHorizontalWall 2)
-    @ (pos 25 11 |> makeHorizontalWall 2)
-    @ (pos 26 8 |> makeVerticalWall 3)
-    @ [pos 20 10 |> makeTile Wall]
+    @ [pos 20 8 |> makeTile Floor]
+    @ (pos 21 3 |> makeHorizontalWall 4)
+    @ (pos 21 13 |> makeHorizontalWall 4)
+    @ (pos 24 4 |> makeVerticalWall 3)
+    @ (pos 24 10 |> makeVerticalWall 3)
+    @ (pos 21 4 |> makeFloor 3 9)
+    @ (pos 24 7 |> makeFloor 2 3)
+    @ (pos 25 6 |> makeHorizontalWall 2)
+    @ (pos 25 10 |> makeHorizontalWall 2)
+    @ (pos 26 7 |> makeVerticalWall 3)
+    @ [pos 20 9 |> makeTile Wall]
     |> List.fold(fun space t -> space |> replaceListItem t) space
 
   let private getObjects() = [
-      {Pos={X=17; Y=4}; ObjectType=Astronaut}
-      //{Pos={X=8; Y=3}; ObjectType=AirScrubber}
+      {Pos=pos 17 3; ObjectType=Astronaut}
+      {Pos=pos 20 8; ObjectType=Door(false, true)}
+      {Pos=pos 10 8; ObjectType=Door(false, true)}
+      {Pos=pos 12 6; ObjectType=Door(false, false)}
+      {Pos=pos 12 10; ObjectType=Door(false, false)}
+      {Pos=pos 17 10; ObjectType=Door(false, false)}
+      {Pos=pos 17 6; ObjectType=Door(false, false)}
     ]
 
   let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }

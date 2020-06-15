@@ -8,11 +8,9 @@ open Contexts
 
 module SimulateGasses =
 
-  let canGasFlowInto tile =
+  let canGasFlowInto tile = // TODO: This will need to check for objects at that position now that doors are a thing
     match tile.TileType with
       | Floor | Space -> true
-      | Door (IsOpen=true) -> true
-      | Door (IsOpen=false) -> false
       | _ -> false
 
   let private shiftGas (source: Tile) (dest: Tile) gas world =

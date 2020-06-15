@@ -1,8 +1,5 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Utils
-open Positions
-
 module Gasses =
 
   type TileGas =

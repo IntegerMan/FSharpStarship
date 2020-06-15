@@ -19,24 +19,17 @@ module Sprites =
   let private getZIndex (tileType: TileType): int =
     match tileType with
     | Wall -> 1
-    | Door _ -> 2
     | _ -> 0
 
   let private getTileX (tileType: TileType): int =
     match tileType with
     | Wall -> 6
-    | Door (IsHorizontal=false) -> 4
-    | Door (IsHorizontal=true; IsOpen=false) -> 5
-    | Door (IsHorizontal=true; IsOpen=true) -> 6
     | Floor -> 0
     | Space -> 3
 
   let private getTileY (tileType: TileType): int =
     match tileType with
     | Wall -> 0
-    | Door (IsOpen=true; IsHorizontal=false) -> 5
-    | Door (IsOpen=false; IsHorizontal=false) -> 4
-    | Door (IsHorizontal=true) -> 5
     | Floor -> 11
     | Space -> 10
 
@@ -57,4 +50,8 @@ module Sprites =
     match object.ObjectType with
     | Astronaut -> { defaultArt with Image="Matt.png"; X=0; Y=0; Width=48; Height=96; ZIndex=5; OffsetY = -2}
     | AirScrubber -> { defaultArt with X=7; Y=11}
+    | Door (IsHorizontal=true; IsOpen=true) -> {defaultArt with X=6; Y=5; ZIndex=2}
+    | Door (IsHorizontal=true; IsOpen=false) -> {defaultArt with X=5; Y=5; ZIndex=2}
+    | Door (IsHorizontal=false; IsOpen=false) -> {defaultArt with X=4; Y=4; ZIndex=2}
+    | Door (IsHorizontal=false; IsOpen=true) -> {defaultArt with X=4; Y=5; ZIndex=2}
     

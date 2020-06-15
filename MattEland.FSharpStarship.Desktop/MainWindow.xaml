@@ -16,7 +16,7 @@
             <!-- Art Credits -->
             <Border DockPanel.Dock="Bottom" 
                     Background="Black" BorderBrush="White" BorderThickness="1">
-                <StackPanel Orientation="Vertical" Margin="8,0" HorizontalAlignment="Center">
+                <StackPanel Orientation="Vertical" Margin="8,0" HorizontalAlignment="Center" Visibility="Collapsed">
                     <TextBlock Text="Tile art by DithArt" Foreground="White" VerticalAlignment="Center" />
                     <TextBlock Text="Character based on artwork by Jestan" Foreground="White"></TextBlock>
                 </StackPanel>
@@ -43,12 +43,12 @@
         </DockPanel>
 
         <!-- Main Window -->
-        <Grid ClipToBounds="True">
+        <Grid ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.Background>
                 <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
             </Grid.Background>
             <!-- <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> -->
-                <Viewbox>
+                <Viewbox Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Grid Width="1792" Height="1088">
 
                         <!-- Tiles -->

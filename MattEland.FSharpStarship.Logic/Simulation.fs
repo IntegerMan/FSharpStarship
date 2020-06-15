@@ -29,6 +29,7 @@ module Simulations =
     match obj.ObjectType with
     | Astronaut -> simulatePerson(obj, world)
     | AirScrubber -> simulateAirScrubber(obj, world)
+    | Door _ -> world
 
   let private simulateObjects pos world =
     world 
