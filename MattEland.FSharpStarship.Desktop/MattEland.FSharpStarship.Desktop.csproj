@@ -36,7 +36,6 @@
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
-    <Resource Include="Images\OldMan.png" />
   </ItemGroup>
 
 </Project>
