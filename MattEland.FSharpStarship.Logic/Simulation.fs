@@ -3,7 +3,6 @@
 open World
 open Tiles
 open Gasses
-open TileGas
 open GameObjects
 open SimulateGasses
 

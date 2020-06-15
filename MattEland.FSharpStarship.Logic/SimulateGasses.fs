@@ -11,6 +11,8 @@ module SimulateGasses =
   let canGasFlowInto tile =
     match tile.TileType with
       | Floor | Space -> true
+      | Door (IsOpen=true) -> true
+      | Door (IsOpen=false) -> false
       | _ -> false
 
   let private shiftGas (source: Tile) (dest: Tile) gas world =

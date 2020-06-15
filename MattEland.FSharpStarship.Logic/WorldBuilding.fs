@@ -20,6 +20,7 @@ module WorldBuilding =
     ]
 
   let private makeFloor = makeArea Floor
+  let private makeDoor = makeTile (Door(IsOpen=false))
 
   let private makeRoom startPos width height =
     (startPos |> makeHorizontalWall width) @
@@ -47,8 +48,9 @@ module WorldBuilding =
     // Engineering
     @ (pos 6 7 |> makeVerticalWall 5)
     @ (pos 7 6 |> makeFloor 3 7)
+    @ [pos 10 9 |> makeDoor]
     // Main Hallway
-    @ (pos 10 8 |> makeFloor 11 3)
+    @ (pos 11 8 |> makeFloor 10 3)
     @ [pos 11 7 |> makeTile Wall]
     @ [pos 11 11 |> makeTile Wall]
     @ (pos 13 7 |> makeHorizontalWall 4)
@@ -56,20 +58,25 @@ module WorldBuilding =
     @ (pos 13 11 |> makeHorizontalWall 4)
     @ (pos 18 11 |> makeHorizontalWall 2)
     // Upper Room 1
-    @ (pos 10 3 |> makeVerticalWall 5)
+    @ (pos 10 3 |> makeVerticalWall 6)
     @ (pos 11 3 |> makeFloor 3 4)
+    @ [pos 12 7 |> makeDoor]
     // Lower Room 1
-    @ (pos 10 11 |> makeVerticalWall 5)
+    @ (pos 10 10 |> makeVerticalWall 6)
     @ (pos 11 12 |> makeFloor 3 4)
+    @ [pos 12 11 |> makeDoor]
     // Upper Room 2
     @ (pos 14 3 |> makeVerticalWall 4)
     @ (pos 20 3 |> makeVerticalWall 6)
     @ (pos 15 3 |> makeFloor 5 4)
+    @ [pos 17 7 |> makeDoor]
     // Lower Room 2
     @ (pos 14 12 |> makeVerticalWall 4)
     @ (pos 20 11 |> makeVerticalWall 5)
     @ (pos 15 12 |> makeFloor 5 4)
+    @ [pos 17 11 |> makeDoor]
     // Cockpit
+    @ [pos 20 9 |> makeDoor]
     @ (pos 21 4 |> makeHorizontalWall 4)
     @ (pos 21 14 |> makeHorizontalWall 4)
     @ (pos 24 5 |> makeVerticalWall 3)

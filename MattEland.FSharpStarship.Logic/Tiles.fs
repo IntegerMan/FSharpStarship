@@ -1,6 +1,5 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Utils
 open Positions
 open Gasses
 
@@ -9,8 +8,7 @@ module Tiles =
   type TileType =
     | Floor
     | Wall
-    | WallLeft
-    | WallRight
+    | Door of IsOpen:bool
     | Space
 
   type Tile = 

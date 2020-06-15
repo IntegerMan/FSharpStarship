@@ -19,19 +19,21 @@ module Sprites =
   let private getZIndex (tileType: TileType): int =
     match tileType with
     | Wall -> 1
+    | Door _ -> 2
     | _ -> 0
 
   let private getTileX (tileType: TileType): int =
     match tileType with
     | Wall -> 6
-    | WallLeft | WallRight -> 7
+    | Door _ -> 4
     | Floor -> 0
     | Space -> 3
 
   let private getTileY (tileType: TileType): int =
     match tileType with
     | Wall -> 0
-    | WallLeft | WallRight -> 2
+    | Door (IsOpen=true) -> 5
+    | Door (IsOpen=false) -> 4
     | Floor -> 11
     | Space -> 10
 
