@@ -16,6 +16,7 @@
     <None Remove="Images\SpaceBG.jpeg" />
     <None Remove="Images\tileset1.png" />
     <None Remove="Images\tileset2.png" />
+    <None Remove="Images\VexedHospital.png" />
     <None Remove="Images\_0058_top-wall-1_1.png" />
     <None Remove="Images\_0066_floor-tile-type-1_10.png" />
   </ItemGroup>
@@ -36,6 +37,7 @@
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
+    <Resource Include="Images\VexedHospital.png" />
   </ItemGroup>
 
 </Project>

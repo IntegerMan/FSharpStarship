@@ -90,12 +90,14 @@ module WorldBuilding =
 
   let private getObjects() = [
       {Pos=pos 17 3; ObjectType=Astronaut}
-      {Pos=pos 20 8; ObjectType=Door(false, true)}
-      {Pos=pos 10 8; ObjectType=Door(false, true)}
-      {Pos=pos 12 6; ObjectType=Door(false, false)}
-      {Pos=pos 12 10; ObjectType=Door(false, false)}
-      {Pos=pos 17 10; ObjectType=Door(false, false)}
-      {Pos=pos 17 6; ObjectType=Door(false, false)}
+      {Pos=pos 20 8; ObjectType=Door(IsOpen=false, IsHorizontal=true)}
+      {Pos=pos 10 8; ObjectType=Door(IsOpen=false, IsHorizontal=true)}
+      {Pos=pos 12 6; ObjectType=Door(IsOpen=false, IsHorizontal=false)}
+      {Pos=pos 12 10; ObjectType=Door(IsOpen=false, IsHorizontal=false)}
+      {Pos=pos 17 10; ObjectType=Door(IsOpen=false, IsHorizontal=false)}
+      {Pos=pos 17 6; ObjectType=Door(IsOpen=false, IsHorizontal=false)}
+      {Pos=pos 18 11; ObjectType=Bed(IsLeft=true)}
+      {Pos=pos 19 11; ObjectType=Bed(IsLeft=false)}
     ]
 
   let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }

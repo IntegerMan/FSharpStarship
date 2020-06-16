@@ -50,6 +50,8 @@ module Sprites =
     match object.ObjectType with
     | Astronaut -> { defaultArt with Image="Matt.png"; X=0; Y=0; Width=48; Height=96; ZIndex=5; OffsetY = -2}
     | AirScrubber -> { defaultArt with X=7; Y=11}
+    | Bed (IsLeft=true) -> {defaultArt with Image="VexedHospital.png"; X=6; Y=3}
+    | Bed (IsLeft=false) -> {defaultArt with Image="VexedHospital.png"; X=7; Y=3}
     | Door (IsHorizontal=true; IsOpen=true) -> {defaultArt with X=6; Y=5; ZIndex=2}
     | Door (IsHorizontal=true; IsOpen=false) -> {defaultArt with X=5; Y=5; ZIndex=2}
     | Door (IsHorizontal=false; IsOpen=false) -> {defaultArt with X=4; Y=4; ZIndex=2}

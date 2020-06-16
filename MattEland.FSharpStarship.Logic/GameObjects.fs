@@ -8,6 +8,7 @@ module GameObjects =
     | Astronaut
     | AirScrubber
     | Door of IsOpen:bool * IsHorizontal:bool
+    | Bed of IsLeft:bool
 
   type GameObject =
     {
