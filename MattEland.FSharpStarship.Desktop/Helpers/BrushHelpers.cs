@@ -12,12 +12,23 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
         {
             var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{sprite.Image}"));
 
-            var tileWidth = sprite.Width;
-            var tileHeight = sprite.Height;
-            var rect = new Int32Rect(sprite.X * tileWidth, sprite.Y * tileHeight, tileWidth, tileHeight);
+            Int32Rect rect;
+            Stretch stretch;
+            if (sprite.LocationType.Equals(Sprites.SpriteLocationType.Cell))
+            {
+                var tileWidth = sprite.Width;
+                var tileHeight = sprite.Height;
+                rect = new Int32Rect(sprite.X * tileWidth, sprite.Y * tileHeight, tileWidth, tileHeight);
+                stretch = Stretch.Uniform;
+            }
+            else
+            {
+                rect = new Int32Rect(sprite.X, sprite.Y, sprite.Width, sprite.Height);
+                stretch = Stretch.Fill;
+            }
 
             var croppedImage = new CroppedBitmap(image, rect);
-            var brush = new ImageBrush(croppedImage) { Stretch = Stretch.Uniform };
+            var brush = new ImageBrush(croppedImage) { Stretch = stretch };
 
             brush.Freeze(); // TODO: Introduce a brush factory to store unique / reused brushes
             return brush;
