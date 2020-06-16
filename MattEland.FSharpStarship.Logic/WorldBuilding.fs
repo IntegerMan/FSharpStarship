@@ -98,6 +98,11 @@ module WorldBuilding =
       {Pos=pos 17 6; ObjectType=Door(IsOpen=false, IsHorizontal=false)}
       {Pos=pos 18 2; ObjectType=Bed(IsLeft=true)}
       {Pos=pos 19 2; ObjectType=Bed(IsLeft=false)}
+      {Pos=pos 19 3; ObjectType=SideTable}
+      {Pos=pos 15 2; ObjectType=Shelf(IsLeft=true)}
+      {Pos=pos 16 2; ObjectType=Shelf(IsLeft=false)}
+      {Pos=pos 15 5; ObjectType=Desk(IsLeft=true)}
+      {Pos=pos 15 4; ObjectType=Desk(IsLeft=false)}
     ]
 
   let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }
