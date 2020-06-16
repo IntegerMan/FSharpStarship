@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Media;
 using MattEland.FSharpStarship.Logic;
 
@@ -26,7 +24,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int Width => Tile.AppView.Zoom * 2;
         public int Height => Tile.AppView.Zoom * 2;
 
-        public decimal Opacity => 1M;
+        public decimal Opacity => Tile.AppView.Overlay.Equals(View.CurrentOverlay.Particles) ? 1M : 0M;
 
         public Brush Background
         {
@@ -49,6 +47,11 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 return Brushes.Magenta;
             }
+        }
+
+        public void HandleOverlayChanged()
+        {
+            OnPropertyChanged(nameof(Opacity));
         }
     }
 }

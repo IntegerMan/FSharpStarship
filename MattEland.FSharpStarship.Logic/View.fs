@@ -13,6 +13,7 @@ module View =
     | Electrical = 5
     | Fluid = 6
     | Pressure = 7
+    | Particles = 8
 
   type AppView = {
     Overlay: CurrentOverlay;
@@ -26,11 +27,13 @@ module View =
 
   let changeOverlay(view: AppView, newOverlay: CurrentOverlay): AppView = {view with Overlay = newOverlay}    
 
-  type RGB = {R: byte; G: byte; B: byte}
+  type RGB = {R: byte; G: byte; B: byte; T: byte}
 
-  let private rgb (r, g, b): RGB = {R = byte r; G = byte g; B = byte b}
+  let rgbt (r, g, b, t): RGB = {R = byte r; G = byte g; B = byte b; T = byte t}
+  let rgb (r, g, b): RGB = rgbt(r,g,b, 255)
+  let transparent = rgbt(255, 255, 255, 0)
 
-  let private getTileColor tileType =
+  let getTileColor tileType =
     match tileType with
     | Floor -> rgb(86, 86, 128)
     | Wall -> rgb(64, 64, 84)
@@ -47,4 +50,4 @@ module View =
     | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.Gasses.CarbonDioxide)
     | CurrentOverlay.Heat -> getGradedColor(tile.Gasses.Heat)
     | CurrentOverlay.Pressure -> getGradedColor(tile.Pressure / 3.0M)
-    | _ -> getTileColor(tile.TileType)
+    | _ -> transparent

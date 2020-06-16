@@ -62,6 +62,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 Tiles.ToList().ForEach(t => t.HandleOverlayChanged());
                 Objects.ToList().ForEach(t => t.HandleOverlayChanged());
+                GasParticles.ToList().ForEach(t => t.HandleOverlayChanged());
             }
         }
 

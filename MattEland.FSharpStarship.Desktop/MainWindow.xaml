@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Modeling a Starship in F#, by Matt Eland (@IntegerMan)" 
         Width="1280" Height="800" 
+        WindowState="Maximized"
+        SnapsToDevicePixels="True"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <DockPanel>
 
@@ -87,6 +89,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Rectangle ToolTip="{Binding ToolTip}" 
+                                               SnapsToDevicePixels="True"
                                 Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" 
                                 Fill="{Binding Background}" 
                                 Stretch="Uniform"

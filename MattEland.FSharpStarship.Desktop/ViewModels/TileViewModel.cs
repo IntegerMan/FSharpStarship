@@ -73,7 +73,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         private Color CalculateColor()
         {
             var rgb = View.getBackgroundColor(Tile, AppView);
-            return Color.FromRgb(rgb.R, rgb.G, rgb.B);
+
+            if (rgb.T == 0) return Colors.Transparent;
+
+            return Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
         }
 
         public IList<GasParticleViewModel> BuildParticles()
