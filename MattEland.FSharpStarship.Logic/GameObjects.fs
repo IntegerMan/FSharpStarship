@@ -11,7 +11,9 @@ module GameObjects =
     | Bed of IsLeft:bool
     | SideTable
     | Shelf of IsLeft:bool
+    | BookShelf of IsLeft:bool
     | Desk of IsLeft:bool
+    | Plant
 
   type GameObject =
     {

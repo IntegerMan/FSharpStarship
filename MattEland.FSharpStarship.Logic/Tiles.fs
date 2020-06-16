@@ -9,6 +9,7 @@ module Tiles =
     | Floor
     | Wall
     | Space
+    | Carpet
 
   type Tile = 
     {

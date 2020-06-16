@@ -15,6 +15,7 @@
     <None Remove="Images\Mid-TownB.png" />
     <None Remove="Images\Mid-TownD.png" />
     <None Remove="Images\OldMan.png" />
+    <None Remove="Images\oryx.png" />
     <None Remove="Images\SpaceBG.jpeg" />
     <None Remove="Images\tileset1.png" />
     <None Remove="Images\tileset2.png" />
@@ -38,6 +39,7 @@
     <Resource Include="Images\Matt.png" />
     <Resource Include="Images\Mid-TownB.png" />
     <Resource Include="Images\Mid-TownD.png" />
+    <Resource Include="Images\oryx.png" />
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />

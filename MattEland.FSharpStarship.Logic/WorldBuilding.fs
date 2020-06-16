@@ -67,7 +67,7 @@ module WorldBuilding =
     // Upper Room 2
     @ (pos 14 2 |> makeVerticalWall 4)
     @ (pos 20 2 |> makeVerticalWall 6)
-    @ (pos 15 2 |> makeFloor 5 4)
+    @ (pos 15 2 |> makeArea Carpet 5 4)
     @ [pos 17 6 |> makeTile Floor]
     // Lower Room 2
     @ (pos 14 11 |> makeVerticalWall 4)
@@ -99,10 +99,13 @@ module WorldBuilding =
       {Pos=pos 18 2; ObjectType=Bed(IsLeft=true)}
       {Pos=pos 19 2; ObjectType=Bed(IsLeft=false)}
       {Pos=pos 19 3; ObjectType=SideTable}
-      {Pos=pos 15 2; ObjectType=Shelf(IsLeft=true)}
-      {Pos=pos 16 2; ObjectType=Shelf(IsLeft=false)}
+      {Pos=pos 15 2; ObjectType=BookShelf(IsLeft=true)}
+      {Pos=pos 16 2; ObjectType=BookShelf(IsLeft=false)}
+      {Pos=pos 8 2; ObjectType=Shelf(IsLeft=true)}
+      {Pos=pos 9 2; ObjectType=Shelf(IsLeft=false)}
       {Pos=pos 15 5; ObjectType=Desk(IsLeft=true)}
       {Pos=pos 15 4; ObjectType=Desk(IsLeft=false)}
+      {Pos=pos 19 5; ObjectType=Plant}
     ]
 
   let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }
