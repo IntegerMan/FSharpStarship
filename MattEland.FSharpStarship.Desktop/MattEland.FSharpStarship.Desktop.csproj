@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Hospital.png" />
     <Resource Include="Images\industrial.png" />
     <Resource Include="Images\Matt.png" />
     <Resource Include="Images\Mid-TownB.png" />
@@ -43,7 +42,6 @@
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
-    <Resource Include="Images\VexedHospital.png" />
   </ItemGroup>
 
 </Project>
