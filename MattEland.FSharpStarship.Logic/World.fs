@@ -40,3 +40,6 @@ module World =
       tile
 
   let replaceTile pos newTile world = {world with Tiles=world.Tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }
+
+
+  let create tiles objects = {Tiles=tiles; Objects=objects}

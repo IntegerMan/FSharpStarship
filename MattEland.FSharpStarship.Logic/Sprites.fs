@@ -96,5 +96,4 @@ module Sprites =
     | Door (IsHorizontal=true; IsOpen=false) -> {sciWhiteTile with X=5; Y=5; ZIndex=2}
     | Door (IsHorizontal=false; IsOpen=false) -> {sciWhiteTile with X=4; Y=4; ZIndex=2}
     | Door (IsHorizontal=false; IsOpen=true) -> {sciWhiteTile with X=4; Y=5; ZIndex=2}
-    | _ -> {midTileB with Width=16; Height=16}
     

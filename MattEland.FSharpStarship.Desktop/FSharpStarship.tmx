@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="28" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="28" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="3">
  <tileset firstgid="1" source="ScifiHospitalTiles.tsx"/>
  <tileset firstgid="137" source="Mid-TownB.tsx"/>
  <tileset firstgid="393" source="Mid-TownC.tsx"/>
@@ -139,6 +139,11 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="8" name="Objects">
+  <object id="1" type="Astronaut" x="590" y="157">
+   <point/>
+  </object>
+ </objectgroup>
  <layer id="5" name="Overlays" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,2521,2523,1120,0,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

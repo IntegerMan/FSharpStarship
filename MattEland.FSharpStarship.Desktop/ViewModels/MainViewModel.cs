@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
+using TiledSharp;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
@@ -13,7 +15,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel()
         {
-            GameWorld = WorldBuilding.generateWorld();
+            var adapter = new TiledAdapter();
+
+            GameWorld = adapter.BuildWorldFromTileMap("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
             _view = View.getDefaultAppView();
         }
 

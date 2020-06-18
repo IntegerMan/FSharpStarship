@@ -28,9 +28,9 @@ module WorldBuilding =
     (startPos |> offset (width-1) 1 |> makeVerticalWall (height - 2)) @
     (startPos |> offset 1 1 |> makeArea Floor (width - 2) (height - 2))
 
-  let private replaceListItem (newItem: Tile) (list: List<Tile>): List<Tile> = list |> List.map(fun i -> if i.Pos = newItem.Pos then newItem else i)
+  let replaceListItem (newItem: Tile) (list: List<Tile>): List<Tile> = list |> List.map(fun i -> if i.Pos = newItem.Pos then newItem else i)
 
-  let private getTiles() = 
+  let getTiles = 
     let space = pos 0 0 |> makeArea Space 28 17
 
     // Outer Structural Walls
@@ -88,7 +88,7 @@ module WorldBuilding =
     @ [pos 20 9 |> makeTile Wall]
     |> List.fold(fun space t -> space |> replaceListItem t) space
 
-  let private getObjects() = [
+  let getObjects = [
       {Pos=pos 17 3; ObjectType=Astronaut}
       {Pos=pos 20 8; ObjectType=Door(IsOpen=false, IsHorizontal=true)}
       {Pos=pos 10 8; ObjectType=Door(IsOpen=false, IsHorizontal=true)}
@@ -108,5 +108,5 @@ module WorldBuilding =
       {Pos=pos 19 5; ObjectType=Plant}
     ]
 
-  let generateWorld(): GameWorld = { Tiles=getTiles(); Objects=getObjects() }
+  let generateWorld = create getTiles getObjects
 

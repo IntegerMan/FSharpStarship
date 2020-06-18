@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FSharpStarship.tmx" />
+    <None Remove="HC_SewerB.tsx" />
+    <None Remove="HC_SewerC.tsx" />
+    <None Remove="Hospital32.tsx" />
     <None Remove="Images\Hospital.png" />
     <None Remove="Images\industrial.png" />
     <None Remove="Images\Matt.png" />
@@ -22,11 +26,28 @@
     <None Remove="Images\VexedHospital.png" />
     <None Remove="Images\_0058_top-wall-1_1.png" />
     <None Remove="Images\_0066_floor-tile-type-1_10.png" />
+    <None Remove="Mid-TownA5.tsx" />
+    <None Remove="Mid-TownB.tsx" />
+    <None Remove="Mid-TownC.tsx" />
+    <None Remove="Mid-TownD.tsx" />
+    <None Remove="ScifiHospitalTiles.tsx" />
+    <None Remove="TileA5_PHC_Interior-Apartments.tsx" />
+    <None Remove="TileA5_PHC_Interior-Hospital Ace.tsx" />
+    <None Remove="TileA5_PHC_Store.tsx" />
+    <None Remove="TileB_Laboratory.tsx" />
+    <None Remove="TileB_PHC_Interior-AptModern.tsx" />
+    <None Remove="TileB_PHC_Interior-Hospital Ace.tsx" />
+    <None Remove="TileB_PHC_Interior-Hospital.tsx" />
+    <None Remove="TileC_PHC_Interior-Office&amp;Facility.tsx" />
+    <None Remove="TileE_PHC_Interior-Extras.tsx" />
+    <None Remove="tileset1.tsx" />
+    <None Remove="VexedHospital.tsx" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
     <PackageReference Include="Linq.Extras" Version="3.0.0" />
+    <PackageReference Include="TiledSharp" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
