@@ -15,9 +15,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel()
         {
-            var adapter = new TiledAdapter();
-
-            GameWorld = adapter.BuildWorldFromTileMap("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
+            GameWorld = TiledInterop.loadWorld("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
             _view = View.getDefaultAppView();
         }
 

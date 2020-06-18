@@ -16,8 +16,13 @@
     <Compile Include="SimulateGasses.fs" />
     <Compile Include="Simulation.fs" />
     <Compile Include="WorldBuilding.fs" />
+    <Compile Include="TiledInterop.fs" />
     <Compile Include="View.fs" />
     <Compile Include="Sprites.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TiledSharp" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
