@@ -16,9 +16,9 @@
     <Compile Include="SimulateGasses.fs" />
     <Compile Include="Simulation.fs" />
     <Compile Include="WorldBuilding.fs" />
-    <Compile Include="TiledInterop.fs" />
     <Compile Include="View.fs" />
     <Compile Include="Sprites.fs" />
+    <Compile Include="TiledInterop.fs" />
   </ItemGroup>
 
   <ItemGroup>
