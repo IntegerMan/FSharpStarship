@@ -58,11 +58,11 @@ module TiledInterop =
 
     let index = gid - tileset.FirstGid
     let numColumns = tileset.Columns.Value
-    let row = index / numColumns
-    let column = index % numColumns
+    let row = index % numColumns
+    let column = index / numColumns
 
     {
-      TileFile = tileset.Name
+      TileFile = tileset.Image.Source
       X = row * tileset.TileWidth
       Y = column * tileset.TileHeight
       Width = tileset.TileWidth

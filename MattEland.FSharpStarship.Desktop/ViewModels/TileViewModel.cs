@@ -66,6 +66,13 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 if (Tile.TileType.Equals(Tiles.TileType.Space)) return Brushes.Transparent;
 
+                if (Tile.Art.Value.TileFile.ToUpperInvariant().EndsWith("TILESET1.PNG"))
+                {
+                    var fakeSprite = new Sprites.SpriteInfo("tileset1.png", Sprites.SpriteLocationType.AbsolutePosition, Tile.Art.Value.X, Tile.Art.Value.Y, 0, 0, Tile.Art.Value.Width, Tile.Art.Value.Height, 1);
+
+                    return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
+                }
+
                 return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
             }
         }
