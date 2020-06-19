@@ -16,11 +16,14 @@
     <None Remove="Images\Hospital.png" />
     <None Remove="Images\industrial.png" />
     <None Remove="Images\Matt.png" />
+    <None Remove="Images\Mid-TownA5.png" />
     <None Remove="Images\Mid-TownB.png" />
+    <None Remove="Images\Mid-TownC.png" />
     <None Remove="Images\Mid-TownD.png" />
     <None Remove="Images\OldMan.png" />
     <None Remove="Images\oryx.png" />
     <None Remove="Images\SpaceBG.jpeg" />
+    <None Remove="Images\TileA5_PHC_Store.png" />
     <None Remove="Images\tileset1.png" />
     <None Remove="Images\tileset2.png" />
     <None Remove="Images\VexedHospital.png" />
@@ -57,10 +60,13 @@
   <ItemGroup>
     <Resource Include="Images\industrial.png" />
     <Resource Include="Images\Matt.png" />
+    <Resource Include="Images\Mid-TownA5.png" />
     <Resource Include="Images\Mid-TownB.png" />
+    <Resource Include="Images\Mid-TownC.png" />
     <Resource Include="Images\Mid-TownD.png" />
     <Resource Include="Images\oryx.png" />
     <Resource Include="Images\SpaceBG.jpeg" />
+    <Resource Include="Images\TileA5_PHC_Store.png" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
   </ItemGroup>

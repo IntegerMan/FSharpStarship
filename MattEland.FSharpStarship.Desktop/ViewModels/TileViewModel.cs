@@ -66,14 +66,42 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 if (Tile.TileType.Equals(Tiles.TileType.Space)) return Brushes.Transparent;
 
-                if (Tile.Art.Value.TileFile.ToUpperInvariant().EndsWith("TILESET1.PNG"))
-                {
-                    var fakeSprite = new Sprites.SpriteInfo("tileset1.png", Sprites.SpriteLocationType.AbsolutePosition, Tile.Art.Value.X, Tile.Art.Value.Y, 0, 0, Tile.Art.Value.Width, Tile.Art.Value.Height, 1);
+                var art = Tile.Art.Value;
+                string pathToCheck = "Images/";
+                int index = art.TileFile.LastIndexOf(pathToCheck);
 
-                    return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
+                if (index > 0)
+                {
+                    string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
+
+                    if (IsSupportedResourceFile(resourceFile))
+                    {
+                        var fakeSprite = new Sprites.SpriteInfo(resourceFile,
+                                                                Sprites.SpriteLocationType.AbsolutePosition, art.X,
+                                                                art.Y, 0, 0, art.Width, art.Height, 1);
+
+                        return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
+                    }
                 }
 
                 return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
+            }
+        }
+
+        private bool IsSupportedResourceFile(string resourceFile)
+        {
+            switch (resourceFile.ToLowerInvariant())
+            {
+                case "tileset1.png":
+                case "tileset2.png":
+                case "mid-towna5.png":
+                case "mid-townb.png":
+                case "mid-townc.png":
+                case "mid-townd.png":
+                case "tilea5_phc_store.png":
+                    return true;
+                default:
+                    return false;
             }
         }
 
