@@ -11,8 +11,18 @@ module Tiles =
     | Space
     | Carpet
 
+  type TileArt =
+    {
+      TileFile: string
+      X: int
+      Y: int
+      Width: int
+      Height: int
+    }
+
   type Tile = 
     {
+      Art: TileArt option
       TileType: TileType
       Pos: Pos 
       Pressure: decimal

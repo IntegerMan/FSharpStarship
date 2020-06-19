@@ -51,16 +51,40 @@ module TiledInterop =
 
     Seq.append astronauts doors |> Seq.toList
 
+  let buildArt gid (tilemap: TmxMap): TileArt =
+    let tileset =
+      tilemap.Tilesets
+      |> Seq.find(fun t -> gid >= t.FirstGid && gid <= (t.FirstGid + (t.TileCount.Value - 1)))
+
+    let index = gid - tileset.FirstGid
+    let numColumns = tileset.Columns.Value
+    let row = index / numColumns
+    let column = index % numColumns
+
+    {
+      TileFile = tileset.Name
+      X = row * tileset.TileWidth
+      Y = column * tileset.TileHeight
+      Width = tileset.TileWidth
+      Height = tileset.TileHeight
+    }
+
+  let buildTile (tilemap: TmxMap) tileType (tile: TmxLayerTile) =
+    let pos = tile |> getTilePos
+
+    let art = tilemap |> buildArt tile.Gid
+    makeTile tileType (Some art) pos
+
   let getTiles (tilemap: TiledSharp.TmxMap): List<Tile> =
     let floorTiles = 
       tilemap
       |> getTilesFromLayer "Floor"
-      |> Seq.map(fun t -> makeTile TileType.Floor (getTilePos t))
+      |> Seq.map(fun t -> buildTile tilemap Floor t)
 
     let wallTiles = 
       tilemap
       |> getTilesFromLayer "Walls"
-      |> Seq.map(fun t -> makeTile TileType.Wall (getTilePos t))
+      |> Seq.map(fun t -> buildTile tilemap Wall t)
     
     Seq.append floorTiles wallTiles |> Seq.toList
 
@@ -72,10 +96,12 @@ module TiledInterop =
       Objects = tilemap |> allTiledObjects
     }
 
-  let translateToTile tileType tmxTile =
+  let translateToTile (tilemap: TmxMap) tileType (tmxTile: TmxLayerTile) =
+
+    let art = buildArt tmxTile.Gid tilemap
     tmxTile
     |> getTilePos
-    |> makeTile tileType
+    |> makeTile tileType (Some art)
 
   let translateToObject (tmxObject: TmxObject) = 
     let objectType =
@@ -98,9 +124,9 @@ module TiledInterop =
 
     {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal); Pos=pos}
 
-  let generateWorld data =
-    let floors = data.Floor |> Seq.map(fun t -> t |> translateToTile Floor)
-    let walls = data.Walls |> Seq.map(fun t -> t |> translateToTile Wall)
+  let generateWorld (tilemap: TmxMap) data  =
+    let floors = data.Floor |> Seq.map(fun t -> t |> translateToTile tilemap Floor)
+    let walls = data.Walls |> Seq.map(fun t -> t |> translateToTile tilemap Wall)
     let doors = data.Doors |> Seq.map(fun d -> d |> createDoor walls)
 
     let tiles = 
@@ -120,4 +146,4 @@ module TiledInterop =
     let tiledFile = new TiledSharp.TmxMap(filename)
     tiledFile 
     |> interpretWorld
-    |> generateWorld
+    |> generateWorld tiledFile
