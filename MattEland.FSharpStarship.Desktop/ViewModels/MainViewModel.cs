@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
@@ -14,7 +15,11 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public MainViewModel()
         {
             _view = View.getDefaultAppView();
-            GameWorld = TiledInterop.loadWorld("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
+            string dir = Environment.CurrentDirectory;
+            int index = dir.IndexOf(@"\bin\", StringComparison.OrdinalIgnoreCase);
+            dir = dir.Substring(0, index);
+
+            GameWorld = TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx");
         }
 
         public World.GameWorld GameWorld
