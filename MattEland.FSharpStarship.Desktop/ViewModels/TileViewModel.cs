@@ -31,9 +31,10 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             Images.Clear();
             
-            Images.Add(new ImageViewModel(Background, 0));
-
             // TODO: Add layers
+            Tile.Art.Select(a => new ImageViewModel(BrushHelpers.GetBrushFromArt(a), a.ZIndex))
+                .ToList()
+                .ForEach(i => Images.Add(i));
 
             // TODO: Add objects
             //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
@@ -76,10 +77,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;
-
-        public override Brush Background => Tile.TileType.Equals(Tiles.TileType.Space) 
-            ? Brushes.Transparent 
-            : BrushHelpers.GetBrushFromArt(Tile.Art);
 
         private Color CalculateColor()
         {

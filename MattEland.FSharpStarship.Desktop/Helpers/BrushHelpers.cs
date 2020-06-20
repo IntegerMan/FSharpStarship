@@ -55,8 +55,16 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
                 throw new NotSupportedException($"The resource file {resourceFile} is not supported but was referenced");
             }
 
-            var fakeSprite = new Sprites.SpriteInfo(resourceFile, Sprites.SpriteLocationType.AbsolutePosition,
-                                                    art.X, art.Y, 0, 0, art.Width, art.Height, 1);
+            // TODO: I shouldn't need SpriteInfo anymore
+            var fakeSprite = new Sprites.SpriteInfo(resourceFile, 
+                                                    Sprites.SpriteLocationType.AbsolutePosition,
+                                                    art.X, 
+                                                    art.Y, 
+                                                    0, 
+                                                    0, 
+                                                    art.Width, 
+                                                    art.Height, 
+                                                    art.ZIndex);
 
             return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
         }

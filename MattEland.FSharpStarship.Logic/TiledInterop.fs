@@ -51,7 +51,7 @@ module TiledInterop =
 
     Seq.append astronauts doors |> Seq.toList
 
-  let buildArt gid (tilemap: TmxMap): TileArt =
+  let buildArt gid zindex (tilemap: TmxMap): TileArt =
     let tileset =
       tilemap.Tilesets
       |> Seq.find(fun t -> gid >= t.FirstGid && gid <= (t.FirstGid + (t.TileCount.Value - 1)))
@@ -67,13 +67,14 @@ module TiledInterop =
       Y = column * tileset.TileHeight
       Width = tileset.TileWidth
       Height = tileset.TileHeight
+      ZIndex = zindex
     }
 
   let buildTile (tilemap: TmxMap) tileType (tile: TmxLayerTile) =
     let pos = tile |> getTilePos
 
-    let art = tilemap |> buildArt tile.Gid
-    makeTile tileType [] art pos
+    let art = tilemap |> buildArt tile.Gid 0
+    makeTile tileType [] [art] pos
 
   let getTiles (tilemap: TiledSharp.TmxMap): List<Tile> =
     let floorTiles = 
@@ -98,10 +99,10 @@ module TiledInterop =
 
   let translateToTile (tilemap: TmxMap) tileType (tmxTile: TmxLayerTile) =
 
-    let art = buildArt tmxTile.Gid tilemap
+    let art = buildArt tmxTile.Gid 0 tilemap
     tmxTile
     |> getTilePos
-    |> makeTile tileType [] art
+    |> makeTile tileType [] [art]
 
   let translateToObject (tmxObject: TmxObject) = 
     let objectType =

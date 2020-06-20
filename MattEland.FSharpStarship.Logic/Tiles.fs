@@ -19,20 +19,12 @@ module Tiles =
       Y: int
       Width: int
       Height: int
-    }
-
-  let emptyArt =
-    {
-      TileFile="Images/Test.png"
-      X=0
-      Y=0
-      Width=32
-      Height=32
+      ZIndex: int
     }
 
   type Tile = 
     {
-      Art: TileArt
+      Art: List<TileArt> // TODO: Seq
       TileType: TileType
       Pos: Pos 
       Pressure: decimal
