@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
+using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
@@ -28,9 +30,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int ImageHeight => TileHeight;
         public int ZIndex => SpriteInfo.ZIndex;
 
-        protected WorldEntityViewModel(MainViewModel mainViewModel)
+        protected WorldEntityViewModel([NotNull] MainViewModel mainViewModel)
         {
-            MainVM = mainViewModel;
+            MainVM = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
         }
 
         public MainViewModel MainVM { get; }

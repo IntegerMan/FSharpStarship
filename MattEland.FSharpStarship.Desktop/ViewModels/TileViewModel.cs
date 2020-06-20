@@ -24,7 +24,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             base.HandleOverlayChanged();
 
-            OnPropertyChanged(nameof(OverlayBrush));
             RebuildImages();
         }
 
@@ -38,7 +37,15 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
             // TODO: Add objects
             //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
+
+            // Add Overlay if needed
+            if (AppView.Overlay != View.CurrentOverlay.None && AppView.Overlay != View.CurrentOverlay.Particles)
+            {
+                Images.Add(new ImageViewModel(BuildOverlayBrush(), 50, 0.5M));
+            }
         }
+
+        private Brush BuildOverlayBrush() => BrushHelpers.GetSolidColorBrush(CalculateColor());
 
         public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
 
@@ -63,21 +70,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;
-
-        public Brush OverlayBrush
-        {
-            get
-            {
-                if (AppView.Overlay == View.CurrentOverlay.None) return Brushes.Transparent;
-
-                var color = CalculateColor();
-                Brush brush = new SolidColorBrush(color);
-
-                brush.Freeze(); // TODO: Introduce a brush factory to store unique / reused brushes
-
-                return brush;
-            }
-        }
 
         public override Brush Background
         {
@@ -128,9 +120,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             var rgb = View.getBackgroundColor(Tile, AppView);
 
-            if (rgb.T == 0) return Colors.Transparent;
-
-            return Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
+            return rgb.T == 0 
+                ? Colors.Transparent 
+                : Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
         }
 
         public IList<GasParticleViewModel> BuildParticles()

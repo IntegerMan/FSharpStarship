@@ -30,7 +30,16 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             var croppedImage = new CroppedBitmap(image, rect);
             var brush = new ImageBrush(croppedImage) { Stretch = stretch };
 
-            brush.Freeze(); // TODO: Introduce a brush factory to store unique / reused brushes
+            brush.Freeze(); // TODO: Introduce a dictionary to store unique / reused brushes
+            return brush;
+        }
+
+        public static Brush GetSolidColorBrush(Color color)
+        {
+            Brush brush = new SolidColorBrush(color);
+
+            brush.Freeze(); // TODO: Introduce a dictionary to store unique / reused brushes
+
             return brush;
         }
     }

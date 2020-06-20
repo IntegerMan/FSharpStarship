@@ -84,8 +84,7 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <!-- TODO: Overlays should come in here too-->
-                                <!-- TODO: Gas Particles should come in here too-->
+                                <!-- TODO: Gas Particles should come in here -->
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemContainerStyle>
@@ -123,29 +122,6 @@
                                 <Setter Property="Canvas.Left" Value="{Binding PosX}" />
                                 <Setter Property="Canvas.Top" Value="{Binding PosY}" />
                                 <Setter Property="Panel.ZIndex" Value="50" />
-                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                            </Style>
-                        </ItemsControl.ItemContainerStyle>
-                    </ItemsControl>
-
-                    <!-- Overlays -->
-                    <ItemsControl ItemsSource="{Binding Tiles}"  IsHitTestVisible="False" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Canvas />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Rectangle Fill="{Binding OverlayBrush}" Opacity="0.5" ToolTip="{Binding ToolTip}" Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" ></Rectangle>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemContainerStyle>
-                            <Style>
-                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
-                                <Setter Property="Canvas.Left" Value="{Binding PosX}" />
-                                <Setter Property="Canvas.Top" Value="{Binding PosY}" />
-                                <Setter Property="Panel.ZIndex" Value="99" />
                                 <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             </Style>
                         </ItemsControl.ItemContainerStyle>

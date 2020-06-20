@@ -13,8 +13,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel()
         {
-            GameWorld = TiledInterop.loadWorld("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
             _view = View.getDefaultAppView();
+            GameWorld = TiledInterop.loadWorld("M:\\dev\\ModelingASharshipInFSharp\\MattEland.FSharpStarship.Desktop\\FSharpStarship.tmx");
         }
 
         public World.GameWorld GameWorld
