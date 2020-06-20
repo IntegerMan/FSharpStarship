@@ -29,7 +29,7 @@ module World =
     }
    
   let makeTileWithGasses tileType pos objects gasses = 
-    let tile = makeTile tileType objects None pos
+    let tile = makeTile tileType objects emptyArt pos
     {tile with Gasses=gasses; Pressure=gasses |> calculatePressure}
 
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =

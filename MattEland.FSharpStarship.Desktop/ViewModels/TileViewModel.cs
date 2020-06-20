@@ -77,50 +77,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public override int PosX => Tile.Pos.X * TileWidth;
         public override int PosY => Tile.Pos.Y * TileHeight;
 
-        public override Brush Background
-        {
-            get
-            {
-                if (Tile.TileType.Equals(Tiles.TileType.Space)) return Brushes.Transparent;
-
-                var art = Tile.Art.Value;
-                string pathToCheck = "Images/";
-                int index = art.TileFile.LastIndexOf(pathToCheck, StringComparison.InvariantCultureIgnoreCase);
-
-                if (index > 0)
-                {
-                    string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
-
-                    if (IsSupportedResourceFile(resourceFile))
-                    {
-                        var fakeSprite = new Sprites.SpriteInfo(resourceFile,
-                                                                Sprites.SpriteLocationType.AbsolutePosition, art.X,
-                                                                art.Y, 0, 0, art.Width, art.Height, 1);
-
-                        return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
-                    }
-                }
-
-                return BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
-            }
-        }
-
-        private bool IsSupportedResourceFile(string resourceFile)
-        {
-            switch (resourceFile.ToLowerInvariant())
-            {
-                case "tileset1.png":
-                case "tileset2.png":
-                case "mid-towna5.png":
-                case "mid-townb.png":
-                case "mid-townc.png":
-                case "mid-townd.png":
-                case "tilea5_phc_store.png":
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        public override Brush Background => Tile.TileType.Equals(Tiles.TileType.Space) 
+            ? Brushes.Transparent 
+            : BrushHelpers.GetBrushFromArt(Tile.Art);
 
         private Color CalculateColor()
         {

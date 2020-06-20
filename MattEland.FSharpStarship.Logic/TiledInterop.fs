@@ -73,7 +73,7 @@ module TiledInterop =
     let pos = tile |> getTilePos
 
     let art = tilemap |> buildArt tile.Gid
-    makeTile tileType [] (Some art) pos
+    makeTile tileType [] art pos
 
   let getTiles (tilemap: TiledSharp.TmxMap): List<Tile> =
     let floorTiles = 
@@ -101,7 +101,7 @@ module TiledInterop =
     let art = buildArt tmxTile.Gid tilemap
     tmxTile
     |> getTilePos
-    |> makeTile tileType [] (Some art)
+    |> makeTile tileType [] art
 
   let translateToObject (tmxObject: TmxObject) = 
     let objectType =

@@ -42,5 +42,41 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 
             return brush;
         }
+
+        public static Brush GetBrushFromArt(Tiles.TileArt art)
+        {
+            string pathToCheck = "Images/";
+            int index = art.TileFile.LastIndexOf(pathToCheck, StringComparison.InvariantCultureIgnoreCase);
+
+            string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
+
+            if (!IsSupportedResourceFile(resourceFile))
+            {
+                throw new NotSupportedException($"The resource file {resourceFile} is not supported but was referenced");
+            }
+
+            var fakeSprite = new Sprites.SpriteInfo(resourceFile, Sprites.SpriteLocationType.AbsolutePosition,
+                                                    art.X, art.Y, 0, 0, art.Width, art.Height, 1);
+
+            return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
+        }
+
+        private static bool IsSupportedResourceFile(string resourceFile)
+        {
+            switch (resourceFile.ToLowerInvariant())
+            {
+                case "tileset1.png":
+                case "tileset2.png":
+                case "mid-towna5.png":
+                case "mid-townb.png":
+                case "mid-townc.png":
+                case "mid-townd.png":
+                case "tilea5_phc_store.png":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
     }
 }
