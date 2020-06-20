@@ -2,6 +2,7 @@
 
 open Positions
 open Gasses
+open GameObjects
 
 module Tiles =
 
@@ -27,6 +28,7 @@ module Tiles =
       Pos: Pos 
       Pressure: decimal
       Gasses: TileGas
+      Objects: List<GameObject> // TODO: Seq
     }
 
   let retainsGas tileType = tileType <> TileType.Space

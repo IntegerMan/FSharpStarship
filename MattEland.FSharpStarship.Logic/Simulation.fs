@@ -31,14 +31,11 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber(obj, world)
     | _ -> world
 
-  let private simulateObjects pos world =
-    world 
-    |> getObjects pos
-    |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj) world
+  let private simulateObjects objects world = objects |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj) world
 
   let simulateTile(tile: Tile, world: GameWorld): GameWorld = 
     world 
-    |> simulateObjects tile.Pos 
+    |> simulateObjects tile.Objects 
     |> simulateTileGas tile.Pos
 
   let simulate(world: GameWorld): GameWorld =

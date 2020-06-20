@@ -1,7 +1,5 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Utils
-open Positions
 open Tiles
 open Gasses
 

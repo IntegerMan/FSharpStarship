@@ -11,9 +11,9 @@ open TestHelpers
 let ``Share Oxygen with two Tiles should share Oxygen`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -25,9 +25,9 @@ let ``Share Oxygen with two Tiles should share Oxygen`` () =
 let ``Share Oxygen with two Tiles should not over-share Oxygen`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.68M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.68M}
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -39,9 +39,9 @@ let ``Share Oxygen with two Tiles should not over-share Oxygen`` () =
 let ``Share Oxygen with two Tiles should not over-receive Oxygen`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.68M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.68M}
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -53,9 +53,9 @@ let ``Share Oxygen with two Tiles should not over-receive Oxygen`` () =
 let ``Share Oxygen with two Tiles should receive Oxygen`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -67,10 +67,10 @@ let ``Share Oxygen with two Tiles should receive Oxygen`` () =
 let ``Share Oxygen with three Tiles should share Oxygen`` () =
     
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighbor1: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor2: Tile = makeFloorTile {X=2;Y=1} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighbor1; neighbor2]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighbor1: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor2: Tile = makeFloorTile {X=2;Y=1} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighbor1; neighbor2]}
     
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -82,10 +82,10 @@ let ``Share Oxygen with three Tiles should share Oxygen`` () =
 let ``Share Oxygen with three Tiles should receive Oxygen`` () =
     
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighbor1: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor2: Tile = makeFloorTile {X=2;Y=1} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighbor1; neighbor2]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighbor1: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor2: Tile = makeFloorTile {X=2;Y=1} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighbor1; neighbor2]}
     
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -98,11 +98,11 @@ let ``Share Oxygen with three Tiles should receive Oxygen`` () =
 let ``Share Oxygen with four Tiles should send Oxygen`` () =
     
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighbor1: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor2: Tile = makeFloorTile {X=2;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor3: Tile = makeFloorTile {X=1;Y=0} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighbor1; neighbor2; neighbor3]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighbor1: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor2: Tile = makeFloorTile {X=2;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor3: Tile = makeFloorTile {X=1;Y=0} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighbor1; neighbor2; neighbor3]}
     
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -114,11 +114,11 @@ let ``Share Oxygen with four Tiles should send Oxygen`` () =
 let ``Share Oxygen with four Tiles should receive Oxygen`` () =
     
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighbor1: Tile = makeFloorTile {X=0;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor2: Tile = makeFloorTile {X=2;Y=1} {standardGas with Oxygen=0.5M}
-    let neighbor3: Tile = makeFloorTile {X=1;Y=0} {standardGas with Oxygen=0.5M}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighbor1; neighbor2; neighbor3]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighbor1: Tile = makeFloorTile {X=0;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor2: Tile = makeFloorTile {X=2;Y=1} [] {standardGas with Oxygen=0.5M}
+    let neighbor3: Tile = makeFloorTile {X=1;Y=0} [] {standardGas with Oxygen=0.5M}
+    let world: GameWorld = {Tiles=[originTile; neighbor1; neighbor2; neighbor3]}
     
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -132,9 +132,9 @@ let ``Share Oxygen with four Tiles should receive Oxygen`` () =
 let ``Oxygen should not flow into walls`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeWallTile {X=0;Y=1}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeWallTile {X=0;Y=1} []
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -147,9 +147,9 @@ let ``Oxygen should not flow into walls`` () =
 let ``Oxygen should flow into space`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeSpaceTile {X=0;Y=1}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeSpaceTile {X=0;Y=1} []
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)
@@ -162,9 +162,9 @@ let ``Oxygen should flow into space`` () =
 let ``Space should not retain Oxygen`` () =
 
     // Arrange
-    let originTile: Tile = makeFloorTile {X=1;Y=1} {standardGas with Oxygen=0.7M}
-    let neighborTile: Tile = makeSpaceTile {X=0;Y=1}
-    let world: GameWorld = {Objects=[];Tiles=[originTile; neighborTile]}
+    let originTile: Tile = makeFloorTile {X=1;Y=1} [] {standardGas with Oxygen=0.7M}
+    let neighborTile: Tile = makeSpaceTile {X=0;Y=1} []
+    let world: GameWorld = {Tiles=[originTile; neighborTile]}
 
     // Act
     let finalWorld = simulateTile(originTile, world)

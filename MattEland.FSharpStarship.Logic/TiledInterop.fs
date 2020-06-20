@@ -73,7 +73,7 @@ module TiledInterop =
     let pos = tile |> getTilePos
 
     let art = tilemap |> buildArt tile.Gid
-    makeTile tileType (Some art) pos
+    makeTile tileType [] (Some art) pos
 
   let getTiles (tilemap: TiledSharp.TmxMap): List<Tile> =
     let floorTiles = 
@@ -101,7 +101,7 @@ module TiledInterop =
     let art = buildArt tmxTile.Gid tilemap
     tmxTile
     |> getTilePos
-    |> makeTile tileType (Some art)
+    |> makeTile tileType [] (Some art)
 
   let translateToObject (tmxObject: TmxObject) = 
     let objectType =
@@ -140,7 +140,7 @@ module TiledInterop =
       |> Seq.append doors
       |> Seq.toList
 
-    create tiles objects
+    create tiles
 
   let loadWorld (filename: string) =
     let tiledFile = new TiledSharp.TmxMap(filename)

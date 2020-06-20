@@ -37,7 +37,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 Tiles.SelectMany(t => t.BuildParticles()).ToList().ForEach(p => GasParticles.Add(p));
 
                 // Add Game Objects
-                GameWorld.Objects.Select(t => new GameObjectViewModel(t, this)).ToList().ForEach(o => Objects.Add(o));
+                // GameWorld.Objects.Select(t => new GameObjectViewModel(t, this)).ToList().ForEach(o => Objects.Add(o));
 
                 OnPropertyChanged();
             }
