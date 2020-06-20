@@ -11,8 +11,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public abstract string ToolTip { get; }
         public virtual Brush Background => BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
 
-        public int TileWidth => 32 * AppView.Zoom;
-        public int TileHeight => 32 * AppView.Zoom;
+        public int TileWidth => 32;
+        public int TileHeight => 32;
 
         public virtual void HandleOverlayChanged()
         {
@@ -20,7 +20,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             OnPropertyChanged(nameof(ToolTip));
         }
 
-        public View.AppView AppView => _mainViewModel.AppView;
+        public View.AppView AppView => MainVM.AppView;
 
         public abstract Sprites.SpriteInfo SpriteInfo { get; }
 
@@ -28,11 +28,11 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public int ImageHeight => TileHeight;
         public int ZIndex => SpriteInfo.ZIndex;
 
-        private readonly MainViewModel _mainViewModel;
-
         protected WorldEntityViewModel(MainViewModel mainViewModel)
         {
-            _mainViewModel = mainViewModel;
+            MainVM = mainViewModel;
         }
+
+        public MainViewModel MainVM { get; }
     }
 }

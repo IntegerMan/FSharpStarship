@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
@@ -14,6 +16,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public TileViewModel(Tiles.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
         {
             Tile = tile;
+
+            RebuildImages();
         }
 
         public override void HandleOverlayChanged()
@@ -21,7 +25,22 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             base.HandleOverlayChanged();
 
             OnPropertyChanged(nameof(OverlayBrush));
+            RebuildImages();
         }
+
+        private void RebuildImages()
+        {
+            Images.Clear();
+            
+            Images.Add(new ImageViewModel(Background, 0));
+
+            // TODO: Add layers
+
+            // TODO: Add objects
+            //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
+        }
+
+        public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
 
         public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
@@ -68,7 +87,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 var art = Tile.Art.Value;
                 string pathToCheck = "Images/";
-                int index = art.TileFile.LastIndexOf(pathToCheck);
+                int index = art.TileFile.LastIndexOf(pathToCheck, StringComparison.InvariantCultureIgnoreCase);
 
                 if (index > 0)
                 {
