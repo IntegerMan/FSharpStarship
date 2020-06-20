@@ -4,25 +4,41 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
+using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
-    public class TileViewModel : WorldEntityViewModel
+    public class TileViewModel : ViewModelBase
     {
+        public virtual Brush Background => BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
+
+        public int TileWidth => 32;
+        public int TileHeight => 32;
+
+        public View.AppView AppView => MainVM.AppView;
+
+        public int ImageWidth => TileWidth;
+        public int ImageHeight => TileHeight;
+        public int ZIndex => SpriteInfo.ZIndex;
+
+        public MainViewModel MainVM { get; }
+
         public Tiles.Tile Tile { get; }
 
-        public TileViewModel(Tiles.Tile tile, MainViewModel mainViewModel) : base(mainViewModel)
+        public TileViewModel([NotNull] Tiles.Tile tile, [NotNull] MainViewModel mainViewModel)
         {
-            Tile = tile;
+            MainVM = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+            Tile = tile ?? throw new ArgumentNullException(nameof(tile));
 
             RebuildImages();
         }
 
-        public override void HandleOverlayChanged()
+        public void HandleOverlayChanged()
         {
-            base.HandleOverlayChanged();
+            OnPropertyChanged(nameof(Background));
+            OnPropertyChanged(nameof(ToolTip));
 
             RebuildImages();
         }
@@ -31,17 +47,16 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             Images.Clear();
             
-            // TODO: Add layers
+            // Add layers
             Tile.Art.Select(a => new ImageViewModel(BrushHelpers.GetBrushFromArt(a), a.ZIndex))
                 .ToList()
                 .ForEach(i => Images.Add(i));
 
-            // TODO: Add objects
-            //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
-
+            // Add objects
             Tile.Objects
-                .Select(o => new GameObjectViewModel(o, MainVM))
-                .Select(o => new ImageViewModel(o.Background, o.ZIndex))
+                .Select(Sprites.getObjectSpriteInfo)
+                .Select(BrushHelpers.GetBrushFromSpriteInfo)
+                .Select(b => new ImageViewModel(b, 30))
                 .ToList()
                 .ForEach(i => Images.Add(i));
 
@@ -62,9 +77,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
 
-        public override Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
+        public Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
 
-        public override string ToolTip
+        public string ToolTip
         {
             get
             {
@@ -81,8 +96,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             }
         }
 
-        public override int PosX => Tile.Pos.X * TileWidth;
-        public override int PosY => Tile.Pos.Y * TileHeight;
+        public int PosX => Tile.Pos.X * TileWidth;
+        public int PosY => Tile.Pos.Y * TileHeight;
 
         private Color CalculateColor()
         {
