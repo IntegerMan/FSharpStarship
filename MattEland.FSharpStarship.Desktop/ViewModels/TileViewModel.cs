@@ -38,6 +38,12 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             // TODO: Add objects
             //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
 
+            // Add gas particles if needed
+            if (AppView.Overlay == View.CurrentOverlay.Particles)
+            {
+                BuildParticles().ForEach(p => Images.Add(p));
+            }
+
             // Add Overlay if needed
             if (AppView.Overlay != View.CurrentOverlay.None && AppView.Overlay != View.CurrentOverlay.Particles)
             {
@@ -125,7 +131,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 : Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
         }
 
-        public IList<GasParticleViewModel> BuildParticles()
+        private List<GasParticleViewModel> BuildParticles()
         {
             var particles = new List<GasParticleViewModel>();
 

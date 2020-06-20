@@ -27,19 +27,15 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 // Ensure we lose state from prior run
                 Tiles.Clear();
-                GasParticles.Clear();
 
                 // Add Tiles and Gas Particles
                 GameWorld.Tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
-                Tiles.SelectMany(t => t.BuildParticles()).ToList().ForEach(p => GasParticles.Add(p));
 
                 OnPropertyChanged();
             }
         }
 
         public ObservableCollection<TileViewModel> Tiles { get; } = new ObservableCollection<TileViewModel>();
-
-        public ObservableCollection<GasParticleViewModel> GasParticles { get; } = new ObservableCollection<GasParticleViewModel>();
 
         public IEnumerable<string> ViewModes => Enum.GetNames(typeof(View.CurrentOverlay));
 
@@ -55,7 +51,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 OnPropertyChanged();
 
                 Tiles.ToList().ForEach(t => t.HandleOverlayChanged());
-                GasParticles.ToList().ForEach(t => t.HandleOverlayChanged());
             }
         }
 

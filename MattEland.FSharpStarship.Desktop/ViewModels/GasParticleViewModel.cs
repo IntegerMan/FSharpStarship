@@ -4,13 +4,13 @@ using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
-    public class GasParticleViewModel : ViewModelBase
+    public class GasParticleViewModel : ImageViewModel
     {
         private static readonly Random _randomizer = new Random();
 
         private readonly Gasses.Gas _gas;
 
-        public GasParticleViewModel(TileViewModel tile, Gasses.Gas gas)
+        public GasParticleViewModel(TileViewModel tile, Gasses.Gas gas) : base(Brushes.Transparent, 40, 0.5M)
         {
             _gas = gas;
             Tile = tile;
@@ -18,15 +18,13 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public TileViewModel Tile { get; }
 
-        public int PosX => Tile.PosX + (_randomizer.Next(0, 32) * Tile.AppView.Zoom);
-        public int PosY => Tile.PosY + (_randomizer.Next(0, 32) * Tile.AppView.Zoom);
+        public override int PosX => _randomizer.Next(0, Tile.ImageWidth - 1);
+        public override int PosY => _randomizer.Next(0, Tile.ImageHeight - 1);
 
-        public int Width => Tile.AppView.Zoom * 2;
-        public int Height => Tile.AppView.Zoom * 2;
+        public override int Width => 2;
+        public override int Height => 2;
 
-        public decimal Opacity => Tile.AppView.Overlay.Equals(View.CurrentOverlay.Particles) ? 1M : 0M;
-
-        public Brush Background
+        public override Brush Background
         {
             get
             {
@@ -47,11 +45,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 return Brushes.Magenta;
             }
-        }
-
-        public void HandleOverlayChanged()
-        {
-            OnPropertyChanged(nameof(Opacity));
         }
     }
 }
