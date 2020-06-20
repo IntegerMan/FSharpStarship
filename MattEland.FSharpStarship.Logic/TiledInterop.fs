@@ -125,6 +125,8 @@ module TiledInterop =
 
     {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal); Pos=pos}
 
+  let getObjectsAtPos pos objects = objects |> Seq.filter(fun o -> o.Pos = pos)
+
   let generateWorld (tilemap: TmxMap) data  =
     let floors = data.Floor |> Seq.map(fun t -> t |> translateToTile tilemap Floor)
     let walls = data.Walls |> Seq.map(fun t -> t |> translateToTile tilemap Wall)
@@ -141,7 +143,9 @@ module TiledInterop =
       |> Seq.append doors
       |> Seq.toList
 
-    create tiles
+    tiles 
+    |> List.map(fun t -> {t with Objects=(objects |> getObjectsAtPos t.Pos |> Seq.toList)})
+    |> create
 
   let loadWorld (filename: string) =
     let tiledFile = new TiledSharp.TmxMap(filename)

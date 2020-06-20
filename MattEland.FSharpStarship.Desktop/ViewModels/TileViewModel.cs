@@ -39,6 +39,12 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             // TODO: Add objects
             //Tile.Objects.Select(t => new GameObjectViewModel(t, MainVM)).ToList().ForEach(o => Objects.Add(o));
 
+            Tile.Objects
+                .Select(o => new GameObjectViewModel(o, MainVM))
+                .Select(o => new ImageViewModel(o.Background, o.ZIndex))
+                .ToList()
+                .ForEach(i => Images.Add(i));
+
             // Add gas particles if needed
             if (AppView.Overlay == View.CurrentOverlay.Particles)
             {
