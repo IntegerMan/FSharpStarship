@@ -13,6 +13,8 @@
     <None Remove="HC_SewerB.tsx" />
     <None Remove="HC_SewerC.tsx" />
     <None Remove="Hospital32.tsx" />
+    <None Remove="Images\HC_SewerB.png" />
+    <None Remove="Images\HC_SewerC.png" />
     <None Remove="Images\Hospital.png" />
     <None Remove="Images\industrial.png" />
     <None Remove="Images\Matt.png" />
@@ -24,6 +26,10 @@
     <None Remove="Images\oryx.png" />
     <None Remove="Images\SpaceBG.jpeg" />
     <None Remove="Images\TileA5_PHC_Store.png" />
+    <None Remove="Images\TileB_Laboratory.png" />
+    <None Remove="Images\TileB_PHC_Interior-AptModern.png" />
+    <None Remove="Images\TileC_PHC_Interior-Office&amp;Facility.png" />
+    <None Remove="Images\TileE_PHC_Interior-Extras.png" />
     <None Remove="Images\tileset1.png" />
     <None Remove="Images\tileset2.png" />
     <None Remove="Images\VexedHospital.png" />
@@ -58,6 +64,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\HC_SewerB.png" />
+    <Resource Include="Images\HC_SewerC.png" />
     <Resource Include="Images\industrial.png" />
     <Resource Include="Images\Matt.png" />
     <Resource Include="Images\Mid-TownA5.png" />
@@ -67,6 +75,10 @@
     <Resource Include="Images\oryx.png" />
     <Resource Include="Images\SpaceBG.jpeg" />
     <Resource Include="Images\TileA5_PHC_Store.png" />
+    <Resource Include="Images\tileb_laboratory.png" />
+    <Resource Include="Images\TileB_PHC_Interior-AptModern.png" />
+    <Resource Include="Images\TileC_PHC_Interior-Office&amp;Facility.png" />
+    <Resource Include="Images\TileE_PHC_Interior-Extras.png" />
     <Resource Include="Images\tileset1.png" />
     <Resource Include="Images\tileset2.png" />
   </ItemGroup>

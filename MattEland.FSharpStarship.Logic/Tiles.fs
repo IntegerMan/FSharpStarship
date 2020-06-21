@@ -9,8 +9,9 @@ module Tiles =
   type TileType =
     | Floor
     | Wall
+    | AirPipe
+    | WaterPipe
     | Space
-    | Carpet
 
   type TileArt =
     {

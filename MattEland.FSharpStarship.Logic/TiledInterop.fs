@@ -10,10 +10,15 @@ module TiledInterop =
 
   type TiledInfo = 
     {
-      Floor: seq<TmxLayerTile>
-      Walls: seq<TmxLayerTile>
-      Doors: seq<TmxLayerTile>
-      Objects: seq<TmxObject>
+      Floor: List<TmxLayerTile>
+      Walls: List<TmxLayerTile>
+      WaterPipes: List<TmxLayerTile>
+      AirPipes: List<TmxLayerTile>
+      Decorations: List<TmxLayerTile>
+      Grating: List<TmxLayerTile>
+      Overlays: List<TmxLayerTile>
+      Doors: List<TmxLayerTile>
+      Objects: List<TmxObject>
     }
 
   let getTilePos (t: TmxLayerTile) = pos t.X t.Y
@@ -22,17 +27,17 @@ module TiledInterop =
 
   let getObjectPos (o: TmxObject) = pos (pixelToTile o.X) (pixelToTile o.Y)
 
-  let allTiledObjects (tilemap: TmxMap) = tilemap.ObjectGroups |> Seq.collect(fun g -> g.Objects)
+  let allTiledObjects (tilemap: TmxMap) = tilemap.ObjectGroups |> Seq.collect(fun g -> g.Objects) |> Seq.toList
 
   let objectsOfType typeName tilemap = 
     tilemap
     |> allTiledObjects
-    |> Seq.where(fun o -> o.Type = typeName)
+    |> List.where(fun o -> o.Type = typeName)
 
   let mapObjectTypeByFunc typeName createFunc (tilemap: TmxMap) =
     tilemap
     |> objectsOfType typeName
-    |> Seq.map(createFunc)
+    |> List.map(createFunc)
 
   let mapObjectType typeName objectType (tilemap: TmxMap) =
     tilemap
@@ -40,16 +45,16 @@ module TiledInterop =
 
   let getTilesFromLayer (layerName: string) (tilemap: TmxMap) = 
     let layer = tilemap.Layers.[layerName]
-    layer.Tiles |> Seq.filter(fun t -> t.Gid > 0)
+    layer.Tiles |> Seq.filter(fun t -> t.Gid > 0) |> Seq.toList
     
   let getObjects (tilemap: TiledSharp.TmxMap): List<GameObject> =
     let astronauts = tilemap |> mapObjectType "Astronaut" Astronaut
     let doors = 
       tilemap 
       |> getTilesFromLayer "Doors" 
-      |> Seq.map(fun d -> {ObjectType=Door(IsOpen=false, IsHorizontal=false); Pos=getTilePos d})
+      |> List.map(fun d -> {ObjectType=Door(IsOpen=false, IsHorizontal=false); Pos=getTilePos d})
 
-    Seq.append astronauts doors |> Seq.toList
+    List.append astronauts doors
 
   let buildArt gid zindex (tilemap: TmxMap): TileArt =
     let tileset =
@@ -80,20 +85,25 @@ module TiledInterop =
     let floorTiles = 
       tilemap
       |> getTilesFromLayer "Floor"
-      |> Seq.map(fun t -> buildTile tilemap Floor t)
+      |> List.map(fun t -> buildTile tilemap Floor t)
 
     let wallTiles = 
       tilemap
       |> getTilesFromLayer "Walls"
-      |> Seq.map(fun t -> buildTile tilemap Wall t)
+      |> List.map(fun t -> buildTile tilemap Wall t)
     
-    Seq.append floorTiles wallTiles |> Seq.toList
+    List.append floorTiles wallTiles
 
   let interpretWorld tilemap =
     {
       Floor = tilemap |> getTilesFromLayer "Floor"
       Walls = tilemap |> getTilesFromLayer "Walls"
       Doors = tilemap |> getTilesFromLayer "Doors"
+      WaterPipes = tilemap |> getTilesFromLayer "Water"
+      AirPipes = tilemap |> getTilesFromLayer "Air"
+      Decorations = tilemap |> getTilesFromLayer "Deco"
+      Overlays = tilemap |> getTilesFromLayer "Overlays"
+      Grating = tilemap |> getTilesFromLayer "Grating"
       Objects = tilemap |> allTiledObjects
     }
 
@@ -110,10 +120,27 @@ module TiledInterop =
       | "Astronaut" -> Astronaut
     {ObjectType=objectType; Pos=getObjectPos tmxObject}
 
-  let mergeWith (nextLayer: seq<Tile>) (baseLayer: seq<Tile>) = 
+  let mergeLayerWithTile (nextLayer: seq<Tile>) (tile: Tile) =
+    let otherLayerTile = nextLayer |> Seq.tryFind(fun t -> t.Pos = tile.Pos)
+
+    match otherLayerTile with
+    | None -> tile
+    | Some otherTile -> {tile with Art=tile.Art @ otherTile.Art}
+
+  let getUniqueTiles (sourceLayer: List<Tile>) (otherLayer: List<Tile>) =
+    sourceLayer
+    |> List.filter(fun t -> 
+      otherLayer 
+      |> List.tryFind(fun ot -> ot.Pos = t.Pos) 
+      |> Option.isNone)
+
+  let mergeWith (nextLayer: List<Tile>) (baseLayer: List<Tile>) = 
+
+    let newTiles = getUniqueTiles nextLayer baseLayer
+
     baseLayer
-    |> Seq.filter(fun st -> nextLayer |> Seq.tryFind(fun nt -> nt.Pos = st.Pos) |> Option.isNone)
-    |> Seq.append nextLayer
+    |> List.map (fun t -> mergeLayerWithTile nextLayer t)
+    |> List.append newTiles
 
   let createDoor (walls: seq<Tile>) doorTile =
     let pos = doorTile |> getTilePos
@@ -128,13 +155,23 @@ module TiledInterop =
   let getObjectsAtPos pos objects = objects |> Seq.filter(fun o -> o.Pos = pos)
 
   let generateWorld (tilemap: TmxMap) data  =
-    let floors = data.Floor |> Seq.map(fun t -> t |> translateToTile tilemap Floor)
-    let walls = data.Walls |> Seq.map(fun t -> t |> translateToTile tilemap Wall)
-    let doors = data.Doors |> Seq.map(fun d -> d |> createDoor walls)
+    let floors = data.Floor |> List.map(fun t -> t |> translateToTile tilemap Floor)
+    let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap Wall)
+    let airPipes = data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap AirPipe)
+    let waterPipes = data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap WaterPipe)
+    let deco = data.Decorations |> List.map(fun t -> t |> translateToTile tilemap Floor)
+    let grating = data.Grating |> List.map(fun t -> t |> translateToTile tilemap Floor)
+    let overlays = data.Overlays |> List.map(fun t -> t |> translateToTile tilemap Floor)
+    let doors = data.Doors |> List.map(fun d -> d |> createDoor walls)
 
     let tiles = 
       floors 
+      |> mergeWith airPipes 
+      |> mergeWith waterPipes
+      |> mergeWith grating 
+      |> mergeWith deco 
       |> mergeWith walls 
+      |> mergeWith overlays 
       |> Seq.toList
 
     let objects = 

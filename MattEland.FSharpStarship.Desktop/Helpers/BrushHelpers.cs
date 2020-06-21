@@ -50,11 +50,6 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 
             string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
 
-            if (!IsSupportedResourceFile(resourceFile))
-            {
-                throw new NotSupportedException($"The resource file {resourceFile} is not supported but was referenced");
-            }
-
             // TODO: I shouldn't need SpriteInfo anymore
             var fakeSprite = new Sprites.SpriteInfo(resourceFile, 
                                                     Sprites.SpriteLocationType.AbsolutePosition,
@@ -67,23 +62,6 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
                                                     art.ZIndex);
 
             return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
-        }
-
-        private static bool IsSupportedResourceFile(string resourceFile)
-        {
-            switch (resourceFile.ToLowerInvariant())
-            {
-                case "tileset1.png":
-                case "tileset2.png":
-                case "mid-towna5.png":
-                case "mid-townb.png":
-                case "mid-townc.png":
-                case "mid-townd.png":
-                case "tilea5_phc_store.png":
-                    return true;
-                default:
-                    return false;
-            }
         }
 
     }
