@@ -129,43 +129,43 @@ module TiledInterop =
     |> List.map (fun t -> mergeLayerWithTile nextLayer t)
     |> List.append newTiles
 
-  let createDoor (walls: seq<Tile>) doorTile =
+  let createDoor (wallsPositions: List<Pos>) doorTile =
     let pos = doorTile |> getTilePos
 
     let isHorizontal = 
-      walls
-      |> Seq.tryFind(fun w -> w.Pos = (pos |> offset 0 -1))
+      wallsPositions
+      |> Seq.tryFind(fun w -> w = (pos |> offset 0 -1))
       |> Option.isSome
 
     {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal); Pos=pos}
 
   let getObjectsAtPos pos objects = objects |> Seq.filter(fun o -> o.Pos = pos)
 
-  let generateWorld (tilemap: TmxMap) data  =
-    let floors = data.Floor |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+  let buildTileLayers (tilemap: TmxMap) data =
     let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
-    let airPipes = data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-    let waterPipes = data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-    let deco = data.Decorations |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-    let grating = data.Grating |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-    let overlays = data.Overlays |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-    let doors = data.Doors |> List.map(fun d -> d |> createDoor walls)
+    [
+      data.Floor |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      data.Grating |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      data.Decorations |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      walls
+      data.Overlays |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    ]
 
-    let tiles = 
-      floors 
-      |> mergeWith airPipes 
-      |> mergeWith waterPipes
-      |> mergeWith grating 
-      |> mergeWith deco 
-      |> mergeWith walls 
-      |> mergeWith overlays 
-      |> Seq.toList
+  let flattenTileLayers (tilemap: TmxMap) data =
+    buildTileLayers tilemap data
+    |> List.reduce(fun tilesBase tilesNew -> tilesBase |> mergeWith tilesNew)
+
+  let generateWorld (tilemap: TmxMap) data  =
+    let tiles = flattenTileLayers tilemap data      
+    let wallPositions = data.Walls |> List.map(getTilePos)
+    let doors = data.Doors |> List.map(fun d -> d |> createDoor wallPositions)
 
     let objects = 
       data.Objects 
-      |> Seq.map(translateToObject) 
-      |> Seq.append doors
-      |> Seq.toList
+      |> List.map(translateToObject) 
+      |> List.append(doors) 
 
     tiles 
     |> List.map(fun t -> {t with Objects=(objects |> getObjectsAtPos t.Pos |> Seq.toList)})
