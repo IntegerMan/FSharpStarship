@@ -101,11 +101,20 @@ module TiledInterop =
     |> getTilePos
     |> makeTile flags [] [art]
 
-  let translateToObject (tmxObject: TmxObject) = 
+  let convertToGameObject (tmxObject: TmxObject) =
     let objectType =
       match tmxObject.Type with
       | "Astronaut" -> Astronaut
-    {ObjectType=objectType}
+    {ObjectType=objectType}    
+
+  let addObjectToTiles (tmxObject: TmxObject) tiles = 
+    let object = tmxObject |> convertToGameObject
+
+    let pos = getObjectPos tmxObject
+    let tile = tiles |> getTile pos
+    let newTile = tile |> addObjectToTile object
+
+    tiles |> replaceTile newTile
 
   let mergeLayerWithTile (nextLayer: seq<Tile>) (tile: Tile) =
     let otherLayerTile = nextLayer |> Seq.tryFind(fun t -> t.Pos = tile.Pos)
@@ -137,9 +146,7 @@ module TiledInterop =
       |> List.tryFind(fun w -> w = (doorTile.Pos |> offset 0 -1))
       |> Option.isSome
 
-    let door = {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
-
-    {doorTile with Objects=door::doorTile.Objects}    
+    doorTile |> addObjectToTile {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
   let buildTileLayers (tilemap: TmxMap) data =
     let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
@@ -169,17 +176,20 @@ module TiledInterop =
 
     tiles |> mergeWith doors
 
+  let objectsInPos pos objects = objects |> List.where(fun o -> o |> getObjectPos = pos)
+
+  let addObjectsToTiles objects tiles =
+    tiles |> List.map(fun t -> 
+        objects
+        |> objectsInPos t.Pos
+        |> List.map(convertToGameObject)
+        |> List.fold(fun lastTile object -> lastTile |> addObjectToTile object) t
+      )
+
   let generateWorld (tilemap: TmxMap) data  =
-    let tiles = 
-      flattenTileLayers tilemap data
-      |> addDoorsToTiles data
-
-    let objects = 
-      data.Objects 
-      |> List.map(translateToObject) 
-
-    tiles 
-    // |> List.map(fun t -> {t with Objects=(objects |> getObjectsAtPos t.Pos |> Seq.toList)})
+    flattenTileLayers tilemap data
+    |> addDoorsToTiles data
+    |> addObjectsToTiles data.Objects
     |> create
 
   let loadWorld (filename: string) =

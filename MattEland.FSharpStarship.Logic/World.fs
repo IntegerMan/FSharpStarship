@@ -12,10 +12,10 @@ module World =
       Tiles: List<Tile>
     }
 
-  let getTile pos world = world.Tiles |> List.find(fun t -> t.Pos = pos)
-  let tryGetTile pos world = world.Tiles |> List.tryFind(fun t -> t.Pos = pos)
+  let getTile pos tiles = tiles |> List.find(fun t -> t.Pos = pos)
+  let tryGetTile pos tiles = tiles |> List.tryFind(fun t -> t.Pos = pos)
 
-  let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
+  let getGasByPos (tiles: List<Tile>, pos: Pos, gas: Gas): decimal = tiles |> getTile pos |> getTileGas gas
 
   let makeTile flags objects tileArt pos = 
     let gasses = defaultGasses
@@ -38,6 +38,6 @@ module World =
     else
       tile
 
-  let replaceTile pos newTile world = {world with Tiles=world.Tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }
+  let replaceTile newTile tiles = tiles |> List.map(fun t -> replaceTileIfMatch(t, newTile.Pos, newTile))
 
   let create tiles = {Tiles=tiles}

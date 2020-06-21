@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using MattEland.FSharpStarship.Logic;
+using Microsoft.FSharp.Collections;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
@@ -30,14 +31,21 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 if (Equals(value, _gameWorld)) return;
                 _gameWorld = value;
 
-                // Ensure we lose state from prior run
-                Tiles.Clear();
+                var tiles = GameWorld.Tiles;
 
-                // Add Tiles and Gas Particles
-                GameWorld.Tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
-
-                OnPropertyChanged();
+                UpdateTiles(tiles);
             }
+        }
+
+        private void UpdateTiles(IEnumerable<Tiles.Tile> tiles)
+        {
+            // Ensure we lose state from prior run
+            Tiles.Clear();
+
+            // Add Tiles and Gas Particles
+            tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
+
+            OnPropertyChanged();
         }
 
         public ObservableCollection<TileViewModel> Tiles { get; } = new ObservableCollection<TileViewModel>();
@@ -74,7 +82,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public void AdvanceTime()
         {
-            this.GameWorld = Simulations.simulate(this.GameWorld);
+            var tiles = ListModule.OfSeq(this.Tiles.Select(t => t.Tile));
+            UpdateTiles(Simulations.simulate(tiles));
         }
     }
 }

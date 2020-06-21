@@ -13,11 +13,11 @@ module Simulations =
   
   let private simulatePerson tile world =
     let newTile = tile |> convertTileGas humanOxygenIntake Gas.Oxygen Gas.CarbonDioxide
-    world |> replaceTile tile.Pos newTile
+    world |> replaceTile newTile
 
   let private simulateAirScrubber tile world =
     let newTile = tile |> convertTileGas scrubberCO2Intake Gas.CarbonDioxide Gas.Oxygen
-    world |> replaceTile tile.Pos newTile
+    world |> replaceTile newTile
 
   let private simulateObject obj tile world =
     match obj.ObjectType with
@@ -29,11 +29,9 @@ module Simulations =
     objects 
     |> List.fold(fun newWorld obj -> newWorld |> simulateObject obj tile) world
 
-  let simulateTile tile world = 
-    world 
+  let simulateTile tile tiles = 
+    tiles
     |> simulateObjects tile.Objects tile
     |> simulateTileGas tile.Pos
 
-  let simulate(world: GameWorld): GameWorld =
-    world.Tiles 
-    |> List.fold(fun newWorld tile -> newWorld |> simulateTile tile) world
+  let simulate tiles = tiles |> List.fold(fun newTiles tile -> newTiles |> simulateTile tile) tiles

@@ -8,27 +8,27 @@ open Contexts
 
 module SimulateGasses =
 
-  let private shiftGas (source: Tile) (dest: Tile) gas world =
-    world
-    |> replaceTile source.Pos (modifyTileGas gas -0.01M source)
-    |> replaceTile dest.Pos (modifyTileGas gas 0.01M dest)
+  let private shiftGas (source: Tile) (dest: Tile) gas tiles =
+    tiles
+    |> replaceTile (modifyTileGas gas -0.01M source)
+    |> replaceTile (modifyTileGas gas 0.01M dest)
 
-  let private tryFindTargetForGasSpread gas pos world =
-    let tile = world |> getTile pos
+  let private tryFindTargetForGasSpread gas pos tiles =
+    let tile = tiles |> getTile pos
     let currentGas = tile |> getTileGas gas
-    getContext(world, tile)
+    tile |> getContext tiles
     |> getPresentNeighbors
     |> List.filter(fun n -> not n.Flags.BlocksGas && getTileGas gas n < currentGas)
     |> List.sortBy(fun n -> getTileGas gas n)
     |> List.tryHead
 
-  let rec private equalizeTileGas pos gas world =
-    let target = tryFindTargetForGasSpread gas pos world
+  let rec private equalizeTileGas pos gas (tiles: List<Tile>) =
+    let target = tryFindTargetForGasSpread gas pos tiles
     match target with
-    | None -> world
+    | None -> tiles
     | Some neighbor ->
-      let tile = world |> getTile pos
-      world 
+      let tile = tiles |> getTile pos
+      tiles
       |> shiftGas tile neighbor gas
       |> equalizeTileGas tile.Pos gas // May be more gas to shift
 

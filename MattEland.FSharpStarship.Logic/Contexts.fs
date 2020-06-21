@@ -15,13 +15,13 @@ module Contexts =
       Right: Tile option;
     }
 
-  let getContext(world: GameWorld, tile: Tile): TileContext =
+  let getContext (tiles: List<Tile>) tile =
     {
       Tile=tile;
-      Up=world |> tryGetTile (tile.Pos |> offset 0 -1);
-      Down=world |> tryGetTile (tile.Pos |> offset 0 1);
-      Left=world |> tryGetTile (tile.Pos |> offset -1 0);
-      Right=world |> tryGetTile (tile.Pos |> offset 1 0);
+      Up=tiles |> tryGetTile (tile.Pos |> offset 0 -1);
+      Down=tiles |> tryGetTile (tile.Pos |> offset 0 1);
+      Left=tiles |> tryGetTile (tile.Pos |> offset -1 0);
+      Right=tiles |> tryGetTile (tile.Pos |> offset 1 0);
     }
 
   let getPotentialNeighbors context = [context.Up; context.Right; context.Down; context.Left]

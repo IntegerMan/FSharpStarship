@@ -37,3 +37,5 @@ module Tiles =
   let wallFlags = {RetainsGas=false; BlocksGas=true; BlocksMovement=true}
   let tileFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=false}
   let doorFlags = {RetainsGas=true; BlocksGas=true; BlocksMovement=false}
+
+  let addObjectToTile object tile: Tile = {tile with Objects=object::tile.Objects}     
