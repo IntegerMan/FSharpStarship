@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -8,9 +9,12 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 {
     public static class BrushHelpers
     {
+        private static readonly IDictionary<string, BitmapSource> _images = new Dictionary<string, BitmapSource>();
+        private static readonly IDictionary<Color, Brush> _colorBrushes = new Dictionary<Color, Brush>();
+
         public static ImageBrush GetBrushFromSpriteInfo(Sprites.SpriteInfo sprite)
         {
-            var image = new BitmapImage(new Uri($"pack://application:,,,/Images/{sprite.Image}"));
+            var image = GetImage(sprite.Image);
 
             Int32Rect rect;
             Stretch stretch;
@@ -34,11 +38,32 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             return brush;
         }
 
+        private static BitmapSource GetImage(string imageName)
+        {
+            var key = imageName.ToUpperInvariant();
+            if (_images.ContainsKey(key))
+            {
+                return _images[key];
+            }
+
+            BitmapImage image = new BitmapImage(new Uri($"pack://application:,,,/Images/{imageName}"));
+            image.Freeze();
+            _images.Add(key, image);
+
+            return image;
+        }
+
         public static Brush GetSolidColorBrush(Color color)
         {
-            Brush brush = new SolidColorBrush(color);
+            if (_colorBrushes.ContainsKey(color))
+            {
+                return _colorBrushes[color];
+            }
 
-            brush.Freeze(); // TODO: Introduce a dictionary to store unique / reused brushes
+            Brush brush = new SolidColorBrush(color);
+            brush.Freeze();
+
+            _colorBrushes.Add(color, brush);
 
             return brush;
         }
@@ -61,7 +86,7 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
                                                     art.Height, 
                                                     art.ZIndex);
 
-            return BrushHelpers.GetBrushFromSpriteInfo(fakeSprite);
+            return GetBrushFromSpriteInfo(fakeSprite);
         }
 
     }
