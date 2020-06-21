@@ -10,12 +10,4 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
         protected override Visual GetVisualChild(int index) => _renderer;
         protected override int VisualChildrenCount => 1;
     }
-
-    public class TileRendererHost : FrameworkElement
-    {
-        private TileRenderer _renderer = new TileRenderer();
-
-        protected override Visual GetVisualChild(int index) => _renderer;
-        protected override int VisualChildrenCount => 1;
-    }
 }

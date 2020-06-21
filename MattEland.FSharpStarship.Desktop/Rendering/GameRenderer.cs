@@ -12,16 +12,5 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
                 context.DrawRectangle(Brushes.CornflowerBlue, null, new Rect(new Size(800, 600)));
             }
         }
-    }    
-    
-    public class TileRenderer : DrawingVisual
-    {
-        public TileRenderer()
-        {
-            using (DrawingContext context = RenderOpen())
-            {
-                context.DrawRectangle(Brushes.CornflowerBlue, null, new Rect(new Size(32, 32)));
-            }
-        }
     }
 }
