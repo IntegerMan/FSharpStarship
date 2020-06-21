@@ -11,6 +11,5 @@ module GameObjects =
 
   type GameObject =
     {
-      Pos: Pos
       ObjectType: GameObjectType
     }
