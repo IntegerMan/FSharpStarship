@@ -37,10 +37,18 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             // Add objects
             foreach (var img in tile.Objects
                 .Select(Sprites.getObjectSpriteInfo)
-                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform))
-                .ToList())
+                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform)))
             {
-                context.DrawImage(img, rect);
+                if (img.Height > img.Width)
+                {
+                    double ratio = img.Width / img.Height;
+                    double offset = Tile.ImageWidth / 2.0 * ratio;
+                    context.DrawImage(img, new Rect(new Point(offset / 2.0, 0), new Size(Tile.TileWidth - offset, Tile.TileHeight)));
+                }
+                else
+                {
+                    context.DrawImage(img, rect);
+                }
             }
 
             // Add gas particles if needed
