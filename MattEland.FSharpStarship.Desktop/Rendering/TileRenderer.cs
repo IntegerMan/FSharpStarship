@@ -1,16 +1,33 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using System.Windows.Media;
+using JetBrains.Annotations;
+using MattEland.FSharpStarship.Desktop.Helpers;
+using MattEland.FSharpStarship.Desktop.ViewModels;
 
 namespace MattEland.FSharpStarship.Desktop.Rendering
 {
     public class TileRenderer : DrawingVisual
     {
-        public TileRenderer()
+        public TileRenderer([NotNull] TileViewModel tile)
         {
-            using (DrawingContext context = RenderOpen())
+            Tile = tile ?? throw new ArgumentNullException(nameof(tile));
+            Render();
+        }
+
+        private void Render()
+        {
+            if (Tile == null) return;
+
+            using var context = RenderOpen();
+
+            foreach (var img in Tile.Tile.Art.Select(a => BrushHelpers.GetImageSourceFromArt(a)))
             {
-                context.DrawRectangle(Brushes.CornflowerBlue, null, new Rect(new Size(32, 32)));
+                context.DrawImage(img, new Rect(new Size(Tile.TileWidth, Tile.TileWidth)));
             }
         }
+
+        public TileViewModel Tile { get; }
     }
 }
