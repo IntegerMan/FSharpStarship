@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:MattEland.FSharpStarship.Desktop.ViewModels"
+        xmlns:desktop="clr-namespace:MattEland.FSharpStarship.Desktop"
+        xmlns:rendering="clr-namespace:MattEland.FSharpStarship.Desktop.Rendering"
         mc:Ignorable="d"
         Title="Modeling a Starship in F#, by Matt Eland (@IntegerMan)" 
         Width="1280" Height="800" 
@@ -54,7 +56,7 @@
                 <Grid Width="896" Height="544" SnapsToDevicePixels="True">
 
                     <!-- Tiles -->
-                    <ItemsControl ItemsSource="{Binding Tiles}" >
+                    <ItemsControl ItemsSource="{Binding Tiles}" SnapsToDevicePixels="True">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Canvas />
@@ -62,37 +64,10 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ItemsControl ToolTip="{Binding ToolTip}" Width="{Binding ImageWidth}" Height="{Binding ImageHeight}"
-                                              Background="Transparent"
-                                              SnapsToDevicePixels="True"
-                                              ItemsSource="{Binding Images}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <Canvas />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Rectangle SnapsToDevicePixels="True"
-                                                       IsHitTestVisible="False"
-                                                       Width="{Binding Width}" Height="{Binding Height}" 
-                                                       Fill="{Binding Background}" 
-                                                       Opacity="{Binding Opacity}"
-                                                       Stretch="Uniform"
-                                                       StrokeThickness="0">
-                                            </Rectangle>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemContainerStyle>
-                                        <Style>
-                                            <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
-                                            <Setter Property="Canvas.Left" Value="{Binding PosX}" />
-                                            <Setter Property="Canvas.Top" Value="{Binding PosY}" />
-                                            <Setter Property="Panel.ZIndex" Value="{Binding ZIndex}" />
-                                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                                        </Style>
-                                    </ItemsControl.ItemContainerStyle>
-                                </ItemsControl>
+                                <Border Background="Transparent" ToolTip="{Binding ToolTip}" SnapsToDevicePixels="True" BorderThickness="0">
+                                    <rendering:TileRendererHost IsHitTestVisible="False" SnapsToDevicePixels="True"
+                                                                Width="{Binding ImageWidth}" Height="{Binding ImageHeight}" />
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemContainerStyle>
@@ -100,7 +75,6 @@
                                 <!-- ReSharper disable Xaml.BindingWithContextNotResolved - analysis bug - binding to the actual item, not the larger context -->
                                 <Setter Property="Canvas.Left" Value="{Binding PosX}" />
                                 <Setter Property="Canvas.Top" Value="{Binding PosY}" />
-                                <Setter Property="Panel.ZIndex" Value="{Binding ZIndex}" />
                                 <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
                             </Style>
                         </ItemsControl.ItemContainerStyle>

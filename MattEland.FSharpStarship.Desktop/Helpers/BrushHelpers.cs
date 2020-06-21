@@ -22,9 +22,19 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             return image.GetBrushFromImageRect(imagePath, rect, stretch);
         }
 
+        public static ImageSource GetImageSourceFromSpriteSheet(string imagePath, int x, int y, int width, int height, Stretch stretch = Stretch.Fill)
+        {
+            var rect = stretch == Stretch.Uniform 
+                ? new Int32Rect(x * width, y * height, width, height) 
+                : new Int32Rect(x, y, width, height);
+
+            var image = BitmapHelpers.GetImage(imagePath);
+            return image.GetImageSourceFromImageRect(imagePath, rect, stretch);
+        }
+
         public static Brush GetBrushFromImageRect(this BitmapSource image, string imageKey, Int32Rect rect, Stretch stretch = Stretch.Fill)
         {
-            var key = $"{imageKey}:{rect.X},{rect.Y}:{rect.Width},{rect.Height}";
+            var key = $"brush_{imageKey}:{rect.X},{rect.Y}:{rect.Width},{rect.Height}";
 
             if (_imageRects.ContainsKey(key))
             {
@@ -37,6 +47,11 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             _imageRects.Add(key, brush);
 
             return brush;
+        }
+
+        public static ImageSource GetImageSourceFromImageRect(this BitmapSource image, string imageKey, Int32Rect rect, Stretch stretch = Stretch.Fill)
+        {
+            return image.BuildCroppedBitmap(rect);
         }
 
         public static Brush GetSolidColorBrush(Color color)
@@ -62,6 +77,16 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
 
             return GetBrushFromSpriteSheet(resourceFile, art.X, art.Y, art.Width, art.Height, stretch);
+        }
+
+        public static ImageSource GetImageSourceFromArt(Tiles.TileArt art, Stretch stretch = Stretch.Fill)
+        {
+            string pathToCheck = "Images/";
+            int index = art.TileFile.LastIndexOf(pathToCheck, StringComparison.InvariantCultureIgnoreCase);
+
+            string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
+
+            return GetImageSourceFromSpriteSheet(resourceFile, art.X, art.Y, art.Width, art.Height, stretch);
         }
     }
 }

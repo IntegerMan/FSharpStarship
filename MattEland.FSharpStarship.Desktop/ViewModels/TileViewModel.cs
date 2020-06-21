@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.Helpers;
+using MattEland.FSharpStarship.Desktop.Rendering;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
@@ -28,50 +28,15 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             MainVM = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
             Tile = tile ?? throw new ArgumentNullException(nameof(tile));
-
-            RebuildImages();
         }
 
         public void HandleOverlayChanged()
         {
             OnPropertyChanged(nameof(ToolTip));
-
-            RebuildImages();
+            Renderer.RefreshRender();
         }
 
-        private void RebuildImages()
-        {
-            Images.Clear();
-            
-            // Add layers
-            Tile.Art.Select(a => new ImageViewModel(BrushHelpers.GetBrushFromArt(a), a.ZIndex))
-                .ToList()
-                .ForEach(i => Images.Add(i));
-
-            // Add objects
-            Tile.Objects
-                .Select(Sprites.getObjectSpriteInfo)
-                .Select(si => BrushHelpers.GetBrushFromArt(si, Stretch.Uniform))
-                .Select(b => new ImageViewModel(b, 30))
-                .ToList()
-                .ForEach(i => Images.Add(i));
-
-            // Add gas particles if needed
-            if (AppView.Overlay == View.CurrentOverlay.Particles)
-            {
-                BuildParticles().ForEach(p => Images.Add(p));
-            }
-
-            // Add Overlay if needed
-            if (AppView.Overlay != View.CurrentOverlay.None && AppView.Overlay != View.CurrentOverlay.Particles)
-            {
-                Images.Add(new ImageViewModel(BuildOverlayBrush(), 50, 0.5M));
-            }
-        }
-
-        private Brush BuildOverlayBrush() => BrushHelpers.GetSolidColorBrush(CalculateColor());
-
-        public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
+        public Brush BuildOverlayBrush() => BrushHelpers.GetSolidColorBrush(CalculateColor());
 
         public string ToolTip
         {
@@ -91,6 +56,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public int PosX => Tile.Pos.X * TileWidth;
         public int PosY => Tile.Pos.Y * TileHeight;
+        public TileRendererHost Renderer { get; set; }
 
         private Color CalculateColor()
         {
@@ -101,7 +67,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 : Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
         }
 
-        private List<GasParticleViewModel> BuildParticles()
+        public List<GasParticleViewModel> BuildParticles()
         {
             var particles = new List<GasParticleViewModel>();
 
