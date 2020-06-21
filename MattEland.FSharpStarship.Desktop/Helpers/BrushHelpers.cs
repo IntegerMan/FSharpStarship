@@ -9,60 +9,34 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 {
     public static class BrushHelpers
     {
-        private static readonly IDictionary<string, BitmapSource> _images = new Dictionary<string, BitmapSource>();
         private static readonly IDictionary<Color, Brush> _colorBrushes = new Dictionary<Color, Brush>();
         private static readonly IDictionary<string, Brush> _imageRects = new Dictionary<string, Brush>();
 
-        public static Brush GetBrushFromSpriteInfo(Sprites.SpriteInfo sprite)
+        public static Brush GetBrushFromSpriteSheet(string imagePath, int x, int y, int width, int height, Stretch stretch = Stretch.Fill)
         {
-            var image = GetImage(sprite.Image);
+            var rect = stretch == Stretch.Uniform 
+                ? new Int32Rect(x * width, y * height, width, height) 
+                : new Int32Rect(x, y, width, height);
 
-            Int32Rect rect;
-            Stretch stretch;
-            if (sprite.LocationType.Equals(Sprites.SpriteLocationType.Cell))
-            {
-                var tileWidth = sprite.Width;
-                var tileHeight = sprite.Height;
-                rect = new Int32Rect(sprite.X * tileWidth, sprite.Y * tileHeight, tileWidth, tileHeight);
-                stretch = Stretch.Uniform;
-            }
-            else
-            {
-                rect = new Int32Rect(sprite.X, sprite.Y, sprite.Width, sprite.Height);
-                stretch = Stretch.Fill;
-            }
+            var image = BitmapHelpers.GetImage(imagePath);
+            return image.GetBrushFromImageRect(imagePath, rect, stretch);
+        }
 
-            var key = $"{sprite.Image}:{rect.X},{rect.Y}:{rect.Width},{rect.Height}";
+        public static Brush GetBrushFromImageRect(this BitmapSource image, string imageKey, Int32Rect rect, Stretch stretch = Stretch.Fill)
+        {
+            var key = $"{imageKey}:{rect.X},{rect.Y}:{rect.Width},{rect.Height}";
 
             if (_imageRects.ContainsKey(key))
             {
                 return _imageRects[key];
             }
 
-            var croppedImage = new CroppedBitmap(image, rect);
-            croppedImage.Freeze();
-
-            var brush = new ImageBrush(croppedImage) { Stretch = stretch };
+            var brush = new ImageBrush(image.BuildCroppedBitmap(rect)) {Stretch = stretch};
             brush.Freeze();
 
             _imageRects.Add(key, brush);
 
             return brush;
-        }
-
-        private static BitmapSource GetImage(string imageName)
-        {
-            var key = imageName.ToUpperInvariant();
-            if (_images.ContainsKey(key))
-            {
-                return _images[key];
-            }
-
-            BitmapImage image = new BitmapImage(new Uri($"pack://application:,,,/Images/{imageName}"));
-            image.Freeze();
-            _images.Add(key, image);
-
-            return image;
         }
 
         public static Brush GetSolidColorBrush(Color color)
@@ -87,19 +61,7 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 
             string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
 
-            // TODO: I shouldn't need SpriteInfo anymore
-            var fakeSprite = new Sprites.SpriteInfo(resourceFile, 
-                                                    Sprites.SpriteLocationType.AbsolutePosition,
-                                                    art.X, 
-                                                    art.Y, 
-                                                    0, 
-                                                    0, 
-                                                    art.Width, 
-                                                    art.Height, 
-                                                    art.ZIndex);
-
-            return GetBrushFromSpriteInfo(fakeSprite);
+            return GetBrushFromSpriteSheet(resourceFile, art.X, art.Y, art.Width, art.Height);
         }
-
     }
 }
