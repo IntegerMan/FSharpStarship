@@ -11,8 +11,9 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
     {
         private static readonly IDictionary<string, BitmapSource> _images = new Dictionary<string, BitmapSource>();
         private static readonly IDictionary<Color, Brush> _colorBrushes = new Dictionary<Color, Brush>();
+        private static readonly IDictionary<string, Brush> _imageRects = new Dictionary<string, Brush>();
 
-        public static ImageBrush GetBrushFromSpriteInfo(Sprites.SpriteInfo sprite)
+        public static Brush GetBrushFromSpriteInfo(Sprites.SpriteInfo sprite)
         {
             var image = GetImage(sprite.Image);
 
@@ -31,10 +32,21 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
                 stretch = Stretch.Fill;
             }
 
-            var croppedImage = new CroppedBitmap(image, rect);
-            var brush = new ImageBrush(croppedImage) { Stretch = stretch };
+            var key = $"{sprite.Image}:{rect.X},{rect.Y}:{rect.Width},{rect.Height}";
 
-            brush.Freeze(); // TODO: Introduce a dictionary to store unique / reused brushes
+            if (_imageRects.ContainsKey(key))
+            {
+                return _imageRects[key];
+            }
+
+            var croppedImage = new CroppedBitmap(image, rect);
+            croppedImage.Freeze();
+
+            var brush = new ImageBrush(croppedImage) { Stretch = stretch };
+            brush.Freeze();
+
+            _imageRects.Add(key, brush);
+
             return brush;
         }
 

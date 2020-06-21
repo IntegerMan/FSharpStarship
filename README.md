@@ -22,7 +22,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 
 - [x] Create a simple 1-room space ship
 - [x] Add a human actor
-- [ ] Create a multi-room space ship
+- [x] Create a multi-room space ship
 
 ## Graphics
 
@@ -114,3 +114,9 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Use upper-case field names
 - [ ] Convert methods to function syntax when possible
 - [x] Anything returning an option should start with try
+- [ ] Give tiles direct access to their neighbors
+
+## Performance
+- [ ] Switch to a DrawingGroup-based approach
+- [ ] Switch to an update-based model instead of a clear / redraw model
+- [x] Recycle brushes
