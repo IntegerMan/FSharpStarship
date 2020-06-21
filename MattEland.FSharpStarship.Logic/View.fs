@@ -33,15 +33,15 @@ module View =
   let rgb (r, g, b): RGB = rgbt(r,g,b, 255)
   let transparent = rgbt(255, 255, 255, 0)
 
-  let private getGradedColor percent = 
+  let private getGradedColor percent alpha = 
     let value = (System.Math.Min(1M, percent) * 255M) |> System.Math.Round |> int
-    rgb(value, value, value)
+    rgbt(value, value, value, alpha)
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.Overlay with
-    | CurrentOverlay.Oxygen -> getGradedColor(tile.Gasses.Oxygen)
-    | CurrentOverlay.Nitrogen -> getGradedColor(tile.Gasses.Nitrogen)
-    | CurrentOverlay.CarbonDioxide -> getGradedColor(tile.Gasses.CarbonDioxide)
-    | CurrentOverlay.Heat -> getGradedColor(tile.Gasses.Heat)
-    | CurrentOverlay.Pressure -> getGradedColor(tile.Pressure / 3.0M)
+    | CurrentOverlay.Oxygen -> getGradedColor tile.Gasses.Oxygen 100
+    | CurrentOverlay.Nitrogen -> getGradedColor tile.Gasses.Nitrogen 100
+    | CurrentOverlay.CarbonDioxide -> getGradedColor tile.Gasses.CarbonDioxide 100
+    | CurrentOverlay.Heat -> getGradedColor tile.Gasses.Heat 100
+    | CurrentOverlay.Pressure -> getGradedColor (tile.Pressure / 3.0M) 100
     | _ -> transparent
