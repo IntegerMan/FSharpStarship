@@ -51,7 +51,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             // Add objects
             Tile.Objects
                 .Select(Sprites.getObjectSpriteInfo)
-                .Select(si => BrushHelpers.GetBrushFromSpriteSheet(si.Image, si.X, si.Y, si.Width, si.Height, Stretch.Uniform))
+                .Select(si => BrushHelpers.GetBrushFromArt(si, Stretch.Uniform))
                 .Select(b => new ImageViewModel(b, 30))
                 .ToList()
                 .ForEach(i => Images.Add(i));
