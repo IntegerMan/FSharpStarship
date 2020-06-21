@@ -8,11 +8,6 @@ open Contexts
 
 module SimulateGasses =
 
-  let canGasFlowInto tile = // TODO: This will need to check for objects at that position now that doors are a thing
-    match tile.TileType with
-      | Floor | Space -> true
-      | _ -> false
-
   let private shiftGas (source: Tile) (dest: Tile) gas world =
     world
     |> replaceTile source.Pos (modifyTileGas gas -0.01M source)
@@ -23,7 +18,7 @@ module SimulateGasses =
     let currentGas = tile |> getTileGas gas
     getContext(world, tile)
     |> getPresentNeighbors
-    |> List.filter(fun n -> canGasFlowInto n && getTileGas gas n < currentGas)
+    |> List.filter(fun n -> not n.Flags.BlocksGas && getTileGas gas n < currentGas)
     |> List.sortBy(fun n -> getTileGas gas n)
     |> List.tryHead
 

@@ -33,12 +33,6 @@ module View =
   let rgb (r, g, b): RGB = rgbt(r,g,b, 255)
   let transparent = rgbt(255, 255, 255, 0)
 
-  let getTileColor tileType =
-    match tileType with
-    | Floor -> rgb(86, 86, 128)
-    | Wall -> rgb(64, 64, 84)
-    | _ -> rgb(255, 0, 255) // Magenta for high visibility
-
   let private getGradedColor percent = 
     let value = (System.Math.Min(1M, percent) * 255M) |> System.Math.Round |> int
     rgb(value, value, value)

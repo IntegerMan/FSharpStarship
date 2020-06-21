@@ -77,7 +77,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
 
-        public Sprites.SpriteInfo SpriteInfo => Sprites.getTileSpriteInfo(Tile.TileType);
+        public Sprites.SpriteInfo SpriteInfo => null;
 
         public string ToolTip
         {
@@ -85,7 +85,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.AppendLine(Tile.TileType.ToString());
                 sb.AppendLine($"Pos: {Tile.Pos.X},{Tile.Pos.Y}");
 
                 Gasses.spreadableGasses.ToList().ForEach(g => { sb.AppendLine($"{g}: {TileGas.getTileGas(g, Tile)}"); });

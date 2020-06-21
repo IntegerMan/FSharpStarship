@@ -17,10 +17,10 @@ module World =
 
   let getGasByPos(world: GameWorld, pos: Pos, gas: Gas): decimal = world |> getTile pos |> getTileGas gas
 
-  let makeTile tileType objects tileArt pos = 
-    let gasses = getDefaultTileGasses tileType
+  let makeTile flags objects tileArt pos = 
+    let gasses = defaultGasses
     {
-      TileType=tileType
+      Flags=flags
       Pos=pos
       Gasses=gasses
       Pressure=gasses |> calculatePressure
@@ -28,8 +28,8 @@ module World =
       Objects=objects
     }
    
-  let makeTileWithGasses tileType pos objects gasses = 
-    let tile = makeTile tileType objects [] pos
+  let makeTileWithGasses flags pos objects gasses = 
+    let tile = makeTile flags objects [] pos
     {tile with Gasses=gasses; Pressure=gasses |> calculatePressure}
 
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
@@ -39,6 +39,5 @@ module World =
       tile
 
   let replaceTile pos newTile world = {world with Tiles=world.Tiles |> List.map(fun t -> replaceTileIfMatch(t, pos, newTile)) }
-
 
   let create tiles = {Tiles=tiles}

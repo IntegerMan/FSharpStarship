@@ -16,7 +16,7 @@ module TileGas =
   let hasGas gas tile = tile |> getTileGas gas > 0M
 
   let private setTileGas (gas: Gas) (requestedValue: decimal) (tile: Tile): Tile =
-    if retainsGas tile.TileType then
+    if tile.Flags.RetainsGas then
       // Ensure we don't go negative
       let value = System.Math.Max(0M, requestedValue)
 
@@ -43,31 +43,19 @@ module TileGas =
   let tryGetTopMostGas tile = pressurizedGasses |> List.tryFind(fun gas -> tile |> hasGas gas)
   let tryGetBottomMostGas tile = pressurizedGasses |> List.rev |> List.tryFind(fun gas -> tile |> hasGas gas)
 
-  let private getDefaultGas tileType gas =
-    match tileType with
-    | Floor ->
-      match gas with
-      | Gas.Oxygen -> 0.2M
-      | Gas.CarbonDioxide -> 0.1M
-      | Gas.Heat -> 0.3M
-      | Gas.Electrical -> 0M
-      | Nitrogen -> 0.8M
-    | _ -> 0M
+  let private getDefaultGas gas =
+    match gas with
+    | Gas.Oxygen -> 0.2M
+    | Gas.CarbonDioxide -> 0.1M
+    | Gas.Heat -> 0.3M
+    | Gas.Electrical -> 0M
+    | Nitrogen -> 0.8M
 
-  let defaultGasses tileType =
+  let defaultGasses =
     {
-      Oxygen=getDefaultGas tileType Oxygen
-      CarbonDioxide=getDefaultGas tileType CarbonDioxide
-      Heat=getDefaultGas tileType Heat
-      Power=getDefaultGas tileType Electrical
-      Nitrogen=getDefaultGas tileType Nitrogen
-    }
-
-  let getDefaultTileGasses tileType =
-    {
-      Heat=getDefaultGas tileType Heat
-      Oxygen=getDefaultGas tileType Oxygen
-      CarbonDioxide=getDefaultGas tileType CarbonDioxide
-      Power=getDefaultGas tileType Electrical
-      Nitrogen=getDefaultGas tileType Nitrogen
+      Oxygen=getDefaultGas Oxygen
+      CarbonDioxide=getDefaultGas CarbonDioxide
+      Heat=getDefaultGas Heat
+      Power=getDefaultGas Electrical
+      Nitrogen=getDefaultGas Nitrogen
     }

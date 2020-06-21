@@ -81,19 +81,6 @@ module TiledInterop =
     let art = tilemap |> buildArt tile.Gid 0
     makeTile tileType [] [art] pos
 
-  let getTiles (tilemap: TiledSharp.TmxMap): List<Tile> =
-    let floorTiles = 
-      tilemap
-      |> getTilesFromLayer "Floor"
-      |> List.map(fun t -> buildTile tilemap Floor t)
-
-    let wallTiles = 
-      tilemap
-      |> getTilesFromLayer "Walls"
-      |> List.map(fun t -> buildTile tilemap Wall t)
-    
-    List.append floorTiles wallTiles
-
   let interpretWorld tilemap =
     {
       Floor = tilemap |> getTilesFromLayer "Floor"
@@ -107,12 +94,12 @@ module TiledInterop =
       Objects = tilemap |> allTiledObjects
     }
 
-  let translateToTile (tilemap: TmxMap) tileType (tmxTile: TmxLayerTile) =
+  let translateToTile (tilemap: TmxMap) (flags: TileFlags) (tmxTile: TmxLayerTile) =
 
     let art = buildArt tmxTile.Gid 0 tilemap
     tmxTile
     |> getTilePos
-    |> makeTile tileType [] [art]
+    |> makeTile flags [] [art]
 
   let translateToObject (tmxObject: TmxObject) = 
     let objectType =
@@ -155,13 +142,13 @@ module TiledInterop =
   let getObjectsAtPos pos objects = objects |> Seq.filter(fun o -> o.Pos = pos)
 
   let generateWorld (tilemap: TmxMap) data  =
-    let floors = data.Floor |> List.map(fun t -> t |> translateToTile tilemap Floor)
-    let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap Wall)
-    let airPipes = data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap AirPipe)
-    let waterPipes = data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap WaterPipe)
-    let deco = data.Decorations |> List.map(fun t -> t |> translateToTile tilemap Floor)
-    let grating = data.Grating |> List.map(fun t -> t |> translateToTile tilemap Floor)
-    let overlays = data.Overlays |> List.map(fun t -> t |> translateToTile tilemap Floor)
+    let floors = data.Floor |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
+    let airPipes = data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    let waterPipes = data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    let deco = data.Decorations |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    let grating = data.Grating |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+    let overlays = data.Overlays |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
     let doors = data.Doors |> List.map(fun d -> d |> createDoor walls)
 
     let tiles = 
