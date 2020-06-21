@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.Helpers;
@@ -91,6 +92,56 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public int PosX => Tile.Pos.X * TileWidth;
         public int PosY => Tile.Pos.Y * TileHeight;
+
+        public Brush CompositeImage
+        {
+            get
+            {
+                var group = new DrawingGroup();
+                group.Append();
+
+                // Add layers
+                var rect = new Rect(new Size(TileWidth, TileHeight));
+                foreach (var imageSource in Tile.Art.Select(a => BrushHelpers.GetImageSourceFromArt(a)).ToList())
+                {
+                    var imageDrawing = new ImageDrawing(imageSource, rect);
+                    imageDrawing.Freeze();
+
+                    group.Children.Add(imageDrawing);
+                }
+
+                // Add objects
+                foreach (var imageSource in Tile.Objects
+                                                .Select(Sprites.getObjectSpriteInfo)
+                                                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform))
+                                                .ToList())
+                {
+                    var imageDrawing = new ImageDrawing(imageSource, new Rect(new Size(imageSource.Width, imageSource.Height)));
+                    imageDrawing.Freeze();
+
+                    group.Children.Add(imageDrawing);
+                }
+
+                /*
+                // Add gas particles if needed
+                if (AppView.Overlay == View.CurrentOverlay.Particles)
+                {
+                    BuildParticles().ForEach(p => Images.Add(p));
+                }
+
+                // Add Overlay if needed
+                if (AppView.Overlay != View.CurrentOverlay.None && AppView.Overlay != View.CurrentOverlay.Particles)
+                {
+                    Images.Add(new ImageViewModel(BuildOverlayBrush(), 50, 0.5M));
+                }
+                */
+
+                var brush = new DrawingBrush(group);
+                brush.Freeze();
+
+                return brush;
+            }
+        }
 
         private Color CalculateColor()
         {
