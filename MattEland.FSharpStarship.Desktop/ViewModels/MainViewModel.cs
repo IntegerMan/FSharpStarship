@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using MattEland.FSharpStarship.Logic;
 using Microsoft.FSharp.Collections;
 
@@ -11,8 +10,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private View.AppView _view;
-        private World.GameWorld _gameWorld;
-
         public MainViewModel()
         {
             _view = View.getDefaultAppView();
@@ -20,21 +17,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             int index = dir.IndexOf(@"\bin\", StringComparison.OrdinalIgnoreCase);
             dir = dir.Substring(0, index);
 
-            GameWorld = TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx");
-        }
-
-        public World.GameWorld GameWorld
-        {
-            get => _gameWorld;
-            set
-            {
-                if (Equals(value, _gameWorld)) return;
-                _gameWorld = value;
-
-                var tiles = GameWorld.Tiles;
-
-                UpdateTiles(tiles);
-            }
+            UpdateTiles(TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx"));
         }
 
         private void UpdateTiles(IEnumerable<Tiles.Tile> tiles)

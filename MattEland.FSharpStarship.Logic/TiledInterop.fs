@@ -190,7 +190,6 @@ module TiledInterop =
     flattenTileLayers tilemap data
     |> addDoorsToTiles data
     |> addObjectsToTiles data.Objects
-    |> create
 
   let loadWorld (filename: string) =
     let tiledFile = new TiledSharp.TmxMap(filename)

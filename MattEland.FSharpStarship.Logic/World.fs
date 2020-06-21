@@ -7,11 +7,6 @@ open TileGas
 
 module World =
 
-  type GameWorld = 
-    {
-      Tiles: List<Tile>
-    }
-
   let getTile pos tiles = tiles |> List.find(fun t -> t.Pos = pos)
   let tryGetTile pos tiles = tiles |> List.tryFind(fun t -> t.Pos = pos)
 
@@ -39,5 +34,3 @@ module World =
       tile
 
   let replaceTile newTile tiles = tiles |> List.map(fun t -> replaceTileIfMatch(t, newTile.Pos, newTile))
-
-  let create tiles = {Tiles=tiles}
