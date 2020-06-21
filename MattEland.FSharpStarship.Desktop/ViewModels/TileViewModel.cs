@@ -12,8 +12,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class TileViewModel : ViewModelBase
     {
-        public virtual Brush Background => BrushHelpers.GetBrushFromSpriteInfo(SpriteInfo);
-
         public int TileWidth => 32;
         public int TileHeight => 32;
 
@@ -21,7 +19,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public int ImageWidth => TileWidth;
         public int ImageHeight => TileHeight;
-        public int ZIndex => SpriteInfo.ZIndex;
 
         public MainViewModel MainVM { get; }
 
@@ -37,7 +34,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public void HandleOverlayChanged()
         {
-            OnPropertyChanged(nameof(Background));
             OnPropertyChanged(nameof(ToolTip));
 
             RebuildImages();
@@ -76,8 +72,6 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         private Brush BuildOverlayBrush() => BrushHelpers.GetSolidColorBrush(CalculateColor());
 
         public ObservableCollection<ImageViewModel> Images { get; } = new ObservableCollection<ImageViewModel>();
-
-        public Sprites.SpriteInfo SpriteInfo => null;
 
         public string ToolTip
         {
