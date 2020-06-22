@@ -57,16 +57,10 @@ module TiledInterop =
 
     List.append astronauts doors
 
-  let buildArt gid zindex (tilemap: TmxMap): TileArt =
-    let tileset =
-      tilemap.Tilesets
-      |> Seq.find(fun t -> gid >= t.FirstGid && gid <= (t.FirstGid + (t.TileCount.Value - 1)))
+  let findTilesetForGid gid (tilesets: TmxList<TmxTileset>) =
+    tilesets |> Seq.find(fun t -> gid >= t.FirstGid && gid <= (t.FirstGid + (t.TileCount.Value - 1)))
 
-    let index = gid - tileset.FirstGid
-    let numColumns = tileset.Columns.Value
-    let row = index % numColumns
-    let column = index / numColumns
-
+  let getArtFromTileset row column zindex (tileset: TmxTileset) =
     {
       TileFile = tileset.Image.Source
       X = row * tileset.TileWidth
@@ -75,6 +69,14 @@ module TiledInterop =
       Height = tileset.TileHeight
       ZIndex = zindex
     }
+
+  let buildArt gid zindex (tilemap: TmxMap): TileArt =
+    let tileset = tilemap.Tilesets |> findTilesetForGid gid
+    let index = gid - tileset.FirstGid
+    let numColumns = tileset.Columns.Value
+    let row = index % numColumns
+    let column = index / numColumns
+    tileset |> getArtFromTileset row column zindex
 
   let buildTile (tilemap: TmxMap) tileType (tile: TmxLayerTile) =
     let pos = tile |> getTilePos
@@ -97,11 +99,9 @@ module TiledInterop =
     }
 
   let translateToTile (tilemap: TmxMap) (flags: TileFlags) (tmxTile: TmxLayerTile) =
-
-    let art = buildArt tmxTile.Gid 0 tilemap
     tmxTile
     |> getTilePos
-    |> makeTile flags [] [art]
+    |> makeTile flags [] [buildArt tmxTile.Gid 0 tilemap]
 
   let convertToGameObject (tmxObject: TmxObject) =
     let objectType =
@@ -134,7 +134,6 @@ module TiledInterop =
 
   let mergeLayerWithTile (nextLayer: List<Tile>) (tile: Tile) =
     let otherLayerTile = nextLayer |> List.tryFind(fun t -> t.Pos = tile.Pos)
-
     match otherLayerTile with
     | None -> tile
     | Some otherTile -> mergeTiles tile otherTile
