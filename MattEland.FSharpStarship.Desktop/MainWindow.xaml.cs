@@ -71,7 +71,6 @@ namespace MattEland.FSharpStarship.Desktop
                     _vm.HandlePlayerCommand(PlayerControl.PlayerCommand.Wait);
                     e.Handled = true;
                     break;
-
             }
         }
 

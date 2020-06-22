@@ -12,6 +12,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 {
     public class TileViewModel : ViewModelBase
     {
+        private Tiles.Tile _tile;
         public int TileWidth => 32;
         public int TileHeight => 32;
 
@@ -22,7 +23,20 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public MainViewModel MainVM { get; }
 
-        public Tiles.Tile Tile { get; }
+        public Tiles.Tile Tile
+        {
+            get => _tile;
+            set
+            {
+                if (Equals(value, _tile)) return; // This line actually causes random things to remain stationary, causing some interesting visual effects
+                _tile = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ToolTip));
+                OnPropertyChanged(nameof(PosX));
+                OnPropertyChanged(nameof(PosY));
+                Renderer?.RefreshRender();
+            }
+        }
 
         public TileViewModel([NotNull] Tiles.Tile tile, [NotNull] MainViewModel mainViewModel)
         {

@@ -24,12 +24,24 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         private void UpdateTiles(FSharpList<Tiles.Tile> tiles)
         {
-            _tiles = tiles;
-            // Ensure we lose state from prior run
-            Tiles.Clear();
+            if (_tiles == null)
+            {
+                _tiles = tiles;
+                // Ensure we lose state from prior run
+                Tiles.Clear();
 
-            // Add Tiles and Gas Particles
-            tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
+                // Add Tiles and Gas Particles
+                tiles.Select(t => new TileViewModel(t, this)).ToList().ForEach(t => Tiles.Add(t));
+            }
+            else
+            {
+                _tiles = tiles;
+
+                foreach (var tile in tiles)
+                {
+                    Tiles.First(t => t.Tile.Pos.Equals(tile.Pos)).Tile = tile;
+                }
+            }
 
             OnPropertyChanged();
         }
