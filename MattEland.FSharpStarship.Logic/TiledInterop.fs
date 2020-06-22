@@ -19,6 +19,7 @@ module TiledInterop =
       Overlays: List<TmxLayerTile>
       Doors: List<TmxLayerTile>
       Objects: List<TmxObject>
+      Space: List<TmxLayerTile>
     }
 
   let getTilePos (t: TmxLayerTile) = pos t.X t.Y
@@ -91,6 +92,7 @@ module TiledInterop =
       Decorations = tilemap |> getTilesFromLayer "Deco"
       Overlays = tilemap |> getTilesFromLayer "Overlays"
       Grating = tilemap |> getTilesFromLayer "Grating"
+      Space = tilemap |> getTilesFromLayer "Space"
       Objects = tilemap |> allTiledObjects
     }
 
@@ -147,7 +149,7 @@ module TiledInterop =
 
   let ensureProperStartingGasses tile: Tile =
     match tile.Flags.BlocksGas || not tile.Flags.RetainsGas with
-    | true -> {tile with Gasses={tile.Gasses with CarbonDioxide = 0M; Oxygen=0M; Nitrogen=0M}}
+    | true -> {tile with Gasses={tile.Gasses with CarbonDioxide = 0M; Oxygen=0M; Nitrogen=0M}; Pressure=0M}
     | false -> tile
 
   let mergeWith (nextLayer: List<Tile>) (baseLayer: List<Tile>) = 
@@ -169,6 +171,7 @@ module TiledInterop =
 
   let buildTileLayers (tilemap: TmxMap) data =
     [
+      data.Space |> List.map(fun t -> t |> translateToTile tilemap spaceFlags)
       data.Floor |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
