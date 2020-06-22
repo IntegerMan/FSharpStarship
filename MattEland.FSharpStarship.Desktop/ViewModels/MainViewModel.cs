@@ -10,6 +10,8 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private View.AppView _view;
+        private FSharpList<Tiles.Tile> _tiles;
+
         public MainViewModel()
         {
             _view = View.getDefaultAppView();
@@ -20,8 +22,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             UpdateTiles(TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx"));
         }
 
-        private void UpdateTiles(IEnumerable<Tiles.Tile> tiles)
+        private void UpdateTiles(FSharpList<Tiles.Tile> tiles)
         {
+            _tiles = tiles;
             // Ensure we lose state from prior run
             Tiles.Clear();
 
@@ -63,10 +66,9 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             }
         }
 
-        public void AdvanceTime()
-        {
-            var tiles = ListModule.OfSeq(this.Tiles.Select(t => t.Tile));
-            UpdateTiles(Simulations.simulate(tiles));
-        }
+        public void AdvanceTime() => UpdateTiles(Simulations.simulate(_tiles));
+
+        public void HandlePlayerCommand(PlayerControl.PlayerCommand command) 
+            => UpdateTiles(PlayerControl.handlePlayerCommand(command, _tiles));
     }
 }

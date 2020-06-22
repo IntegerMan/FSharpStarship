@@ -112,7 +112,7 @@ module TiledInterop =
 
     let pos = getObjectPos tmxObject
     let tile = tiles |> getTile pos
-    let newTile = tile |> addObjectToTile object
+    let newTile = tile |> addObject object
 
     tiles |> replaceTile newTile
 
@@ -146,7 +146,7 @@ module TiledInterop =
       |> List.tryFind(fun w -> w = (doorTile.Pos |> offset 0 -1))
       |> Option.isSome
 
-    doorTile |> addObjectToTile {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
+    doorTile |> addObject {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
   let buildTileLayers (tilemap: TmxMap) data =
     let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
@@ -183,7 +183,7 @@ module TiledInterop =
         objects
         |> objectsInPos t.Pos
         |> List.map(convertToGameObject)
-        |> List.fold(fun lastTile object -> lastTile |> addObjectToTile object) t
+        |> List.fold(fun lastTile object -> lastTile |> addObject object) t
       )
 
   let generateWorld (tilemap: TmxMap) data  =

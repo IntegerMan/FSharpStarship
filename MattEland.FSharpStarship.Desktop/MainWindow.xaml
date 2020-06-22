@@ -11,6 +11,7 @@
         Width="1280" Height="800" 
         WindowState="Maximized"
         SnapsToDevicePixels="True"
+        Loaded="MainWindow_OnLoaded"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <DockPanel>
 
@@ -47,7 +48,9 @@
         </DockPanel>
 
         <!-- Main Window -->
-        <Grid ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid ClipToBounds="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Focusable="True" x:Name="gridMain"
+              MouseLeftButtonDown="GridMain_OnMouseLeftButtonDown"
+              PreviewKeyDown="MainWindow_OnPreviewKeyDown">
             <Grid.Background>
                 <ImageBrush ImageSource="Images/SpaceBG.jpeg" Stretch="UniformToFill" />
             </Grid.Background>

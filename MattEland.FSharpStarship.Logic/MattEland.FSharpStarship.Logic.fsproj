@@ -17,6 +17,7 @@
     <Compile Include="Simulation.fs" />
     <Compile Include="View.fs" />
     <Compile Include="Sprites.fs" />
+    <Compile Include="PlayerControl.fs" />
     <Compile Include="TiledInterop.fs" />
   </ItemGroup>
 
