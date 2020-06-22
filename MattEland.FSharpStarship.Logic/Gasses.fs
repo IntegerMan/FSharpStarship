@@ -11,6 +11,14 @@ module Gasses =
       Power: decimal
     }
 
+  let emptyGasses = {
+      Nitrogen = 0M
+      Oxygen = 0M
+      CarbonDioxide = 0M
+      Heat = 0M
+      Power = 0M
+    }
+
   type Gas =
     | Nitrogen
     | Oxygen

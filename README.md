@@ -43,7 +43,9 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 ## Interaction
 
 - [x] Simulate when next turn is clicked
-- [ ] Allow the player to move the human actor
+- [x] Allow the player to move the human actor
+- [ ] Prevent movement through walls
+- [ ] Prevent movement through out of bounds
 - [ ] Allow the player to destroy a wall
 - [ ] Activate machines
 - [ ] Restart simulation
@@ -61,6 +63,10 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Air recylclers convert CO2 to Oxygen
 - [x] Allow faster equilibrium between tiles
 - [ ] Simulate tile gasses iteratively and then recursively with a max number of recursions
+- [ ] Gas should be displaced by closing doors
+- [ ] Gas should not spawn in walls or outside
+- [ ] Adapt new level to have CO2 Emitters
+- [ ] Adapt new level to have Oxygen Emitters
 
 ## Power
 
@@ -114,9 +120,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Use upper-case field names
 - [ ] Convert methods to function syntax when possible
 - [x] Anything returning an option should start with try
-- [ ] Give tiles direct access to their neighbors
 
 ## Performance
-- [ ] Switch to a DrawingGroup-based approach
-- [ ] Switch to an update-based model instead of a clear / redraw model
+- [x] Switch to a DrawingVisual rendering approach
+- [x] Switch to an update-based model instead of a clear / redraw model
 - [x] Recycle brushes

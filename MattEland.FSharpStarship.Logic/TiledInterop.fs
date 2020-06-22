@@ -116,14 +116,27 @@ module TiledInterop =
 
     tiles |> replaceTile newTile
 
-  let mergeLayerWithTile (nextLayer: seq<Tile>) (tile: Tile) =
-    let otherLayerTile = nextLayer |> Seq.tryFind(fun t -> t.Pos = tile.Pos)
+  let mergeFlags baseFlags nextFlags: TileFlags =
+    {
+      BlocksGas = baseFlags.BlocksGas || nextFlags.BlocksGas
+      RetainsGas = baseFlags.RetainsGas && nextFlags.RetainsGas
+      BlocksMovement = baseFlags.BlocksMovement || nextFlags.BlocksMovement
+    }
+
+  let mergeTiles baseTile nextTile =
+    {baseTile with 
+      Art=baseTile.Art @ nextTile.Art
+      Objects=baseTile.Objects |> List.append nextTile.Objects
+      Flags=mergeFlags baseTile.Flags nextTile.Flags
+    }
+
+  let mergeLayerWithTile (nextLayer: List<Tile>) (tile: Tile) =
+    let otherLayerTile = nextLayer |> List.tryFind(fun t -> t.Pos = tile.Pos)
 
     match otherLayerTile with
-    | None -> 
-      tile
-    | Some otherTile -> 
-      {tile with Art=tile.Art @ otherTile.Art; Objects=tile.Objects |> List.append otherTile.Objects}
+    | None -> tile
+    | Some otherTile -> mergeTiles tile otherTile
+      
 
   let getUniqueTiles (sourceLayer: List<Tile>) (otherLayer: List<Tile>) =
     sourceLayer
@@ -132,13 +145,19 @@ module TiledInterop =
       |> List.tryFind(fun ot -> ot.Pos = t.Pos) 
       |> Option.isNone)
 
+  let ensureProperStartingGasses tile: Tile =
+    match tile.Flags.BlocksGas || not tile.Flags.RetainsGas with
+    | true -> {tile with Gasses={tile.Gasses with CarbonDioxide = 0M; Oxygen=0M; Nitrogen=0M}}
+    | false -> tile
+
   let mergeWith (nextLayer: List<Tile>) (baseLayer: List<Tile>) = 
 
     let newTiles = getUniqueTiles nextLayer baseLayer
 
     baseLayer
-    |> List.map (fun t -> mergeLayerWithTile nextLayer t)
+    |> List.map(fun t -> mergeLayerWithTile nextLayer t)
     |> List.append newTiles
+    |> List.map(ensureProperStartingGasses)
 
   let addDoor (wallsPositions: List<Pos>) (doorTile: Tile) =
     let isHorizontal = 
@@ -149,14 +168,13 @@ module TiledInterop =
     doorTile |> addObject {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
   let buildTileLayers (tilemap: TmxMap) data =
-    let walls = data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
     [
       data.Floor |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.AirPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.WaterPipes |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.Grating |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.Decorations |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
-      walls
+      data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
       data.Overlays |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
     ]
 
