@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Matt\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\Matt\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\Matt\.nuget\packages\xunit.runner.visualstudio\2.4.0\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\Matt\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\ReSharperHost\v202\SolutionCaches\_MattEland.FSharpStarship.894292727.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.2\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.2\scratches" t="IncludeRecursive" />
+    <e p="M:\dev\ModelingASharshipInFSharp" t="IncludeFlat">
+      <e p="MattEland.FSharpStarship.Desktop" t="IncludeRecursive">
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="AssemblyInfo.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Helpers" t="Include">
+          <e p="BitmapHelpers.cs" t="Include" />
+          <e p="BrushHelpers.cs" t="Include" />
+        </e>
+        <e p="Images" t="Include">
+          <e p="HC_SewerB.png" t="Include" />
+          <e p="HC_SewerC.png" t="Include" />
+          <e p="Matt.png" t="Include" />
+          <e p="Mid-TownA5.png" t="Include" />
+          <e p="Mid-TownB.png" t="Include" />
+          <e p="Mid-TownC.png" t="Include" />
+          <e p="Mid-TownD.png" t="Include" />
+          <e p="SpaceBG.jpeg" t="Include" />
+          <e p="TileA5_PHC_Store.png" t="Include" />
+          <e p="tileb_laboratory.png" t="Include" />
+          <e p="TileB_PHC_Interior-AptModern.png" t="Include" />
+          <e p="TileC_PHC_Interior-Office&amp;Facility.png" t="Include" />
+          <e p="TileE_PHC_Interior-Extras.png" t="Include" />
+          <e p="tileset1.png" t="Include" />
+          <e p="tileset2.png" t="Include" />
+        </e>
+        <e p="KillAllDefectsSymbol.ico" t="Include" />
+        <e p="MainWindow.xaml" t="Include" />
+        <e p="MainWindow.xaml.cs" t="Include" />
+        <e p="MattEland.FSharpStarship.Desktop.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="App.g.cs" t="Include" />
+              <e p="GeneratedInternalTypeHelper.g.cs" t="Include" />
+              <e p="MainWindow.g.cs" t="Include" />
+              <e p="MattEland.FSharpStarship.Desktop.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Rendering" t="Include">
+          <e p="TileRenderer.cs" t="Include" />
+          <e p="TileRendererHost.cs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="GasParticleViewModel.cs" t="Include" />
+          <e p="ImageViewModel.cs" t="Include" />
+          <e p="MainViewModel.cs" t="Include" />
+          <e p="TileViewModel.cs" t="Include" />
+          <e p="ViewModelBase.cs" t="Include" />
+        </e>
+      </e>
+      <e p="MattEland.FSharpStarship.Logic" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Contexts.fs" t="Include" />
+        <e p="GameObjects.fs" t="Include" />
+        <e p="Gasses.fs" t="Include" />
+        <e p="MattEland.FSharpStarship.Logic.fsproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="PlayerControl.fs" t="Include" />
+        <e p="Positions.fs" t="Include" />
+        <e p="SimulateGasses.fs" t="Include" />
+        <e p="Simulation.fs" t="Include" />
+        <e p="Sprites.fs" t="Include" />
+        <e p="TiledInterop.fs" t="Include" />
+        <e p="TileGas.fs" t="Include" />
+        <e p="Tiles.fs" t="Include" />
+        <e p="Utils.fs" t="Include" />
+        <e p="View.fs" t="Include" />
+        <e p="World.fs" t="Include" />
+      </e>
+      <e p="MattEland.FSharpStarship.sln" t="IncludeFlat" />
+      <e p="MattEland.FSharpStarship.Tests" t="IncludeRecursive">
+        <e p="AirScrubberTests.fs" t="Include" />
+        <e p="AstronautTests.fs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CarbonDioxideTests.fs" t="Include" />
+        <e p="HeatTests.fs" t="Include" />
+        <e p="MattEland.FSharpStarship.Tests.fsproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="OxygenTests.fs" t="Include" />
+        <e p="Program.fs" t="Include" />
+        <e p="TestHelpers.fs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="README.md" t="Include" />
+      <e p="Solution Items" t="Include" />
+    </e>
+  </component>
+</project>
