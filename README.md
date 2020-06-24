@@ -39,13 +39,14 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Player Graphic
 - [x] Air Scrubber Graphic
 - [x] Better Player Graphic
+- [ ] Render player under overhangs
 
 ## Interaction
 
 - [x] Simulate when next turn is clicked
 - [x] Allow the player to move the human actor
-- [ ] Prevent movement through walls
-- [ ] Prevent movement through out of bounds
+- [x] Prevent movement through walls
+- [x] Prevent movement through out of bounds
 - [ ] Allow the player to destroy a wall
 - [ ] Activate machines
 - [ ] Restart simulation
@@ -60,7 +61,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Obstacles prohibit gasses from flowing
 - [x] Space takes in gasses, but doesn't retain it
 - [x] Convert O2 to CO2 near human
-- [x] Air recylclers convert CO2 to Oxygen
+- [x] Air recyclers convert CO2 to Oxygen
 - [x] Allow faster equilibrium between tiles
 - [ ] Simulate tile gasses iteratively and then recursively with a max number of recursions
 - [ ] Gas should be displaced by closing doors

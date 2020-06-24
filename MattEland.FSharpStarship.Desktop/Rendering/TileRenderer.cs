@@ -29,7 +29,7 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             var tile = Tile.Tile;
 
             // Add layers
-            foreach (var img in tile.Art.Select(a => BrushHelpers.GetImageSourceFromArt(a)))
+            foreach (var img in tile.Art.Where(a => a.Width > 0).Select(a => BrushHelpers.GetImageSourceFromArt(a)))
             {
                 context.DrawImage(img, rect);
             }

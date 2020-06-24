@@ -20,6 +20,7 @@ module TiledInterop =
       Doors: List<TmxLayerTile>
       Objects: List<TmxObject>
       Space: List<TmxLayerTile>
+      Obstacles: List<TmxLayerTile>
     }
 
   let getTilePos (t: TmxLayerTile) = pos t.X t.Y
@@ -42,47 +43,48 @@ module TiledInterop =
 
   let mapObjectType typeName objectType (tilemap: TmxMap) =
     tilemap
-    |> mapObjectTypeByFunc typeName (fun obj -> {ObjectType=objectType})
+    |> mapObjectTypeByFunc typeName (fun __ -> {ObjectType=objectType})
 
   let getTilesFromLayer (layerName: string) (tilemap: TmxMap) = 
-    let layer = tilemap.Layers.[layerName]
-    layer.Tiles |> Seq.filter(fun t -> t.Gid > 0) |> Seq.toList
+    tilemap.Layers.[layerName].Tiles
+    |> Seq.filter(fun t -> t.Gid > 0)
+    |> Seq.toList
     
-  let getObjects (tilemap: TiledSharp.TmxMap): List<GameObject> =
+  let getObjects (tilemap: TmxMap): List<GameObject> =
     let astronauts = tilemap |> mapObjectType "Astronaut" Astronaut
     let doors = 
       tilemap 
       |> getTilesFromLayer "Doors" 
-      |> List.map(fun d -> {ObjectType=Door(IsOpen=false, IsHorizontal=false)})
+      |> List.map(fun __ -> {ObjectType=Door(IsOpen=false, IsHorizontal=false)})
 
     List.append astronauts doors
 
   let findTilesetForGid gid (tilesets: TmxList<TmxTileset>) =
     tilesets |> Seq.find(fun t -> gid >= t.FirstGid && gid <= (t.FirstGid + (t.TileCount.Value - 1)))
 
-  let getArtFromTileset row column zindex (tileset: TmxTileset) =
+  let getArtFromTileset row column (tileset: TmxTileset) =
     {
       TileFile = tileset.Image.Source
       X = row * tileset.TileWidth
       Y = column * tileset.TileHeight
       Width = tileset.TileWidth
       Height = tileset.TileHeight
-      ZIndex = zindex
+      ZIndex = 0
     }
 
-  let buildArt gid zindex (tilemap: TmxMap): TileArt =
+  let buildArt gid (tilemap: TmxMap): TileArt =
     let tileset = tilemap.Tilesets |> findTilesetForGid gid
     let index = gid - tileset.FirstGid
     let numColumns = tileset.Columns.Value
     let row = index % numColumns
     let column = index / numColumns
-    tileset |> getArtFromTileset row column zindex
+    tileset |> getArtFromTileset row column
 
   let buildTile (tilemap: TmxMap) tileType (tile: TmxLayerTile) =
     let pos = tile |> getTilePos
 
-    let art = tilemap |> buildArt tile.Gid 0
-    makeTile tileType [] [art] pos
+    let art = tilemap |> buildArt tile.Gid
+    makeTile tileType [art] pos
 
   let interpretWorld tilemap =
     {
@@ -95,13 +97,21 @@ module TiledInterop =
       Overlays = tilemap |> getTilesFromLayer "Overlays"
       Grating = tilemap |> getTilesFromLayer "Grating"
       Space = tilemap |> getTilesFromLayer "Space"
+      Obstacles = tilemap |> getTilesFromLayer "Obstacles"
       Objects = tilemap |> allTiledObjects
     }
 
+  let getArtForTile (tilemap: TmxMap) flags gid =
+    match flags.IsTransparent with
+    | false -> buildArt gid tilemap
+    | true -> transparentArt
+  
   let translateToTile (tilemap: TmxMap) (flags: TileFlags) (tmxTile: TmxLayerTile) =
+    let art = getArtForTile tilemap flags tmxTile.Gid
+    
     tmxTile
     |> getTilePos
-    |> makeTile flags [] [buildArt tmxTile.Gid 0 tilemap]
+    |> makeTile flags [art]
 
   let convertToGameObject (tmxObject: TmxObject) =
     let objectType =
@@ -123,6 +133,7 @@ module TiledInterop =
       BlocksGas = baseFlags.BlocksGas || nextFlags.BlocksGas
       RetainsGas = baseFlags.RetainsGas && nextFlags.RetainsGas
       BlocksMovement = baseFlags.BlocksMovement || nextFlags.BlocksMovement
+      IsTransparent = false
     }
 
   let mergeTiles baseTile nextTile =
@@ -136,8 +147,7 @@ module TiledInterop =
     let otherLayerTile = nextLayer |> List.tryFind(fun t -> t.Pos = tile.Pos)
     match otherLayerTile with
     | None -> tile
-    | Some otherTile -> mergeTiles tile otherTile
-      
+    | Some otherTile -> mergeTiles tile otherTile     
 
   let getUniqueTiles (sourceLayer: List<Tile>) (otherLayer: List<Tile>) =
     sourceLayer
@@ -178,6 +188,7 @@ module TiledInterop =
       data.Decorations |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
       data.Walls |> List.map(fun t -> t |> translateToTile tilemap wallFlags)
       data.Overlays |> List.map(fun t -> t |> translateToTile tilemap tileFlags)
+      data.Obstacles |> List.map(fun t -> t |> translateToTile tilemap obstacleFlags)
     ]
 
   let flattenTileLayers (tilemap: TmxMap) data =
@@ -212,7 +223,7 @@ module TiledInterop =
     |> addObjectsToTiles data.Objects
 
   let loadWorld (filename: string) =
-    let tiledFile = new TiledSharp.TmxMap(filename)
+    let tiledFile = TmxMap(filename)
     tiledFile 
     |> interpretWorld
     |> generateWorld tiledFile

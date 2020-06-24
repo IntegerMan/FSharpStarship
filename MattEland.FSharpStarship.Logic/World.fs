@@ -12,7 +12,7 @@ module World =
 
   let getGasByPos (tiles: List<Tile>, pos: Pos, gas: Gas): decimal = tiles |> getTile pos |> getTileGas gas
 
-  let makeTile flags objects tileArt pos = 
+  let makeTile flags tileArt pos = 
     let gasses = defaultGasses
     {
       Flags=flags
@@ -20,11 +20,16 @@ module World =
       Gasses=gasses
       Pressure=gasses |> calculatePressure
       Art=tileArt
-      Objects=objects
+      Objects=[]
     }
+    
+  let makeTileWithObjects flags tileArt objects pos =
+    pos
+    |> makeTile flags tileArt
+    |> addObject objects
    
   let makeTileWithGasses flags pos objects gasses = 
-    let tile = makeTile flags objects [] pos
+    let tile = makeTile flags objects pos
     {tile with Gasses=gasses; Pressure=gasses |> calculatePressure}
 
   let private replaceTileIfMatch(tile: Tile, testPos: Pos, newTile: Tile): Tile =
