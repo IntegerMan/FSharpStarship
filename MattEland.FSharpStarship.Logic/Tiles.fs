@@ -44,7 +44,7 @@ module Tiles =
       Objects: List<GameObject> // TODO: Seq
     }
 
-  let spaceFlags = {RetainsGas=false; BlocksGas=false; BlocksMovement=false; IsTransparent=false}
+  let spaceFlags = {RetainsGas=false; BlocksGas=false; BlocksMovement=false; IsTransparent=true}
   let wallFlags = {RetainsGas=false; BlocksGas=true; BlocksMovement=true; IsTransparent=false}
   let obstacleFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=true; IsTransparent=true}
   let tileFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=false; IsTransparent=false}
