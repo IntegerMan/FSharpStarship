@@ -12,16 +12,21 @@ module PlayerControl =
     | Move of Direction
     | Wait
 
-  let tryMoveEntity tile tiles dir entity =
-    let newPos = tile.Pos |> offsetDir dir
-    let targetTile = tiles |> getTile newPos
-
-    let modifiedOrigin = tile |> removeObject entity
-    let modifiedDestination = targetTile |> addObject entity 
+  let moveEntity originTile destinationTile tiles entity =
+    let modifiedOrigin = originTile |> removeObject entity
+    let modifiedDestination = destinationTile |> addObject entity 
 
     tiles 
     |> replaceTile modifiedOrigin
     |> replaceTile modifiedDestination
+    
+  let tryMoveEntity tile tiles dir entity =
+    let newPos = tile.Pos |> offsetDir dir
+    let targetTile = tiles |> getTile newPos
+
+    match targetTile.Flags.BlocksMovement with
+    | true -> tiles
+    | false -> entity |> moveEntity tile targetTile tiles
 
   let tryMovePlayer dir tiles =
     let tile = tiles |> List.tryFind(fun t -> t.Objects |> List.exists(fun o -> o.ObjectType = Astronaut))
