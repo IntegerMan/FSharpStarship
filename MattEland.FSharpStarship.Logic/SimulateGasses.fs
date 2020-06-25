@@ -47,7 +47,10 @@ module SimulateGasses =
     |> List.fold(fun newWorld gas -> newWorld |> equalizeTileGas pos gas) world
 
   let convertTileGas amount gasSource gasGen tile =
-    if tile |> getTileGas gasSource >= amount then
+    let currentGas = tile |> getTileGas gasSource 
+    if currentGas >= amount then
       tile |> modifyTileGas gasSource -amount |> modifyTileGas gasGen amount
+    else if currentGas > 0M then
+      tile |> modifyTileGas gasSource -currentGas |> modifyTileGas gasGen currentGas
     else
       tile

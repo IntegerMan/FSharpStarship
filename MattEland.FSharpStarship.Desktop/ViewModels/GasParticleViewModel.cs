@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media;
+using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Logic;
 
 namespace MattEland.FSharpStarship.Desktop.ViewModels
@@ -30,17 +31,17 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
             {
                 if (_gas.Equals(Gasses.Gas.Oxygen))
                 {
-                    return Brushes.DodgerBlue;
+                    return Brushes.CornflowerBlue;
                 }
 
                 if (_gas.Equals(Gasses.Gas.CarbonDioxide))
                 {
-                    return Brushes.Salmon;
+                    return Brushes.Tomato;
                 }
 
                 if (_gas.Equals(Gasses.Gas.Nitrogen))
                 {
-                    return Brushes.GhostWhite;
+                    return BrushHelpers.GetSolidColorBrush(Color.FromArgb(64, 255, 255, 255));
                 }
 
                 return Brushes.Magenta;

@@ -35,36 +35,53 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             }
 
             // Add objects
-            foreach (var img in tile.Objects
-                .Select(Sprites.getObjectSpriteInfo)
-                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform)))
-            {
-                if (img.Height > img.Width)
-                {
-                    double ratio = img.Width / img.Height;
-                    double offset = Tile.ImageWidth / 2.0 * ratio;
-                    context.DrawImage(img, new Rect(new Point(offset / 2.0, 0), new Size(Tile.TileWidth - offset, Tile.TileHeight)));
-                }
-                else
-                {
-                    context.DrawImage(img, rect);
-                }
-            }
+            RenderObjects(context);
 
             // Add gas particles if needed
             if (Tile.AppView.Overlay == View.CurrentOverlay.Particles)
             {
-                var particles = Tile.BuildParticles();
-                foreach (var particle in particles)
-                {
-                    context.DrawEllipse(particle.Background, null, new Point(particle.PosX, particle.PosY), 1, 1);
-                }
+                RenderParticles(context);
             }
 
             // Add Overlay if needed
             if (Tile.AppView.Overlay != View.CurrentOverlay.None && Tile.AppView.Overlay != View.CurrentOverlay.Particles)
             {
                 context.DrawRectangle(Tile.BuildOverlayBrush(), null, rect);
+            }
+        }
+
+        private void RenderParticles(DrawingContext context)
+        {
+            var particles = Tile.BuildParticles();
+            foreach (var particle in particles)
+            {
+                context.DrawEllipse(particle.Background, null, new Point(particle.PosX, particle.PosY), 1, 1);
+            }
+        }
+
+        private void RenderObjects(DrawingContext context)
+        {
+            var rect = new Rect(new Size(Tile.TileWidth, Tile.TileHeight));
+            
+            foreach (var img in Tile.Tile.Objects
+                .Select(Sprites.getObjectSpriteInfo)
+                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform)))
+            {
+                // Some objects have odd aspects we need to account for
+                if (img.Height > img.Width)
+                {
+                    double ratio = img.Width / img.Height;
+                    double offset = Tile.ImageWidth / 2.0 * ratio;
+                    
+                    var location = new Point(offset, 0);
+                    var size = new Size(Tile.TileWidth - offset * 2, Tile.TileHeight);
+                    
+                    context.DrawImage(img, new Rect(location, size));
+                }
+                else
+                {
+                    context.DrawImage(img, rect);
+                }
             }
         }
 

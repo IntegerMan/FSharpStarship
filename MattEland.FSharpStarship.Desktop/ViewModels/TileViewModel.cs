@@ -92,7 +92,17 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         private void AddGasParticles(ICollection<GasParticleViewModel> particles, Gasses.Gas gasType)
         {
-            const decimal gasThreshhold = 0.1M;
+            // if (gasType == Gasses.Gas.Nitrogen) return;
+            
+            decimal gasThreshhold;
+            if (gasType == Gasses.Gas.Nitrogen)
+            {
+                gasThreshhold = 0.1M;
+            }
+            else
+            {
+                gasThreshhold = 0.025M;
+            }
 
             decimal gasLevel = TileGas.getTileGas(gasType, Tile);
             while (gasLevel >= gasThreshhold)
