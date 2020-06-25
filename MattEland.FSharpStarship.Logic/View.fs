@@ -21,7 +21,7 @@ module View =
   }
 
   let getDefaultAppView() = {
-    Overlay=CurrentOverlay.None; 
+    Overlay=CurrentOverlay.Particles; 
     Zoom=1;
   }
 
@@ -36,12 +36,16 @@ module View =
   let private getGradedColor percent alpha = 
     let value = (System.Math.Min(1M, percent) * 255M) |> System.Math.Round |> int
     rgbt(value, value, value, alpha)
+    
+  let private getColorOnRange value max =
+    let percent = value / max
+    getGradedColor percent 100
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.Overlay with
-    | CurrentOverlay.Oxygen -> getGradedColor tile.Gasses.Oxygen 100
-    | CurrentOverlay.Nitrogen -> getGradedColor tile.Gasses.Nitrogen 100
-    | CurrentOverlay.CarbonDioxide -> getGradedColor tile.Gasses.CarbonDioxide 100
-    | CurrentOverlay.Heat -> getGradedColor tile.Gasses.Heat 100
+    | CurrentOverlay.Oxygen -> getColorOnRange tile.Gasses.Oxygen 0.3M
+    | CurrentOverlay.Nitrogen -> getColorOnRange tile.Gasses.Nitrogen 0.8M
+    | CurrentOverlay.CarbonDioxide -> getColorOnRange tile.Gasses.CarbonDioxide 0.3M
+    | CurrentOverlay.Heat -> getColorOnRange tile.Gasses.Heat 1M
     | CurrentOverlay.Pressure -> getGradedColor (tile.Pressure / 3.0M) 100
     | _ -> transparent

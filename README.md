@@ -63,9 +63,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Convert O2 to CO2 near human
 - [x] Air recyclers convert CO2 to Oxygen
 - [x] Allow faster equilibrium between tiles
-- [ ] Simulate tile gasses iteratively and then recursively with a max number of recursions
 - [ ] Gas should be displaced by closing doors
-- [ ] Gas should not spawn in walls or outside
+- [x] Gas should not spawn in walls or outside
 - [ ] Adapt new level to have CO2 Emitters
 - [ ] Adapt new level to have Oxygen Emitters
 

@@ -1,5 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
+open MattEland.FSharpStarship.Logic.GameObjects
 open World
 open Tiles
 open Gasses
@@ -13,12 +14,21 @@ module SimulateGasses =
     |> replaceTile (modifyTileGas gas -0.01M source)
     |> replaceTile (modifyTileGas gas 0.01M dest)
 
+  let objectBlocksGas (object: GameObject) =
+    match object.ObjectType with
+    | Door(IsOpen = isOpen) -> not isOpen
+    | _ -> false
+  
+  let gasCanFlowInto tile =
+    let hasGasBlocker = tile.Objects |> List.exists(fun o -> o |> objectBlocksGas)
+    not hasGasBlocker && not tile.Flags.BlocksGas
+  
   let private tryFindTargetForGasSpread gas pos tiles =
     let tile = tiles |> getTile pos
     let currentGas = tile |> getTileGas gas
     tile |> getContext tiles
     |> getPresentNeighbors
-    |> List.filter(fun n -> not n.Flags.BlocksGas && getTileGas gas n < currentGas)
+    |> List.filter(fun n -> (gasCanFlowInto n) && getTileGas gas n < currentGas)
     |> List.sortBy(fun n -> getTileGas gas n)
     |> List.tryHead
 

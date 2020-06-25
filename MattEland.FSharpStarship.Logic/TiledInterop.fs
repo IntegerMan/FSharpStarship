@@ -4,6 +4,7 @@ open Positions
 open World
 open Tiles
 open GameObjects
+open SimulateGasses
 open TiledSharp
 
 module TiledInterop =
@@ -157,7 +158,7 @@ module TiledInterop =
       |> Option.isNone)
 
   let ensureProperStartingGasses tile: Tile =
-    match tile.Flags.BlocksGas || not tile.Flags.RetainsGas with
+    match tile.Flags.BlocksGas || not tile.Flags.RetainsGas || not (gasCanFlowInto tile) with
     | true -> {tile with Gasses={tile.Gasses with CarbonDioxide = 0M; Oxygen=0M; Nitrogen=0M}; Pressure=0M}
     | false -> tile
 
