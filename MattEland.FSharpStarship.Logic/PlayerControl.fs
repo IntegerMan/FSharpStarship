@@ -20,13 +20,23 @@ module PlayerControl =
     |> replaceTile modifiedOrigin
     |> replaceTile modifiedDestination
     
+  let toggleDoor door targetTile tiles =
+      let newTarget =
+            targetTile
+            |> removeObject door
+            |> addObject {door with ObjectType=(toggleDoorOpen door.ObjectType)}
+      tiles |> replaceTile newTarget
+    
   let tryMoveEntity tile tiles dir entity =
     let newPos = tile.Pos |> offsetDir dir
     let targetTile = tiles |> getTile newPos
 
-    match targetTile.Flags.BlocksMovement with
-    | true -> tiles
-    | false -> entity |> moveEntity tile targetTile tiles
+    match targetTile.Objects |> findClosedDoor with
+    | Some door -> tiles |> toggleDoor door targetTile
+    | _ ->    
+      match targetTile.Flags.BlocksMovement with
+      | true -> tiles
+      | false -> entity |> moveEntity tile targetTile tiles
 
   let tryMovePlayer dir tiles =
     let tile = tiles |> List.tryFind(fun t -> t.Objects |> List.exists(fun o -> o.ObjectType = Astronaut))

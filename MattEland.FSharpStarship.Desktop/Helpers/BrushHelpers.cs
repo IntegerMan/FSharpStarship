@@ -69,16 +69,6 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             return brush;
         }
 
-        public static Brush GetBrushFromArt(Tiles.TileArt art, Stretch stretch = Stretch.Fill)
-        {
-            string pathToCheck = "Images/";
-            int index = art.TileFile.LastIndexOf(pathToCheck, StringComparison.InvariantCultureIgnoreCase);
-
-            string resourceFile = art.TileFile.Substring(index + pathToCheck.Length);
-
-            return GetBrushFromSpriteSheet(resourceFile, art.X, art.Y, art.Width, art.Height, stretch);
-        }
-
         public static ImageSource GetImageSourceFromArt(Tiles.TileArt art, Stretch stretch = Stretch.Fill)
         {
             string pathToCheck = "Images/";
