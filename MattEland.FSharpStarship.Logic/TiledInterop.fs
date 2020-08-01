@@ -139,6 +139,9 @@ module TiledInterop =
       BlocksGas = baseFlags.BlocksGas || nextFlags.BlocksGas
       RetainsGas = baseFlags.RetainsGas && nextFlags.RetainsGas
       BlocksMovement = baseFlags.BlocksMovement || nextFlags.BlocksMovement
+      HasAirPipe = baseFlags.HasAirPipe || nextFlags.HasAirPipe
+      HasWaterPipe = baseFlags.HasWaterPipe || nextFlags.HasWaterPipe
+      HasPowerCable = baseFlags.HasPowerCable || nextFlags.HasPowerCable
       IsTransparent = false
     }
 

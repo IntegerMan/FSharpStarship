@@ -38,4 +38,5 @@ module World =
     else
       tile
 
-  let replaceTile newTile tiles = tiles |> List.map(fun t -> replaceTileIfMatch(t, newTile.Pos, newTile))
+  let replaceTile newTile tiles =
+    tiles |> List.map(fun t -> replaceTileIfMatch(t, newTile.Pos, newTile))

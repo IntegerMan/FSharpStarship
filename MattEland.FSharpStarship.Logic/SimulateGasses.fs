@@ -14,21 +14,29 @@ module SimulateGasses =
     |> replaceTile (modifyTileGas gas -0.01M source)
     |> replaceTile (modifyTileGas gas 0.01M dest)
 
-  let objectBlocksGas (object: GameObject) =
+  let isClosedDoor (object: GameObject) =
     match object.ObjectType with
     | Door(IsOpen = isOpen) -> not isOpen
     | _ -> false
-  
+    
+  let hasClosedDoor tile =
+    tile.Objects |> List.exists(fun o -> o |> isClosedDoor)
+    
   let gasCanFlowInto tile =
-    let hasGasBlocker = tile.Objects |> List.exists(fun o -> o |> objectBlocksGas)
+    let hasGasBlocker = tile |> hasClosedDoor
     not hasGasBlocker && not tile.Flags.BlocksGas
+  
+  let canGasFlowFrom tileSource tileDestination gas =
+    let destGas = getTileGas gas tileDestination
+    let sourceGas = getTileGas gas tileSource
+    sourceGas > 0M && gasCanFlowInto tileDestination && (sourceGas > destGas || (tileSource |> hasClosedDoor))
   
   let private tryFindTargetForGasSpread gas pos tiles =
     let tile = tiles |> getTile pos
     let currentGas = tile |> getTileGas gas
     tile |> getContext tiles
     |> getPresentNeighbors
-    |> List.filter(fun n -> (gasCanFlowInto n) && getTileGas gas n < currentGas)
+    |> List.filter(fun n -> canGasFlowFrom tile n gas)
     |> List.sortBy(fun n -> getTileGas gas n)
     |> List.tryHead
 
