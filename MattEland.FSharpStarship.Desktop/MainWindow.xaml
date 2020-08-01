@@ -36,14 +36,7 @@
                       SelectedItem="{Binding SelectedViewMode}">
                 </ComboBox>
 
-                <!-- TODO: This really should use a ViewModel -->
-                <ToggleButton Padding="8"
-                              x:Name="togglePause"
-                              IsChecked="False"
-                              Margin="0,8"
-                              Click="OnTogglePauseClick">
-                    Play
-                </ToggleButton>
+                <Button Click="OnResetClicked">Reset</Button>
             </StackPanel>
         </DockPanel>
 

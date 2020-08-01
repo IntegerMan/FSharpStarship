@@ -48,7 +48,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Prevent movement through walls
 - [x] Prevent movement through out of bounds
 - [ ] Activate machines
-- [ ] Restart simulation
+- [x] Restart simulation
 - [x] Auto-advance simulation
 - [x] Ability to pause and resume the simulation
 - [x] Doors open and close
@@ -65,8 +65,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Allow faster equilibrium between tiles
 - [ ] Gas should be displaced by closing doors
 - [x] Gas should not spawn in walls or outside
-- [ ] Adapt new level to have CO2 Emitters
-- [ ] Adapt new level to have Oxygen Emitters
+- [x] Adapt new level to have CO2 Emitters
+- [x] Adapt new level to have Oxygen Emitters
 
 ## Power
 

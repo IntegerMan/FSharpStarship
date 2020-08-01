@@ -15,11 +15,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         public MainViewModel()
         {
             _view = View.getDefaultAppView();
-            string dir = Environment.CurrentDirectory;
-            int index = dir.IndexOf(@"\bin\", StringComparison.OrdinalIgnoreCase);
-            dir = dir.Substring(0, index);
-
-            UpdateTiles(TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx"));
+            ResetGame();
         }
 
         private void UpdateTiles(FSharpList<Tiles.Tile> tiles)
@@ -82,5 +78,13 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
         public void HandlePlayerCommand(PlayerControl.PlayerCommand command) 
             => UpdateTiles(PlayerControl.handlePlayerCommand(command, _tiles));
+
+        public void ResetGame()
+        {
+            string dir = Environment.CurrentDirectory;
+            int index = dir.IndexOf(@"\bin\", StringComparison.OrdinalIgnoreCase);
+            dir = dir.Substring(0, index);
+            UpdateTiles(TiledInterop.loadWorld($@"{dir}\FSharpStarship.tmx"));
+        }
     }
 }
