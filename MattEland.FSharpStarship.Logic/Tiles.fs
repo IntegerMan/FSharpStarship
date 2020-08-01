@@ -54,3 +54,20 @@ module Tiles =
   let addObjects objects tile: Tile = {tile with Objects=objects |> List.append tile.Objects}     
   let removeObject object tile: Tile = {tile with Objects=tile.Objects |> List.except([object])}
   let removeObjects objects tile: Tile = {tile with Objects=tile.Objects |> List.except(objects)}
+  
+  let replaceObject oldObject newObject tile =
+    tile
+    |> removeObject oldObject
+    |> addObject newObject
+    
+  let getTilesInRadius pos radius tiles =
+    tiles
+    |> List.filter(fun t ->
+          let distance = getDistance t.Pos pos
+          distance <= radius
+        )
+    
+  let getObjectsInRadius tile radius tiles =
+    tiles
+    |> getTilesInRadius tile.Pos radius
+    |> List.collect(fun t -> t.Objects)

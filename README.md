@@ -51,6 +51,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [ ] Restart simulation
 - [x] Auto-advance simulation
 - [x] Ability to pause and resume the simulation
+- [x] Doors open and close
 
 ## Environmental
 

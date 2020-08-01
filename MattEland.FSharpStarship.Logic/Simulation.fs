@@ -12,6 +12,7 @@ module Simulations =
   let humanOxygenIntake = 0.1M
   let scrubberCO2Intake = 0.1M
   let plantCO2Intake = 0.02M
+  let doorAutoCloseDistance = 2.5
   
   let private simulatePerson tile world =
     let newTile = tile |> convertTileGas humanOxygenIntake Gas.Oxygen Gas.CarbonDioxide
@@ -28,6 +29,21 @@ module Simulations =
   let private simulatePlant tile world =
     let newTile = tile |> convertTileGas plantCO2Intake Gas.CarbonDioxide Gas.Oxygen
     world |> replaceTile newTile
+    
+  let private simulateDoor (gameObject:GameObject) isOpen tile world =
+    match isOpen with
+    | false ->
+        world
+    | true ->
+        let nearbyObjects = world |> getObjectsInRadius tile doorAutoCloseDistance
+        let nearbyPlayer = nearbyObjects |> List.tryFind(fun o -> o.ObjectType = Astronaut)
+        match nearbyPlayer with
+        | Some _ ->
+          world
+        | None ->
+          let closedDoor = toggleDoorOpen gameObject
+          let newTile = tile |> replaceObject gameObject closedDoor
+          world |> replaceTile newTile
 
   let private simulateObject obj tile world =
     match obj.ObjectType with
@@ -36,6 +52,7 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber tile world
     | Plant -> simulatePlant tile world
     | Vent -> world // TODO
+    | Door(isOpen, isHorizontal) -> simulateDoor obj isOpen tile world
     | _ -> world
 
   let private simulateObjects objects tile world = 

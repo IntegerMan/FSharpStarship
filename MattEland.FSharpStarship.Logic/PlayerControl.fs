@@ -21,10 +21,7 @@ module PlayerControl =
     |> replaceTile modifiedDestination
     
   let toggleDoor door targetTile tiles =
-      let newTarget =
-            targetTile
-            |> removeObject door
-            |> addObject {door with ObjectType=(toggleDoorOpen door.ObjectType)}
+      let newTarget = targetTile |> replaceObject door (toggleDoorOpen door)
       tiles |> replaceTile newTarget
     
   let tryMoveEntity tile tiles dir entity =

@@ -25,7 +25,7 @@ module GameObjects =
                         | Door(IsOpen = false) -> Some o
                         | _ -> None
                       )
-  let toggleDoorOpen objectType =
-      match objectType with
-      | Door(isOpen, isHorizontal) -> Door(IsOpen = not isOpen, IsHorizontal = isHorizontal)
-      | _ -> objectType
+  let toggleDoorOpen gameObject =
+      match gameObject.ObjectType with
+      | Door(isOpen, isHorizontal) -> {gameObject with ObjectType=Door(IsOpen = not isOpen, IsHorizontal = isHorizontal)}
+      | _ -> gameObject

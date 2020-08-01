@@ -19,3 +19,10 @@ module Positions =
     | Down -> pos |> offset 0 1
     | Left -> pos |> offset -1 0
     | Right -> pos |> offset 1 0
+    
+  let getDistance pos1 pos2 =
+    let xDiff = (float) (pos1.X - pos2.X)
+    let yDiff = (float) (pos1.Y - pos2.Y);
+    let xSquared = xDiff ** 2.0
+    let ySquared = yDiff ** 2.0
+    System.Math.Sqrt(xSquared + ySquared)
