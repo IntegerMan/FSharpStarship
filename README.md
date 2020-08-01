@@ -68,6 +68,15 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Adapt new level to have CO2 Emitters
 - [x] Adapt new level to have Oxygen Emitters
 
+## Vents
+
+- [x] Create air pipe objects
+- [x] Store pipe gas separately
+- [/] Visualize air pipes on the HUD
+- [x] Initialize pipe gasses appropriately
+- [ ] Have the CO2 Scrubber input and output only from the pipe
+- [ ] Allow vents to input / output from neighboring pipes
+
 ## Power
 
 - [ ] Power distribution

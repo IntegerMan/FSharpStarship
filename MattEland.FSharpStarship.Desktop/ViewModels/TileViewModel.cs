@@ -56,13 +56,18 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 sb.AppendLine($"Pos: {Tile.Pos.X},{Tile.Pos.Y}");
 
                 Gasses.spreadableGasses.ToList().ForEach(g => { sb.AppendLine($"{g}: {TileGas.getTileGas(g, Tile)}"); });
 
                 sb.AppendLine($"Pressure: {Tile.Pressure}");
+                
+                foreach (var obj in Tile.Objects)
+                {
+                    sb.AppendLine(obj.ObjectType.ToString());
+                }
 
                 return sb.ToString();
             }

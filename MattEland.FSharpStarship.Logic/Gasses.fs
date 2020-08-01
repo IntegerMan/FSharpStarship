@@ -19,6 +19,14 @@ module Gasses =
       Power = 0M
     }
 
+  let airPipeDefaultGasses = {
+    Nitrogen = 0.5M
+    Oxygen = 0.3M
+    CarbonDioxide = 0.3M
+    Heat = 0M
+    Power = 0M
+  }
+  
   type Gas =
     | Nitrogen
     | Oxygen

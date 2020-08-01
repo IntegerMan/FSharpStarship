@@ -3,6 +3,7 @@
 open Positions
 open World
 open Tiles
+open Gasses
 open GameObjects
 open SimulateGasses
 open TiledSharp
@@ -187,6 +188,10 @@ module TiledInterop =
 
     doorTile |> addObject {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
+  let addAirPipe tile =
+    let pipe = {ObjectType=AirPipe airPipeDefaultGasses }
+    tile |> addObject pipe
+  
   let buildTileLayers (tilemap: TmxMap) data =
     [
       data.Space |> List.map(fun t -> t |> translateToTile tilemap spaceFlags)
@@ -215,6 +220,15 @@ module TiledInterop =
       |> List.map(fun t -> t |> addDoor wallPositions)
 
     tiles |> mergeWith doors
+        
+  let addPipesToTiles data tiles =
+    let airPipes =
+      data.AirPipes
+      |> List.map(getTilePos)
+      |> List.map(fun p -> tiles |> getTileAtPos p)
+      |> List.map(fun t -> t |> addAirPipe)
+      
+    tiles |> mergeWith airPipes    
 
   let objectsInPos pos objects = objects |> List.where(fun o -> o |> getObjectPos = pos)
 
@@ -229,6 +243,7 @@ module TiledInterop =
   let generateWorld (tilemap: TmxMap) data  =
     flattenTileLayers tilemap data
     |> addDoorsToTiles data
+    |> addPipesToTiles data
     |> addObjectsToTiles data.Objects
 
   let loadWorld (filename: string) =

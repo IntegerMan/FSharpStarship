@@ -1,6 +1,6 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
-open Positions
+open MattEland.FSharpStarship.Logic.Gasses
 
 module GameObjects =
 
@@ -11,6 +11,7 @@ module GameObjects =
     | EngineIntake
     | WaterTank
     | Plant
+    | AirPipe of TileGas
     | Door of IsOpen:bool * IsHorizontal:bool
 
   type GameObject =
