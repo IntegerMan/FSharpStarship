@@ -47,7 +47,6 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Allow the player to move the human actor
 - [x] Prevent movement through walls
 - [x] Prevent movement through out of bounds
-- [ ] Allow the player to destroy a wall
 - [ ] Activate machines
 - [ ] Restart simulation
 - [x] Auto-advance simulation

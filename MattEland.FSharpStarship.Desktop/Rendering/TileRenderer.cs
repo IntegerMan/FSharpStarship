@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using MattEland.FSharpStarship.Desktop.Helpers;
 using MattEland.FSharpStarship.Desktop.ViewModels;
 using MattEland.FSharpStarship.Logic;
+using Microsoft.FSharp.Core;
 
 namespace MattEland.FSharpStarship.Desktop.Rendering
 {
@@ -65,7 +66,8 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             
             foreach (var img in Tile.Tile.Objects
                 .Select(Sprites.getObjectSpriteInfo)
-                .Select(si => BrushHelpers.GetImageSourceFromArt(si, Stretch.Uniform)))
+                .Where(FSharpOption<Tiles.TileArt>.get_IsSome)
+                .Select(si => BrushHelpers.GetImageSourceFromArt(si.Value, Stretch.Uniform)))
             {
                 // Some objects have odd aspects we need to account for
                 if (img.Height > img.Width)

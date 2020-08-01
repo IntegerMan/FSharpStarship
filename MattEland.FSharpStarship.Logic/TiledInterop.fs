@@ -118,6 +118,11 @@ module TiledInterop =
     let objectType =
       match tmxObject.Type with
       | "Astronaut" -> Astronaut
+      | "Vent" -> Vent
+      | "AirScrubber" -> AirScrubber
+      | "WaterTank" -> WaterTank
+      | "Plant" -> Plant
+      | "EngineIntake" -> EngineIntake
     {ObjectType=objectType}    
 
   let addObjectToTiles (tmxObject: TmxObject) tiles = 
