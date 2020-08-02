@@ -5,8 +5,8 @@ open World
 open Tiles
 open Gasses
 open GameObjects
-open SimulateGasses
 open TiledSharp
+open TileGas
 
 module TiledInterop =
 

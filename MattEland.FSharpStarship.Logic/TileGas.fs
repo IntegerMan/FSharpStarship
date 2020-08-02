@@ -87,3 +87,13 @@ module TileGas =
     match pipe.ObjectType with
     | AirPipe pipeGas -> pipeGas
     | _ -> emptyGasses
+        
+  let gasCanFlowInto tile =
+    let hasGasBlocker = tile |> hasClosedDoor
+    not hasGasBlocker && not tile.Flags.BlocksGas
+  
+  let canGasFlowFrom tileSource tileDestination gas =
+    let destGas = getGas gas tileDestination.Gasses
+    let sourceGas = getGas gas tileSource.Gasses
+    sourceGas > 0M && gasCanFlowInto tileDestination && (sourceGas > destGas || (tileSource |> hasClosedDoor))
+  

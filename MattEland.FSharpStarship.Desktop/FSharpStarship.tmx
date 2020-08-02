@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2020.07.21" orientation="orthogonal" renderorder="right-down" width="28" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="20">
+<map version="1.4" tiledversion="2020.07.21" orientation="orthogonal" renderorder="right-down" width="28" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="21">
  <tileset firstgid="1" source="ScifiHospitalTiles.tsx"/>
  <tileset firstgid="137" source="Mid-TownB.tsx"/>
  <tileset firstgid="393" source="Mid-TownC.tsx"/>
@@ -97,7 +97,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="7" name="Grating" width="28" height="17" visible="0">
+ <layer id="7" name="Grating" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,81,81,2607,81,81,0,0,0,0,0,0,0,0,
@@ -118,7 +118,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="Deco" width="28" height="17" visible="0">
+ <layer id="3" name="Deco" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,169,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,185,186,0,0,0,628,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -127,7 +127,7 @@
 0,0,1429,1430,0,0,0,0,2324,352,0,2499,0,0,0,863,864,0,0,240,0,857,858,859,0,0,0,0,
 0,0,0,0,0,0,0,0,787,368,0,2515,0,0,0,879,880,0,0,0,0,873,874,875,0,0,0,0,
 0,0,0,0,0,0,0,0,530,384,0,0,0,0,0,0,0,0,0,0,0,487,0,0,0,0,0,0,
-0,0,0,0,0,0,0,545,546,0,0,0,0,2560,0,0,0,0,0,0,0,503,0,0,547,548,0,0,
+0,0,0,0,0,0,0,545,546,0,0,0,0,2560,0,2324,0,0,0,0,0,503,0,0,547,548,0,0,
 0,0,0,0,0,0,0,561,562,0,0,0,0,0,0,0,0,0,0,0,0,0,2324,0,563,564,0,0,
 0,0,0,0,0,0,0,577,578,0,0,1716,0,0,0,0,0,0,0,0,0,0,0,0,579,580,0,0,
 0,0,0,0,0,0,1120,367,0,0,0,0,0,0,0,0,0,0,0,0,0,1051,1052,0,0,0,0,0,
@@ -139,7 +139,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="1" name="Walls" width="28" height="17" visible="0">
+ <layer id="1" name="Walls" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,2713,2825,2832,2825,2825,2825,2825,2825,2825,2735,2825,2825,2825,2735,2825,2825,2828,2832,2825,2717,0,0,0,0,0,0,0,
@@ -160,7 +160,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Doors" width="28" height="17" visible="0">
+ <layer id="2" name="Doors" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -181,7 +181,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Overlays" width="28" height="17" visible="0">
+ <layer id="5" name="Overlays" width="28" height="17">
   <data encoding="csv">
 0,0,0,0,2521,2523,1120,0,170,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,2507,212,2537,2539,1136,185,186,297,0,1069,1070,2507,0,349,350,0,2384,2507,0,0,0,0,0,0,0,0,
@@ -202,7 +202,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="11" name="Obstacles" width="28" height="17" visible="0" opacity="0" tintcolor="#ffff00">
+ <layer id="11" name="Obstacles" width="28" height="17" opacity="0" tintcolor="#ffff00">
   <properties>
    <property name="DoNotRender" type="bool" value="true"/>
   </properties>
@@ -279,6 +279,9 @@
    <point/>
   </object>
   <object id="19" type="AirScrubber" x="400" y="95">
+   <point/>
+  </object>
+  <object id="20" type="Vent" x="495" y="254">
    <point/>
   </object>
  </objectgroup>

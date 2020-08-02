@@ -70,6 +70,7 @@ module Tiles =
   let getObjectsInRadius tile radius tiles =
     tiles
     |> getTilesInRadius tile.Pos radius
-    |> List.collect(fun t -> t.Objects)
-       
-    
+    |> List.collect(fun t -> t.Objects)       
+        
+  let hasClosedDoor tile =
+    tile.Objects |> List.exists(fun o -> o |> isClosedDoor)    

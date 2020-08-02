@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aecfbf74-882e-48b0-82a1-d0093dc992b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,19 +50,19 @@
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/MainViewModel.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Contexts.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Helpers/BrushHelpers.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/View.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Rendering/TileRenderer.cs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" />
       </list>
     </option>
   </component>
@@ -153,7 +150,7 @@
       <workItem from="1596305329232" duration="61000" />
       <workItem from="1596305420273" duration="8708000" />
       <workItem from="1596335056800" duration="3967000" />
-      <workItem from="1596339074227" duration="5207000" />
+      <workItem from="1596339074227" duration="5572000" />
     </task>
     <servers />
   </component>
@@ -171,33 +168,33 @@
     </state>
     <state width="978" height="350" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1596398509328" />
     <state width="427" height="441" key="DebuggerActiveHint/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596342315416" />
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1596402461185">
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom" timestamp="1596402563670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="281" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596398404783" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046492" />
-    <state width="1877" height="277" key="GridCell.Tab.0.bottom/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402461185" />
+    <state width="1877" height="277" key="GridCell.Tab.0.bottom/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402563670" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1596402461185">
+    <state width="1877" height="277" key="GridCell.Tab.0.center" timestamp="1596402563669">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="281" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596398404783" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
-    <state width="1877" height="277" key="GridCell.Tab.0.center/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402461185" />
+    <state width="1877" height="277" key="GridCell.Tab.0.center/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402563669" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1596402461185">
+    <state width="1877" height="277" key="GridCell.Tab.0.left" timestamp="1596402563669">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="281" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596398404782" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
-    <state width="1877" height="277" key="GridCell.Tab.0.left/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402461185" />
+    <state width="1877" height="277" key="GridCell.Tab.0.left/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402563669" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1596402461185">
+    <state width="1877" height="277" key="GridCell.Tab.0.right" timestamp="1596402563670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="281" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596398404783" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
-    <state width="1877" height="277" key="GridCell.Tab.0.right/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402461185" />
+    <state width="1877" height="277" key="GridCell.Tab.0.right/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596402563670" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
     <state width="1877" height="369" key="GridCell.Tab.1.bottom" timestamp="1596401862410">
       <screen x="0" y="0" width="1920" height="1040" />

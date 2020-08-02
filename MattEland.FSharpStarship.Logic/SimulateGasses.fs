@@ -16,15 +16,6 @@ module SimulateGasses =
     tiles
     |> replaceTile {source with Gasses=newGasses.SourceGas; Pressure=calculatePressure newGasses.SourceGas}
     |> replaceTile {dest with Gasses=newGasses.DestinationGas; Pressure=calculatePressure newGasses.DestinationGas}
-    
-  let gasCanFlowInto tile =
-    let hasGasBlocker = tile |> hasClosedDoor
-    not hasGasBlocker && not tile.Flags.BlocksGas
-  
-  let canGasFlowFrom tileSource tileDestination gas =
-    let destGas = getGas gas tileDestination.Gasses
-    let sourceGas = getGas gas tileSource.Gasses
-    sourceGas > 0M && gasCanFlowInto tileDestination && (sourceGas > destGas || (tileSource |> hasClosedDoor))
   
   let private tryFindTargetForGasSpread gas pos tiles =
     let tile = tiles |> getTile pos
