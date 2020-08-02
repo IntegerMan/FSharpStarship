@@ -2,6 +2,7 @@
 
 open Tiles
 open Gasses
+open GameObjects
 
 module TileGas =
 
@@ -62,11 +63,27 @@ module TileGas =
   let unidirectionalShiftGas gas amount context =
     let sourceAmount = context.SourceGas |> getGas gas
     let destinationAmount = context.DestinationGas |> getGas gas
-    if (sourceAmount > destinationAmount + amount && sourceAmount >= amount) then
-      {context with SourceGas = (context.SourceGas |> setGas gas (sourceAmount - amount)); DestinationGas = (context.DestinationGas |> setGas gas (destinationAmount + amount))}  
-    else
-      context
+    { context with
+        SourceGas = (context.SourceGas |> setGas gas (sourceAmount - amount))
+        DestinationGas = (context.DestinationGas |> setGas gas (destinationAmount + amount))
+    }  
   
   let unidirectionalShift amount gasContext =
     spreadableGasses
     |> List.fold(fun currentContext gas -> currentContext |> unidirectionalShiftGas gas amount) gasContext
+
+
+  let getPipeGas gas object =
+    match object.ObjectType with
+    | AirPipe pipeGas -> pipeGas |> getGas gas
+    | _ -> 0M
+
+  let getPipeGasFromTile gas tile =
+    match tile.Objects |> List.tryFind(isAirPipe) with
+    | Some pipe -> pipe |> getPipeGas gas
+    | None -> 0M
+    
+  let getPipeGasses pipe =
+    match pipe.ObjectType with
+    | AirPipe pipeGas -> pipeGas
+    | _ -> emptyGasses

@@ -27,6 +27,7 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             using var context = RenderOpen();
 
             var rect = new Rect(new Size(Tile.TileWidth, Tile.TileHeight));
+            var pipeRect = new Rect(new Point(8, 8), new Size(Tile.TileWidth / 2.0, Tile.TileHeight / 2.0));
             var tile = Tile.Tile;
 
             // Add layers
@@ -48,6 +49,14 @@ namespace MattEland.FSharpStarship.Desktop.Rendering
             if (Tile.AppView.Overlay != View.CurrentOverlay.None && Tile.AppView.Overlay != View.CurrentOverlay.Particles)
             {
                 context.DrawRectangle(Tile.BuildOverlayBrush(), null, rect);
+
+                var pipeBrush = Tile.BuildPipeBrush();
+                if (pipeBrush.Color.A > 0)
+                {
+                    var pen = new Pen(Brushes.Black, 1.0);
+                    pen.Freeze();
+                    context.DrawRectangle(pipeBrush, pen, pipeRect);
+                }
             }
         }
 

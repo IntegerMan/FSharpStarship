@@ -9,7 +9,7 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
 {
     public static class BrushHelpers
     {
-        private static readonly IDictionary<Color, Brush> _colorBrushes = new Dictionary<Color, Brush>();
+        private static readonly IDictionary<Color, SolidColorBrush> _colorBrushes = new Dictionary<Color, SolidColorBrush>();
         private static readonly IDictionary<string, Brush> _imageRects = new Dictionary<string, Brush>();
 
         public static Brush GetBrushFromSpriteSheet(string imagePath, int x, int y, int width, int height, Stretch stretch = Stretch.Fill)
@@ -54,14 +54,14 @@ namespace MattEland.FSharpStarship.Desktop.Helpers
             return image.BuildCroppedBitmap(rect);
         }
 
-        public static Brush GetSolidColorBrush(Color color)
+        public static SolidColorBrush GetSolidColorBrush(Color color)
         {
             if (_colorBrushes.ContainsKey(color))
             {
                 return _colorBrushes[color];
             }
 
-            Brush brush = new SolidColorBrush(color);
+            var brush = new SolidColorBrush(color);
             brush.Freeze();
 
             _colorBrushes.Add(color, brush);

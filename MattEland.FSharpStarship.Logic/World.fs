@@ -10,10 +10,6 @@ module World =
   let getTile pos tiles = tiles |> List.find(fun t -> t.Pos = pos)
   let tryGetTile pos tiles = tiles |> List.tryFind(fun t -> t.Pos = pos)
 
-  let getGasByPos (tiles: List<Tile>, pos: Pos, gas: Gas): decimal =
-    let tile = tiles |> getTile pos
-    tile.Gasses |> getGas gas
-
   let makeTile flags tileArt pos = 
     let gasses = defaultGasses
     {

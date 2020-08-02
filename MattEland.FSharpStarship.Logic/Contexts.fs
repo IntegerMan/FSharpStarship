@@ -2,6 +2,7 @@
 
 open World
 open Positions
+open GameObjects
 open Tiles
 
 module Contexts =
@@ -26,3 +27,9 @@ module Contexts =
 
   let getPotentialNeighbors context = [context.Up; context.Right; context.Down; context.Left]
   let getPresentNeighbors context = context |> getPotentialNeighbors |> List.choose id
+
+  let getNeighboringTilesWithPipes tile world =
+      tile
+      |> getContext world
+      |> getPresentNeighbors
+      |> List.filter(fun t -> t.Objects |> List.exists(isAirPipe))

@@ -52,6 +52,7 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber tile world
     | Plant -> simulatePlant tile world
     | Vent -> simulateVent tile world
+    | AirPipe gasses -> simulateAirPipe obj gasses tile world
     | Door(isOpen, _) -> simulateDoor obj isOpen tile world
     | _ -> world
 

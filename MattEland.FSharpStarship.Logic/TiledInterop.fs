@@ -189,7 +189,7 @@ module TiledInterop =
     doorTile |> addObject {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
   let addAirPipe tile =
-    let pipe = {ObjectType=AirPipe defaultGasses }
+    let pipe = {ObjectType=AirPipe defaultGasses } // TODO: defaultGasses
     tile |> addObject pipe
   
   let buildTileLayers (tilemap: TmxMap) data =

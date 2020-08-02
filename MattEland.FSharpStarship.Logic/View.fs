@@ -1,6 +1,8 @@
 ﻿namespace MattEland.FSharpStarship.Logic
 
 open Tiles
+open TileGas
+open Gasses
 
 module View =
 
@@ -37,9 +39,15 @@ module View =
     let value = (System.Math.Min(1M, percent) * 255M) |> System.Math.Round |> int
     rgbt(value, value, value, alpha)
     
+  let private getAlpha value =
+    match value with
+    | 0M -> 0
+    | _ -> 100
+    
   let private getColorOnRange value max =
+    let alpha = getAlpha value
     let percent = value / max
-    getGradedColor percent 100
+    getGradedColor percent alpha
 
   let getBackgroundColor (tile: Tile, view: AppView): RGB =
     match view.Overlay with
@@ -48,4 +56,12 @@ module View =
     | CurrentOverlay.CarbonDioxide -> getColorOnRange tile.Gasses.CarbonDioxide 0.3M
     | CurrentOverlay.Heat -> getColorOnRange tile.Gasses.Heat 1M
     | CurrentOverlay.Pressure -> getGradedColor (tile.Pressure / 3.0M) 100
+    | _ -> transparent
+
+  let getPipeColor (tile: Tile, view: AppView): RGB =
+    match view.Overlay with
+    | CurrentOverlay.Oxygen -> getColorOnRange (getPipeGasFromTile Gas.Oxygen tile) 0.3M
+    | CurrentOverlay.Nitrogen -> getColorOnRange (getPipeGasFromTile Gas.Nitrogen tile) 0.8M
+    | CurrentOverlay.CarbonDioxide -> getColorOnRange (getPipeGasFromTile Gas.CarbonDioxide tile) 0.3M
+    | CurrentOverlay.Heat -> getColorOnRange (getPipeGasFromTile Gas.Heat tile) 1M
     | _ -> transparent

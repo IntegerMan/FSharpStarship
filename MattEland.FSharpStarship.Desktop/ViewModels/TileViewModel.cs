@@ -51,6 +51,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
         }
 
         public Brush BuildOverlayBrush() => BrushHelpers.GetSolidColorBrush(CalculateColor());
+        public SolidColorBrush BuildPipeBrush() => BrushHelpers.GetSolidColorBrush(CalculatePipeColor());
 
         public string ToolTip
         {
@@ -86,6 +87,15 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 : Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
         }
 
+        private Color CalculatePipeColor()
+        {
+            var rgb = View.getPipeColor(Tile, AppView);
+
+            return rgb.T == 0 
+                ? Colors.Transparent 
+                : Color.FromArgb(rgb.T, rgb.R, rgb.G, rgb.B);
+        }        
+        
         public List<GasParticleViewModel> BuildParticles()
         {
             var particles = new List<GasParticleViewModel>();
