@@ -12,9 +12,6 @@ module Tiles =
       BlocksGas: bool
       BlocksMovement: bool
       IsTransparent: bool
-      HasAirPipe: bool
-      HasWaterPipe: bool
-      HasPowerCable: bool
     }
 
   type TileArt =
@@ -47,11 +44,11 @@ module Tiles =
       Objects: List<GameObject> // TODO: Seq
     }
 
-  let spaceFlags = {RetainsGas=false; BlocksGas=false; BlocksMovement=false; IsTransparent=true; HasAirPipe=false; HasWaterPipe = false; HasPowerCable=false}
-  let wallFlags = {RetainsGas=false; BlocksGas=true; BlocksMovement=true; IsTransparent=false; HasAirPipe=false; HasWaterPipe = false; HasPowerCable=false}
-  let obstacleFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=true; IsTransparent=true; HasAirPipe=false; HasWaterPipe = false; HasPowerCable=false}
-  let tileFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=false; IsTransparent=false; HasAirPipe=false; HasWaterPipe = false; HasPowerCable=false}
-  let doorFlags = {RetainsGas=true; BlocksGas=true; BlocksMovement=false; IsTransparent=false; HasAirPipe=false; HasWaterPipe = false; HasPowerCable=true}
+  let spaceFlags = {RetainsGas=false; BlocksGas=false; BlocksMovement=false; IsTransparent=true}
+  let wallFlags = {RetainsGas=false; BlocksGas=true; BlocksMovement=true; IsTransparent=false}
+  let obstacleFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=true; IsTransparent=true}
+  let tileFlags = {RetainsGas=true; BlocksGas=false; BlocksMovement=false; IsTransparent=false}
+  let doorFlags = {RetainsGas=true; BlocksGas=true; BlocksMovement=false; IsTransparent=false}
 
   let addObject object tile: Tile = {tile with Objects=object::tile.Objects}     
   let addObjects objects tile: Tile = {tile with Objects=objects |> List.append tile.Objects}     

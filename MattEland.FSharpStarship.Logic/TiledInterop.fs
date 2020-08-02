@@ -6,7 +6,6 @@ open Tiles
 open Gasses
 open GameObjects
 open SimulateGasses
-open TileGas
 open TiledSharp
 
 module TiledInterop =
@@ -117,33 +116,33 @@ module TiledInterop =
     |> makeTile flags [art]
 
   let convertToGameObject (tmxObject: TmxObject) =
-    let objectType =
-      match tmxObject.Type with
-      | "Astronaut" -> Astronaut
-      | "Vent" -> Vent
-      | "AirScrubber" -> AirScrubber
-      | "WaterTank" -> WaterTank
-      | "Plant" -> Plant
-      | "EngineIntake" -> EngineIntake
-    {ObjectType=objectType}    
+    match tmxObject.Type with
+    | "Astronaut" -> Some {ObjectType=Astronaut}
+    | "Vent" -> Some {ObjectType=Vent}
+    | "AirScrubber" -> Some {ObjectType=AirScrubber}
+    | "WaterTank" -> Some {ObjectType=WaterTank}
+    | "Plant" -> Some {ObjectType=Plant}
+    | "EngineIntake" -> Some {ObjectType=EngineIntake}
+    | _ -> None
 
   let addObjectToTiles (tmxObject: TmxObject) tiles = 
     let object = tmxObject |> convertToGameObject
+    
+    match object with
+    | None ->
+      tiles
+    | Some obj ->
+      let pos = getObjectPos tmxObject
+      let tile = tiles |> getTile pos
+      let newTile = tile |> addObject obj
 
-    let pos = getObjectPos tmxObject
-    let tile = tiles |> getTile pos
-    let newTile = tile |> addObject object
-
-    tiles |> replaceTile newTile
+      tiles |> replaceTile newTile
 
   let mergeFlags baseFlags nextFlags: TileFlags =
     {
       BlocksGas = baseFlags.BlocksGas || nextFlags.BlocksGas
       RetainsGas = baseFlags.RetainsGas && nextFlags.RetainsGas
       BlocksMovement = baseFlags.BlocksMovement || nextFlags.BlocksMovement
-      HasAirPipe = baseFlags.HasAirPipe || nextFlags.HasAirPipe
-      HasWaterPipe = baseFlags.HasWaterPipe || nextFlags.HasWaterPipe
-      HasPowerCable = baseFlags.HasPowerCable || nextFlags.HasPowerCable
       IsTransparent = false
     }
 
@@ -238,6 +237,7 @@ module TiledInterop =
         objects
         |> objectsInPos t.Pos
         |> List.map(convertToGameObject)
+        |> List.choose(fun o -> o)
         |> List.fold(fun lastTile object -> lastTile |> addObject object) t
       )
 
