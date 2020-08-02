@@ -6,6 +6,7 @@
     <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
     <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
     <e p="M:\dev\ModelingASharshipInFSharp" t="IncludeFlat">
+      <e p=".git\info\exclude" t="IncludeRecursive" />
       <e p="MattEland.FSharpStarship.Desktop" t="IncludeRecursive">
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />

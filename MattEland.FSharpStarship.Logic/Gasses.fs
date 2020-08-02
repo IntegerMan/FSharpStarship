@@ -24,10 +24,10 @@ module Gasses =
     | Oxygen
     | CarbonDioxide
     | Heat
-    | Electrical
+    | Power
 
   let pressurizedGasses = [Nitrogen; Oxygen; CarbonDioxide]
-  let spreadableGasses = [Heat; Electrical] @ pressurizedGasses
+  let spreadableGasses = [Heat; Power] @ pressurizedGasses
 
   let calculatePressure gasses = gasses.Oxygen + gasses.CarbonDioxide + gasses.Nitrogen
 
@@ -36,7 +36,7 @@ module Gasses =
     | Gas.Oxygen -> 0.2M
     | Gas.CarbonDioxide -> 0.1M
     | Gas.Heat -> 0.3M
-    | Gas.Electrical -> 0M
+    | Gas.Power -> 0M
     | Nitrogen -> 0.8M
 
   let defaultGasses =
@@ -44,6 +44,6 @@ module Gasses =
       Oxygen=getDefaultGas Oxygen
       CarbonDioxide=getDefaultGas CarbonDioxide
       Heat=getDefaultGas Heat
-      Power=getDefaultGas Electrical
+      Power=getDefaultGas Power
       Nitrogen=getDefaultGas Nitrogen
     }

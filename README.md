@@ -74,8 +74,8 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Store pipe gas separately
 - [/] Visualize air pipes on the HUD
 - [x] Initialize pipe gasses appropriately
-- [ ] Have the CO2 Scrubber input and output only from the pipe
-- [ ] Allow vents to input / output from neighboring pipes
+- [x] Allow vents to input / output from neighboring pipes
+- [ ] Have pipes equalize between each other 
 
 ## Power
 
@@ -129,6 +129,7 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 - [x] Use upper-case field names
 - [ ] Convert methods to function syntax when possible
 - [x] Anything returning an option should start with try
+- [ ] Convert SimulateGasses to be more agnostic of gas container
 
 ## Performance
 - [x] Switch to a DrawingVisual rendering approach

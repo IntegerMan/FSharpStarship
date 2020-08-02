@@ -4,7 +4,6 @@ open World
 open Tiles
 open Gasses
 open GameObjects
-open Contexts
 open SimulateGasses
 
 module Simulations =
@@ -53,7 +52,7 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber tile world
     | Plant -> simulatePlant tile world
     | Vent -> simulateVent tile world
-    | Door(isOpen, isHorizontal) -> simulateDoor obj isOpen tile world
+    | Door(isOpen, _) -> simulateDoor obj isOpen tile world
     | _ -> world
 
   let private simulateObjects objects tile world = 
