@@ -30,3 +30,8 @@ module GameObjects =
       match gameObject.ObjectType with
       | Door(isOpen, isHorizontal) -> {gameObject with ObjectType=Door(IsOpen = not isOpen, IsHorizontal = isHorizontal)}
       | _ -> gameObject
+      
+  let isAirPipe gameObject =
+    match gameObject.ObjectType with
+    | AirPipe _ -> true
+    | _ -> false

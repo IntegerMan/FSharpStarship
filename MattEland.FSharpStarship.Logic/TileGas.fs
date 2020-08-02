@@ -5,15 +5,15 @@ open Gasses
 
 module TileGas =
 
-  let getTileGas gas tile =
+  let getGas gas gasContainer =
       match gas with
-      | Oxygen -> tile.Gasses.Oxygen
-      | CarbonDioxide -> tile.Gasses.CarbonDioxide
-      | Heat -> tile.Gasses.Heat
-      | Electrical -> tile.Gasses.Power
-      | Nitrogen -> tile.Gasses.Nitrogen
+      | Oxygen -> gasContainer.Oxygen
+      | CarbonDioxide -> gasContainer.CarbonDioxide
+      | Heat -> gasContainer.Heat
+      | Electrical -> gasContainer.Power
+      | Nitrogen -> gasContainer.Nitrogen
 
-  let hasGas gas tile = tile |> getTileGas gas > 0M
+  let hasGas gas tile = tile.Gasses |> getGas gas > 0M
 
   let private setTileGas (gas: Gas) (requestedValue: decimal) (tile: Tile): Tile =
     if tile.Flags.RetainsGas then
@@ -34,7 +34,7 @@ module TileGas =
       tile // Tiles that don't retain gasses should not be altered
 
   let modifyTileGas gas delta tile =
-    let oldValue = tile |> getTileGas gas
+    let oldValue = tile.Gasses |> getGas gas
     let newValue = oldValue + delta
     tile |> setTileGas gas newValue
 
@@ -42,20 +42,3 @@ module TileGas =
   let getBottomMostGas tile = pressurizedGasses |> List.rev |> List.find(fun gas -> tile |> hasGas gas)
   let tryGetTopMostGas tile = pressurizedGasses |> List.tryFind(fun gas -> tile |> hasGas gas)
   let tryGetBottomMostGas tile = pressurizedGasses |> List.rev |> List.tryFind(fun gas -> tile |> hasGas gas)
-
-  let private getDefaultGas gas =
-    match gas with
-    | Gas.Oxygen -> 0.2M
-    | Gas.CarbonDioxide -> 0.1M
-    | Gas.Heat -> 0.3M
-    | Gas.Electrical -> 0M
-    | Nitrogen -> 0.8M
-
-  let defaultGasses =
-    {
-      Oxygen=getDefaultGas Oxygen
-      CarbonDioxide=getDefaultGas CarbonDioxide
-      Heat=getDefaultGas Heat
-      Power=getDefaultGas Electrical
-      Nitrogen=getDefaultGas Nitrogen
-    }

@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aecfbf74-882e-48b0-82a1-d0093dc992b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MattEland.FSharpStarship/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" beforeDir="false" afterPath="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,28 +22,29 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Positions.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/View.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Contexts.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Sprites.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Helpers/BitmapHelpers.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Helpers/BrushHelpers.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/PlayerControl.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Rendering/TileRenderer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/MainViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/ViewModelBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/GasParticleViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Positions.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/View.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Utils.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Contexts.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Sprites.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/PlayerControl.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Helpers/BitmapHelpers.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Helpers/BrushHelpers.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -45,19 +52,21 @@
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/View.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/Rendering/TileRenderer.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/GasParticleViewModel.cs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Positions.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/PlayerControl.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/MainWindow.xaml.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/MainViewModel.cs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Tiles.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Simulation.fs" />
         <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TiledInterop.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/TileGas.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/Gasses.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/GameObjects.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/SimulateGasses.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Logic/World.fs" />
+        <option value="$PROJECT_DIR$/MattEland.FSharpStarship.Desktop/ViewModels/TileViewModel.cs" />
       </list>
     </option>
   </component>
@@ -142,6 +151,7 @@
       <workItem from="1596305183224" duration="85000" />
       <workItem from="1596305329232" duration="61000" />
       <workItem from="1596305420273" duration="8708000" />
+      <workItem from="1596335056800" duration="3854000" />
     </task>
     <servers />
   </component>
@@ -154,41 +164,47 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1111" height="189" key="GridCell.Tab.0.bottom" timestamp="1596320546077">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1596338575987">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="189" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1596320546077" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046492" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596338575987" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1111" height="189" key="GridCell.Tab.0.center" timestamp="1596320546077">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1596338575987">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="189" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1596320546077" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596338575987" />
     <state width="1877" height="282" key="GridCell.Tab.0.center/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1111" height="189" key="GridCell.Tab.0.left" timestamp="1596320546077">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1596338575987">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="189" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1596320546077" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596338575987" />
     <state width="1877" height="282" key="GridCell.Tab.0.left/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
-    <state width="1111" height="189" key="GridCell.Tab.0.right" timestamp="1596320546077">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1596338575987">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1111" height="189" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1596320546077" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592971046491" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596338575987" />
     <state width="1877" height="282" key="GridCell.Tab.0.right/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@1920.-433.1080.1880" timestamp="1593054162688" />
     <state x="277" y="54" key="SettingsEditor" timestamp="1596305386330">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1596305386330" />
-    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1592967130698">
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog" timestamp="1596337994994">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/1920.-433.1080.1880/0.0.1920.1040/3000.0.1920.1040@0.0.1920.1040" timestamp="1592967130698" />
-    <state x="407" y="0" width="721" height="824" key="find.popup" timestamp="1596305883897">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="92" y="92" width="1736" height="856" key="VCS.FileHistoryDialog/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596337994994" />
+    <state x="509" y="0" width="902" height="1040" key="find.popup" timestamp="1596337926913">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="407" y="0" width="721" height="824" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1596305883897" />
+    <state x="509" y="0" width="902" height="1040" key="find.popup/3000.0.1920.1040/1920.-433.1080.1880/0.0.1920.1040@0.0.1920.1040" timestamp="1596337926913" />
   </component>
 </project>

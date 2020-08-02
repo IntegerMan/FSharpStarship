@@ -60,7 +60,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
 
                 sb.AppendLine($"Pos: {Tile.Pos.X},{Tile.Pos.Y}");
 
-                Gasses.spreadableGasses.ToList().ForEach(g => { sb.AppendLine($"{g}: {TileGas.getTileGas(g, Tile)}"); });
+                Gasses.spreadableGasses.ToList().ForEach(g => { sb.AppendLine($"{g}: {TileGas.getGas(g, Tile.Gasses)}"); });
 
                 sb.AppendLine($"Pressure: {Tile.Pressure}");
                 
@@ -109,7 +109,7 @@ namespace MattEland.FSharpStarship.Desktop.ViewModels
                 gasThreshhold = 0.025M;
             }
 
-            decimal gasLevel = TileGas.getTileGas(gasType, Tile);
+            decimal gasLevel = TileGas.getGas(gasType, Tile.Gasses);
             while (gasLevel >= gasThreshhold)
             {
                 particles.Add(new GasParticleViewModel(this, gasType));

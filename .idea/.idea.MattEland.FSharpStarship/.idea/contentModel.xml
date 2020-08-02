@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\MattE\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\MattE\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_MattEland.FSharpStarship.-1204279461.00" t="ExcludeRecursive" />
-    <e p="D:\dev\FSharpStarship" t="IncludeFlat">
+    <e p="C:\Users\Matt\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_MattEland.FSharpStarship.894292727.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Matt\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
+    <e p="M:\dev\ModelingASharshipInFSharp" t="IncludeFlat">
       <e p="MattEland.FSharpStarship.Desktop" t="IncludeRecursive">
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />

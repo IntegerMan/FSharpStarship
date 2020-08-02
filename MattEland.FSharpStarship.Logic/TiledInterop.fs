@@ -6,6 +6,7 @@ open Tiles
 open Gasses
 open GameObjects
 open SimulateGasses
+open TileGas
 open TiledSharp
 
 module TiledInterop =
@@ -189,7 +190,7 @@ module TiledInterop =
     doorTile |> addObject {ObjectType=Door(IsOpen=false, IsHorizontal=isHorizontal)}
 
   let addAirPipe tile =
-    let pipe = {ObjectType=AirPipe airPipeDefaultGasses }
+    let pipe = {ObjectType=AirPipe defaultGasses }
     tile |> addObject pipe
   
   let buildTileLayers (tilemap: TmxMap) data =

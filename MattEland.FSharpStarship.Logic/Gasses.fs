@@ -18,14 +18,6 @@ module Gasses =
       Heat = 0M
       Power = 0M
     }
-
-  let airPipeDefaultGasses = {
-    Nitrogen = 0.5M
-    Oxygen = 0.3M
-    CarbonDioxide = 0.3M
-    Heat = 0M
-    Power = 0M
-  }
   
   type Gas =
     | Nitrogen
@@ -39,3 +31,19 @@ module Gasses =
 
   let calculatePressure gasses = gasses.Oxygen + gasses.CarbonDioxide + gasses.Nitrogen
 
+  let private getDefaultGas gas =
+    match gas with
+    | Gas.Oxygen -> 0.2M
+    | Gas.CarbonDioxide -> 0.1M
+    | Gas.Heat -> 0.3M
+    | Gas.Electrical -> 0M
+    | Nitrogen -> 0.8M
+
+  let defaultGasses =
+    {
+      Oxygen=getDefaultGas Oxygen
+      CarbonDioxide=getDefaultGas CarbonDioxide
+      Heat=getDefaultGas Heat
+      Power=getDefaultGas Electrical
+      Nitrogen=getDefaultGas Nitrogen
+    }

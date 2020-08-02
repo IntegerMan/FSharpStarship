@@ -4,6 +4,7 @@ open World
 open Tiles
 open Gasses
 open GameObjects
+open Contexts
 open SimulateGasses
 
 module Simulations =
@@ -44,14 +45,14 @@ module Simulations =
           let closedDoor = toggleDoorOpen gameObject
           let newTile = tile |> replaceObject gameObject closedDoor
           world |> replaceTile newTile
-
+          
   let private simulateObject obj tile world =
     match obj.ObjectType with
     | Astronaut -> simulatePerson tile world
     | EngineIntake -> simulateEngineIntake tile world
     | AirScrubber -> simulateAirScrubber tile world
     | Plant -> simulatePlant tile world
-    | Vent -> world // TODO
+    | Vent -> simulateVent tile world
     | Door(isOpen, isHorizontal) -> simulateDoor obj isOpen tile world
     | _ -> world
 
