@@ -9,26 +9,13 @@ open Contexts
 
 module SimulateGasses =
   
-  let private shiftGasNew (source: Tile) (dest: Tile) gas tiles = // TODO: Instead of doing this, using gasContext would be better
+  let private shiftGas(source: Tile) (dest: Tile) gas tiles =
     let gasContext = {SourceGas = source.Gasses; DestinationGas = dest.Gasses}
-    let newGasses = gasContext |> unidirectionalShiftGas gas 0.01M // TODO: This is not working properly
+    let newGasses = gasContext |> unidirectionalShiftGas gas 0.01M
 
     tiles
     |> replaceTile {source with Gasses=newGasses.SourceGas; Pressure=calculatePressure newGasses.SourceGas}
     |> replaceTile {dest with Gasses=newGasses.DestinationGas; Pressure=calculatePressure newGasses.DestinationGas}
-
-  let private shiftGas (source: Tile) (dest: Tile) gas tiles =
-    tiles
-    |> replaceTile (source |> modifyTileGas gas -0.01M)
-    |> replaceTile (dest |> modifyTileGas gas 0.01M)
-    
-  let isClosedDoor (object: GameObject) =
-    match object.ObjectType with
-    | Door(IsOpen = isOpen) -> not isOpen
-    | _ -> false
-    
-  let hasClosedDoor tile =
-    tile.Objects |> List.exists(fun o -> o |> isClosedDoor)
     
   let gasCanFlowInto tile =
     let hasGasBlocker = tile |> hasClosedDoor
@@ -93,32 +80,37 @@ module SimulateGasses =
         |> List.tryHead
         
       match target with
+      | None ->
+          world
       | Some targetTile ->
           world
           |> flowGasFromPipeToPipe tile targetTile gas
           |> simulateAirPipeGas pos gas // Go recursive in case more gas needs to flow 
-      | None -> world
     
-  let simulateAirPipe obj gasses tile world =
+  let simulateAirPipe tile world =
     spreadableGasses
-    |> List.fold(fun currentWorld gas -> simulateAirPipeGas tile.Pos gas world) world
+    |> List.fold(fun currentWorld gas -> simulateAirPipeGas tile.Pos gas currentWorld) world
 
   let simulateVent tile world =
-    let pipe = tile.Objects |> List.find(isAirPipe)
-    match pipe.ObjectType with
-    | AirPipe pipeGas ->
-    
-      let context = {SourceGas = tile.Gasses; DestinationGas = pipeGas}  
-      let gasSolution = bidirectionalEqualize context
-      
-      let newTile =
-        {tile with Gasses = gasSolution.SourceGas; Pressure = (gasSolution.SourceGas |> calculatePressure)}
-        |> replaceObject pipe {pipe with ObjectType = AirPipe gasSolution.DestinationGas}
-            
+    let pipeOption = tile.Objects |> List.tryFind(isAirPipe)
+    match pipeOption with
+    | None ->
       world
-      |> replaceTile newTile 
-    | _ -> // This will not happen; I'm only using match here to get the specific gasses
-      world      
+    | Some pipe ->
+      match pipe.ObjectType with
+      | AirPipe pipeGas ->
+      
+        let context = {SourceGas = tile.Gasses; DestinationGas = pipeGas}  
+        let gasSolution = bidirectionalEqualize context
+        
+        let newTile =
+          {tile with Gasses = gasSolution.SourceGas; Pressure = (gasSolution.SourceGas |> calculatePressure)}
+          |> replaceObject pipe {pipe with ObjectType = AirPipe gasSolution.DestinationGas}
+              
+        world
+        |> replaceTile newTile 
+      | _ -> // This will not happen; I'm only using match here to get the specific gasses
+        world      
   
   let simulateTileGas pos world = 
     spreadableGasses 

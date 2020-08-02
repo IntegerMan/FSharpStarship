@@ -72,10 +72,10 @@ Astronaut artwork found at https://grandmadebslittlebits.wordpress.com/2017/02/2
 
 - [x] Create air pipe objects
 - [x] Store pipe gas separately
-- [/] Visualize air pipes on the HUD
+- [x] Visualize air pipes on the HUD
 - [x] Initialize pipe gasses appropriately
 - [x] Allow vents to input / output from neighboring pipes
-- [ ] Have pipes equalize between each other 
+- [/] Have pipes equalize between each other 
 
 ## Power
 

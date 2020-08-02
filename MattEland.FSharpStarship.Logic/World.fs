@@ -3,7 +3,7 @@
 open Positions
 open Gasses
 open Tiles
-open TileGas
+open GameObjects
 
 module World =
 
@@ -38,3 +38,6 @@ module World =
 
   let replaceTile newTile tiles =
     tiles |> List.map(fun t -> replaceTileIfMatch(t, newTile.Pos, newTile))
+        
+  let hasClosedDoor tile =
+    tile.Objects |> List.exists(fun o -> o |> isClosedDoor)

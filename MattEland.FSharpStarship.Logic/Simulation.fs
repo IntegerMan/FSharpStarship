@@ -9,9 +9,9 @@ open SimulateGasses
 module Simulations =
 
   let engineOxygenIntake = 0.1M
-  let humanOxygenIntake = 0.1M
-  let scrubberCO2Intake = 0.1M
-  let plantCO2Intake = 0.02M
+  let humanOxygenIntake = 0.05M
+  let scrubberCO2Intake = 0.25M
+  let plantCO2Intake = 0.03M
   let doorAutoCloseDistance = 2.5
   
   let private simulatePerson tile world =
@@ -52,7 +52,7 @@ module Simulations =
     | AirScrubber -> simulateAirScrubber tile world
     | Plant -> simulatePlant tile world
     | Vent -> simulateVent tile world
-    | AirPipe gasses -> simulateAirPipe obj gasses tile world
+    | AirPipe _ -> simulateAirPipe tile world
     | Door(isOpen, _) -> simulateDoor obj isOpen tile world
     | _ -> world
 
@@ -62,7 +62,7 @@ module Simulations =
 
   let simulateTile tile tiles = 
     tiles
-    |> simulateObjects tile.Objects tile
+    |> simulateObjects tile.Objects tile // TODO: I probably need a dedicated recursive air vent spreading method here
     |> simulateTileGas tile.Pos
 
   let simulate tiles = tiles |> List.fold(fun newTiles tile -> newTiles |> simulateTile tile) tiles
